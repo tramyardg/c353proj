@@ -38,6 +38,7 @@ department can have branches/offices in several cities.
     data. Also write SQL scripts of the queries and transactions given below. Include at least 10
     representative tuples in each table so that the result of each query includes at least one tuple.
     Note that the Graphical User-Interface (GUI) is not required in this project but encouraged.
+    
        1. Find the birth date and address of every employee(s) whose first name is ”Smith.”
        2. Find all the employees who work for the ”R&D” department.
        3. For each project carried out in Montreal, list the project ID, the ID of the department
@@ -68,5 +69,16 @@ signed by EVERY member of the group. The cover page should also include the name
 every member of the group members together with the ”Group Account” assigned by Stan’s email
 confirmation of your group registration.
 
+---
+The version of MYSQL in use this term is `5.6.43` and PHP is version `7.2.11`.
 
+To run mysql use the following:
+```
+[login] 101 => mysql -h cqc353.encs.concordia.ca -u cqc353_4 -p cqc353_4
+Enter password: c353dbms
+```
 
+---
+To access the web pages
+- [https://cqc353.encs.concordia.ca/](https://cqc353.encs.concordia.ca/)
+- username/password: cqc353_4/c353dbms
