@@ -1,8 +1,13 @@
-# Specs: 30 employees, 10 managers, 10 departments so far
+# Specs: 
+# 30 employees: 10 managers
+# 10 departments
+# 20 projects
 
 SET FOREIGN_KEY_CHECKS = 0;
 DELETE FROM employees;
 DELETE FROM departments;
+DELETE FROM projects;
+DELETE FROM works_on;
 SET FOREIGN_KEY_CHECKS = 1;
 
 SET FOREIGN_KEY_CHECKS = 0;
@@ -38,6 +43,7 @@ insert into employees (employee_id, first_name, last_name, sin, birth_date, addr
 insert into employees (employee_id, first_name, last_name, sin, birth_date, address, gender, salary, dept_id, supervisor_id) values (30, 'Marji', 'Bernardos', '059-920-725', '1966-05-01', '2 Charing Cross Hill, Maniwaki, QC, K0M 4C0, CA', 'F', 56064, 1, 6);
 SET FOREIGN_KEY_CHECKS = 1;
 
+# 10 departments
 SET FOREIGN_KEY_CHECKS = 0;
 insert into departments (dept_id, dept_name, manager_sin, branch, start_date) values (1, 'Business Development', '823-775-216', 'Toronto', '1987-04-09');
 insert into departments (dept_id, dept_name, manager_sin, branch, start_date) values (2, 'Marketing', '444-446-306', 'Vancouver', '1984-02-28');
@@ -50,3 +56,61 @@ insert into departments (dept_id, dept_name, manager_sin, branch, start_date) va
 insert into departments (dept_id, dept_name, manager_sin, branch, start_date) values (9, 'Design', '691-925-682', 'Montreal', '1968-01-29');
 insert into departments (dept_id, dept_name, manager_sin, branch, start_date) values (10, 'Production', '349-986-760', 'Laval', '1987-11-21');
 SET FOREIGN_KEY_CHECKS = 1;
+
+# 20 projects
+SET FOREIGN_KEY_CHECKS = 0;
+insert into projects (project_id, project_name, dept_id, location) values (1, 'VYL', 1, 'Toronto');
+insert into projects (project_id, project_name, dept_id, location) values (2, 'RNA', 6, 'Kingston');
+insert into projects (project_id, project_name, dept_id, location) values (3, 'LWV', 7, 'Calgary');
+insert into projects (project_id, project_name, dept_id, location) values (4, 'BHH', 10, 'Laval');
+insert into projects (project_id, project_name, dept_id, location) values (5, 'OYM', 8, 'Montreal');
+insert into projects (project_id, project_name, dept_id, location) values (6, 'XYZ', 10, 'Laval');
+insert into projects (project_id, project_name, dept_id, location) values (7, 'HSD', 5, 'Montreal');
+insert into projects (project_id, project_name, dept_id, location) values (8, 'QDY', 9, 'Montreal');
+insert into projects (project_id, project_name, dept_id, location) values (9, 'SZJ', 2, 'Vancouver');
+insert into projects (project_id, project_name, dept_id, location) values (10, 'SFT', 9, 'Montreal');
+insert into projects (project_id, project_name, dept_id, location) values (11, 'QJD', 2, 'Vancouver');
+insert into projects (project_id, project_name, dept_id, location) values (12, 'TOX', 6, 'Kingston');
+insert into projects (project_id, project_name, dept_id, location) values (13, 'BNS', 9, 'Montreal');
+insert into projects (project_id, project_name, dept_id, location) values (14, 'HFS', 7, 'Calgary');
+insert into projects (project_id, project_name, dept_id, location) values (15, 'VLJ', 4, 'Quebec city');
+insert into projects (project_id, project_name, dept_id, location) values (16, 'NDE', 2, 'Vancouver');
+insert into projects (project_id, project_name, dept_id, location) values (17, 'ILK', 3, 'Montreal');
+insert into projects (project_id, project_name, dept_id, location) values (18, 'VGM', 4, 'Quebec city');
+insert into projects (project_id, project_name, dept_id, location) values (19, 'SWH', 1, 'Toronto');
+insert into projects (project_id, project_name, dept_id, location) values (20, 'IAY', 6, 'Kingston');
+SET FOREIGN_KEY_CHECKS = 1;
+
+# a) Each employee works on at least one project, and 
+# e.g. employee with id 14
+# b) different employees may work on the same project and spend different hours
+# employee with id 24, 17, and 22 work on the same project with id 1
+SET FOREIGN_KEY_CHECKS = 0;
+insert into works_on (employee_id, project_id) values (14, 16);
+insert into works_on (employee_id, project_id) values (14, 13);
+insert into works_on (employee_id, project_id) values (3, 14);
+insert into works_on (employee_id, project_id) values (27, 6);
+insert into works_on (employee_id, project_id) values (24, 1);
+insert into works_on (employee_id, project_id) values (20, 2);
+insert into works_on (employee_id, project_id) values (17, 1);
+insert into works_on (employee_id, project_id) values (5, 3);
+insert into works_on (employee_id, project_id) values (15, 16);
+insert into works_on (employee_id, project_id) values (9, 7);
+insert into works_on (employee_id, project_id) values (27, 17);
+insert into works_on (employee_id, project_id) values (18, 12);
+insert into works_on (employee_id, project_id) values (23, 6);
+insert into works_on (employee_id, project_id) values (17, 4);
+insert into works_on (employee_id, project_id) values (1, 14);
+insert into works_on (employee_id, project_id) values (15, 6);
+insert into works_on (employee_id, project_id) values (26, 14);
+insert into works_on (employee_id, project_id) values (9, 18);
+insert into works_on (employee_id, project_id) values (14, 13);
+insert into works_on (employee_id, project_id) values (22, 1);
+insert into works_on (employee_id, project_id) values (24, 19);
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+select * from employees;
+select * from departments;
+select * from projects;
+select * from works_on;

@@ -21,26 +21,18 @@ WHERE e.dept_id = d.dept_id
 ```sql
 SELECT
   p.project_id,
+  p.project_name,
   d.dept_id,
-  e.first_name,
-  e.last_name
+  e.last_name as 'manager''s last name'
 FROM projects p, employees e, departments d
 WHERE p.dept_id = d.dept_id
-      AND e.dept_id = d.manager_sin
-      AND p.location = 'Montreal';
+AND d.manager_sin = e.sin
+AND p.location = 'Montreal';
 ```
 
 4. For each **department**, list the **projects** carried out by **employees** in that department, **ordered by department’s name** and **projects’ names**.
 ```sql
-SELECT
-  p.project_name p,
-  e.first_name,
-  e.last_name,
-  d.dept_name
-FROM projects p, employees e, departments d
-WHERE e.dept_id = d.dept_id
-      AND p.dept_id = d.dept_id
-ORDER BY d.dept_name;
+?
 ```
 
 5. Find the **average salary** of the **employees** in each **department**.
@@ -55,12 +47,12 @@ GROUP BY d.dept_name;
 
 6. Show the resulting **salaries** if the salary of every **employee** working on the **project** _”XYZ”_ is raised by _11%_.
 ```sql
-SELECT
-  e.employee_id,
-  e.salary * 0.11 AS "salary raised by 11%"
-FROM employees e, projects p, works_on w
-WHERE w.employee_id = e.employee_id
-      AND p.project_name = 'XYZ';
+select distinct e.employee_id, e.first_name, e.last_name,
+e.salary+(e.salary*0.11) as "salary raised by 11%"
+from employees e, projects p, works_on w
+where e.employee_id = w.employee_id
+and p.project_id = w.project_id
+and p.project_name = 'XYZ';
 ```
 
 7. For each **employee**, list the number of **dependents** who were **born** before the year _2010_.
