@@ -11,7 +11,7 @@ CREATE TABLE `departments`
 (
   `dept_id`     INT PRIMARY KEY NOT NULL,
   `dept_name`   VARCHAR(40)     NOT NULL,
-  `manager_sin` CHAR(10),
+  `manager_sin` VARCHAR(10),
   `branch`      VARCHAR(40),
   `start_date`  DATETIME
 );
@@ -21,7 +21,7 @@ CREATE TABLE `employees`
   `employee_id`   INT PRIMARY KEY     NOT NULL AUTO_INCREMENT,
   `first_name`    VARCHAR(30)         NOT NULL,
   `last_name`     VARCHAR(40)         NOT NULL,
-  `sin`           CHAR(10) UNIQUE     NOT NULL,
+  `sin`           VARCHAR(10) UNIQUE  NOT NULL,
   `birth_date`    DATE,
   `address`       VARCHAR(150),
   `gender`        CHAR(1),
