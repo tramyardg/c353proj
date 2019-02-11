@@ -48,10 +48,8 @@ CREATE TABLE `projects`
   `project_id`   INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `project_name` VARCHAR(50)     NOT NULL,
   `dept_id`      INT,
-  `location`     VARCHAR(40),
-  `employee_id`  INT,
-  FOREIGN KEY (`dept_id`) REFERENCES `departments` (`dept_id`),
-  FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`)
+  `location`     VARCHAR(40)
+  FOREIGN KEY (`dept_id`) REFERENCES `departments` (`dept_id`)
 );
 
 CREATE TABLE works_on (
