@@ -1,0 +1,47 @@
+example bookstore
+https://www.thriftbooks.com/sitemap/
+https://lbsitbytes2010.wordpress.com/2013/09/18/e-r-diagram-for-online-bookstoreroll-n0-3s5-cs2/
+
+publishers
+https://hachettebookgroup.biz/about-hbg/publishers/
+ - mostly James Patterson books
+https://www.mqup.ca/contact-us-pages-31.php
+http://crownpublishing.com/contact-us
+ - gone girl
+
+data
+ textbooks
+ - https://stores.concordia.ca/discrete-mathematics-and-it-s-applications-book-0fe25a.html
+ - https://stores.concordia.ca/absolute-java-49e705.html
+ - https://stores.concordia.ca/introduction-to-probability-and-statistics-for-engineers-and-scientists-bfc7cd.html
+ - https://stores.concordia.ca/operating-systems-concepts-9c5eb4.html
+ - https://stores.concordia.ca/artificial-intelligence-a-modern-approach-df18a7.html
+
+ biographies
+ - https://www.thriftbooks.com/w/einstein-his-life-and-universe_walter-isaacson/246566/#isbn=0743264746&idiq=3867458
+ - https://www.thriftbooks.com/w/the-rise-of-theodore-roosevelt-by-edmund-morris/248853/
+ - https://www.thriftbooks.com/w/washington-a-life_ron-chernow/255818/
+ - https://www.thriftbooks.com/w/woodrow-wilson-a-biography_john-milton-cooper-jr/325479/
+ - https://www.thriftbooks.com/w/henry-clay-the-essential-american_david-s-heidler_jeanne-t-heidler/417485/
+
+ literature and fiction
+ - https://www.thriftbooks.com/w/the-hobbit_jrr-tolkien/245980/#isbn=0345339681
+ - https://www.thriftbooks.com/w/the-great-gatsby_f-scott-fitzgerald/246010/#isbn=0743273567
+ - https://www.thriftbooks.com/w/o-alquimista-by-paulo-coelho/246270/#isbn=0062315005
+ - https://www.thriftbooks.com/w/3rd-degree-by-james-patterson/245867/#isbn=0446614831
+ - https://www.thriftbooks.com/w/different-seasons_stephen-king/245746/#isbn=1501143484
+
+ history
+ - https://www.thriftbooks.com/w/the-federalist-papers-by-james-madison-alexander-hamilton/246426/#isbn=0692528318
+ - https://www.thriftbooks.com/w/columbine_dave-cullen/246966/#isbn=0446546925
+ - https://www.thriftbooks.com/w/a-history-of-god-the-4000---year-quest-of-judaism-christianity-and-islam-by-karen-armstrong/250306/#isbn=0345384563
+ - https://www.thriftbooks.com/w/the-meaning-of-the-glorious-koran-an-explanatory-translation_anonymous/247186/#isbn=0940368188
+ - https://www.thriftbooks.com/w/killing-lincoln-the-shocking-assassination-that-changed-america-forever-by-bill-oreilly-martin-dugard/250446/#isbn=0805093079
+
+ Mystery
+ - https://www.thriftbooks.com/w/the-girl-with-the-dragon-tattoo-by-stieg-larsson/245940/#isbn=0307949486
+ - https://www.thriftbooks.com/w/the-girl-who-kicked-the-hornets-nest-by-stieg-larsson--/246424/#isbn=030726999X
+ - https://www.thriftbooks.com/w/the-6th-target-by-james-patterson-maxine-paetro/248105/#isbn=0446198951
+ - https://www.thriftbooks.com/w/digital-fortress_dan-brown/246786/#isbn=0312263120
+ - https://www.thriftbooks.com/w/the-house-at-riverton-the-shifting-fog-by-kate-morton/247206/#isbn=1416550534
+ - https://www.thriftbooks.com/w/gone-girl_gillian-flynn/306476/#isbn=0553418351&idiq=4159331

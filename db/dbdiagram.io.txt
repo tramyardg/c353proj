@@ -1,0 +1,92 @@
+Table employees {
+  emp_id int PK
+  emp_name varchar(50)
+  ssn varchar(10)
+  phone_number varchar(20)
+  email varchar(50)
+  address varchar(100)
+}
+
+Table customers {
+  customer_id int PK
+  customer_name varchar(50)
+  phone_number varchar(20)
+  email varchar(50)
+  address varchar(100)
+}
+
+Table books {
+  book_id int PK
+  book_category_id int
+  isbn varchar(20)
+  title varchar(20)
+  authors varchar
+  edition int
+  price double
+  qty_on_hand int
+  qty_sold int
+  publisher_id int
+  author_id int
+}
+
+Table book_categories {
+  book_category_id int PK
+  book_category varchar(25)
+  book_category_desc varchar(100)
+}
+
+Table orders {
+  order_id int PK
+  customer_id int
+  order_date datetime
+  payment_date datetime
+  status varchar(20)
+}
+
+Table order_items {
+  order_item_id int PK
+  order_id int
+  book_id int
+  quantity int
+  price double
+}
+
+Table publishers {
+  publisher_id int PK
+  company_name varchar
+  phone_number varchar
+  email varchar
+  address varchar
+}
+
+Table branches {
+  branch_id int PK
+  publisher_id int
+  branch_name varchar(50)
+  branch_manager varchar(50)
+  phone_number varchar(20)
+  email varchar(50)
+  address varchar(100)
+}
+
+Table authors {
+  author_id int PK
+  first_name varchar(50)
+  initials varchar(10)
+  last_name varchar(50)
+  contact_details varchar(50)
+}
+
+
+Ref: order_items.order_id > orders.order_id
+Ref: order_items.book_id > books.book_id
+Ref: orders.customer_id > customers.customer_id
+Ref: branches.publisher_id > publishers.publisher_id
+Ref: books.publisher_id > publishers.publisher_id
+Ref: books.book_category_id > book_categories.book_category_id
+Ref: books.author_id > authors.author_id
+
+// notes:
+// book_supply table can be included
+// authors table as well
+// shipment for books receieved by employees
