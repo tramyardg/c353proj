@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `employees`
 (
   `emp_id`       INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `emp_name`     VARCHAR(50)        NOT NULL,
-  `ssn`          VARCHAR(10),
+  `ssn`          VARCHAR(10)        NOT NULL,
   `phone_number` VARCHAR(20),
   `email`        VARCHAR(50)        NOT NULL,
   `password`     VARCHAR(50)        NOT NULL,

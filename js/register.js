@@ -57,7 +57,12 @@ const registerFormSubmit = function () {
     if (isValidAddress() && isValidPassword()) {
         let url = 'service/customer_create_account_service.php';
         if (formData.registerForm().registerAs === "employee") {
-            url = 'service/emp_create_account_service.php'
+            if (formData.registerForm().ssn !== "") {
+                url = 'service/emp_create_account_service.php';
+            } else {
+                alert("SSN cannot be empty");
+                return;
+            }
         }
         $.ajax({
             url: url,
