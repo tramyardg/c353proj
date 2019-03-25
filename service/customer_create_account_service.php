@@ -1,7 +1,7 @@
 <?php
 $commonMessage = parse_ini_file("../common.ini");
 require '../db/DB.php';
-require '../entity/Customer.php';
+require '../model/Customer.php';
 require '../controller/CustomerController.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

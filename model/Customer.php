@@ -2,7 +2,6 @@
 
 class Customer
 {
-
     private $customer_id;
     private $customer_name;
     private $email;

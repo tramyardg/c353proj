@@ -3,7 +3,7 @@ ob_start();
 session_start();
 
 require '../db/DB.php';
-require '../entity/Customer.php';
+require '../model/Customer.php';
 require '../controller/CustomerController.php';
 
 

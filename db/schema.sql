@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `employees`
   `phone_number` VARCHAR(20),
   `email`        VARCHAR(50)        NOT NULL,
   `address`      VARCHAR(100),
-  `is_admin`     BOOL
+  `is_admin`     BOOL DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS `customers`

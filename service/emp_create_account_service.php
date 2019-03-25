@@ -1,8 +1,8 @@
 <?php
 $commonMessage = parse_ini_file("../common.ini");
 require '../db/DB.php';
-require '../entity/Employee.php';
-//require '../controller/CustomerController.php';
+require '../model/Employee.php';
+require '../controller/EmployeeController.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isValidFormSubmitted()) {

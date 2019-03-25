@@ -1,7 +1,7 @@
 <?php
 $commonNameTitle = parse_ini_file("./common.ini");
 require 'db/DB.php';
-require 'entity/Customer.php';
+require 'model/Customer.php';
 
 ob_start();
 session_start();
