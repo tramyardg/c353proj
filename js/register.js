@@ -4,6 +4,7 @@ const formData = {
         return {
             fullName: $('input[id=fullName]').val(),
             email: $('input[id=inputEmail]').val(),
+            ssn: $('input[id=inputSSN]').val(),
             phone: $('input[id=inputPhone]').val(),
             address: {
                 inputAddress: $('input[id=inputAddress]').val(),
@@ -12,16 +13,17 @@ const formData = {
                 inputPostalCode: $('input[id=inputPostalCode]').val()
             },
             password: $('input[id=inputPassword]').val(),
-            confirmPassword: $('input[id=inputConfirmPassword]').val()
+            confirmPassword: $('input[id=inputConfirmPassword]').val(),
+            registerAs: $('input[id=registerAs]').val()
         }
     }
 };
 const isValidAddress = function () {
     const addressValues = Object.values(formData.registerForm().address);
     const addressKeys = Object.keys(formData.registerForm().address);
-    var count = 0;
-    var invalidAddressInput = [];
-    var cond = false;
+    let count = 0;
+    let invalidAddressInput = [];
+    let cond = false;
     addressValues.map(function (v, i) {
         if (v === "") {
             count++;
@@ -53,12 +55,16 @@ const isValidPassword = function () {
 };
 const registerFormSubmit = function () {
     if (isValidAddress() && isValidPassword()) {
+        let url = 'service/customer_create_account_service.php';
+        if (formData.registerForm().registerAs === "employee") {
+            url = 'service/emp_create_account_service.php'
+        }
         $.ajax({
-            url: 'service/create_account_service.php',
+            url: url,
             type: 'post',
             data: formData.registerForm()
         }).done(function (response) {
-            var res = JSON.parse(response);
+            let res = JSON.parse(response);
             if (res.result) {
                 $('#successMessage').removeClass('d-none');
                 scrollTop();

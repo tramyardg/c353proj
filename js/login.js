@@ -28,9 +28,9 @@ const loginFormSubmit = function () {
 
 };
 const redirectHome = function () {
-    var locHref = location.href;
-    var siteRoot = locHref.substring(0, locHref.lastIndexOf('/'));
-    var homePageLink = siteRoot + '/index.php';
+    let locHref = location.href;
+    let siteRoot = locHref.substring(0, locHref.lastIndexOf('/'));
+    let homePageLink = siteRoot + '/index.php';
     window.location.replace(homePageLink);
 };
 $(document).ready(function () {

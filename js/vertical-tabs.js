@@ -1,5 +1,5 @@
 function openCategory(evt, tabId) {
-    var e = $(evt);
+    let e = $(evt);
     $('button.tablinks').map(function () {
         $(this).removeClass('active');
     });

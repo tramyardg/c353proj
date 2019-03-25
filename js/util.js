@@ -3,7 +3,7 @@ const scrollTop = function () {
 };
 const refreshTimer = function (sec, id, func) {
     $('.alert-warning').remove();
-    var time = sec;
+    let time = sec;
     id.html(time);
     setInterval(function () {
         time--;

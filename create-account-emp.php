@@ -1,12 +1,12 @@
 <?php
 $commonNameTitle = parse_ini_file("./common.ini");
 
-ob_start();
-session_start();
-if (isset($_SESSION["customer"]))
-{
-    header("Location: index.php");
-}
+//ob_start();
+//session_start();
+//if (isset($_SESSION["customer"]))
+//{
+//    header("Location: index.php");
+//}
 ?>
 <!doctype html>
 <html lang="en">
@@ -56,11 +56,11 @@ if (isset($_SESSION["customer"]))
             Refreshing the page in <span class="badge badge-light" id="refreshSeconds"></span> seconds.
         </div>
         <div class="jumbotron">
-            <h3 class="text-center">Customer Registration</h3>
+            <h3 class="text-center">Employee Registration</h3>
             <div class="col-sm-8 mx-auto">
                 <form class="needs-validation" id="registerForm" novalidate>
                     <div class="form-group">
-                        <label for="fullName">Full Name</label>
+                        <label for="fullName">Employee Full Name</label>
                         <input type="text" class="form-control" id="fullName" aria-describedby="fullNameHelp"
                                placeholder="Enter full name" required>
                     </div>
@@ -74,6 +74,11 @@ if (isset($_SESSION["customer"]))
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
                             else.
                         </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputSSN">SSN</label>
+                        <input type="text" class="form-control" id="inputSSN" aria-describedby="SSNHelp"
+                               placeholder="123456789" maxlength="9">
                     </div>
                     <div class="form-group">
                         <label for="inputPhone">Phone number</label>
@@ -126,7 +131,7 @@ if (isset($_SESSION["customer"]))
                     </div>
                     <div class="form-group d-none">
                         <label for="registerAs"></label>
-                        <input type="text" class="form-control" id="registerAs" value="customer">
+                        <input type="text" class="form-control" id="registerAs" value="employee">
                     </div>
                     <div class="form-group mt-3">
                         <input type="submit" class="btn btn-success" id="inputRegister" value="Register">
