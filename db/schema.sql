@@ -6,6 +6,7 @@ ALTER
 
 USE bookstore353;
 
+# copy from here if database already exists
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `authors`;
 DROP TABLE IF EXISTS `employees`;
@@ -13,6 +14,8 @@ DROP TABLE IF EXISTS `customers`;
 DROP TABLE IF EXISTS `orders`;
 DROP TABLE IF EXISTS `publishers`;
 DROP TABLE IF EXISTS `books`;
+DROP TABLE IF EXISTS `books_authors`;
+DROP TABLE IF EXISTS `books_inventory`;
 DROP TABLE IF EXISTS `order_items`;
 DROP TABLE IF EXISTS `branches`;
 SET FOREIGN_KEY_CHECKS = 1;
@@ -58,21 +61,33 @@ CREATE TABLE IF NOT EXISTS `publishers`
 
 CREATE TABLE IF NOT EXISTS `books`
 (
-  `book_id`          INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `isbn`             VARCHAR(20)        NOT NULL,
-  `title`            VARCHAR(20)        NOT NULL,
-  `authors`          VARCHAR(255),
-  `edition`          INT,
-  `price`            DOUBLE(8, 2),
-  `qty_on_hand`      INT,
-  `qty_sold`         INT,
-  `book_category_id` INT(4)             NOT NULL,
-  `publisher_id`     INT(4)             NOT NULL,
-  `author_id`        INT(4)             NOT NULL,
-  `image`            BLOB                                                                            DEFAULT NULL,
-  `categories`       ENUM ('Biography', 'Literature and Fiction', 'History', 'Mystery and Thriller') DEFAULT NULL,
-  FOREIGN KEY (`author_id`) REFERENCES `authors` (`author_id`),
+  `book_id`      INT(4) PRIMARY KEY NOT NULL                                                     AUTO_INCREMENT,
+  `isbn`         VARCHAR(20)        NOT NULL,
+  `title`        VARCHAR(20)        NOT NULL,
+  `edition`      INT,
+  `price`        DOUBLE(8, 2),
+  `publisher_id` INT(4)             NOT NULL,
+  `image`        BLOB                                                                            DEFAULT NULL,
+  `category`     ENUM ('Biography', 'Literature and Fiction', 'History', 'Mystery and Thriller') DEFAULT NULL,
   FOREIGN KEY (`publisher_id`) REFERENCES `publishers` (`publisher_id`)
+);
+
+# a book can have many authors (one-to-many)
+CREATE TABLE IF NOT EXISTS `books_authors`
+(
+  `book_authors_id` INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `book_id`         INT(4),
+  `author_id`       INT(4)
+);
+
+# one-to-one relationship with books
+CREATE TABLE IF NOT EXISTS `books_inventory`
+(
+  `book_inv_id` INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `book_id`     INT(4)             NOT NULL,
+  `qty_on_hand` INT,
+  `qty_sold`    INT,
+  FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`)
 );
 
 CREATE TABLE IF NOT EXISTS `orders`
