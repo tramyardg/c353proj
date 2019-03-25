@@ -65,6 +65,11 @@ $commonNameTitle = parse_ini_file("./common.ini");
                                placeholder="Enter full name" required>
                     </div>
                     <div class="form-group">
+                        <label for="inputSSN">SSN</label>
+                        <input type="text" class="form-control" id="inputSSN" aria-describedby="SSNHelp"
+                               placeholder="123456789" maxlength="9" required>
+                    </div>
+                    <div class="form-group">
                         <label for="inputEmail">Email Address</label>
                         <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp"
                                placeholder="Enter email" required>
@@ -74,11 +79,6 @@ $commonNameTitle = parse_ini_file("./common.ini");
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
                             else.
                         </small>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputSSN">SSN</label>
-                        <input type="text" class="form-control" id="inputSSN" aria-describedby="SSNHelp"
-                               placeholder="123456789" maxlength="9">
                     </div>
                     <div class="form-group">
                         <label for="inputPhone">Phone number</label>
@@ -124,7 +124,7 @@ $commonNameTitle = parse_ini_file("./common.ini");
                     </div>
                     <div class="form-group">
                         <label for="inputConfirmPassword">Confirm Password</label>
-                        <input type="password" value="admin123" class="form-control" id="inputConfirmPassword" >
+                        <input type="password" value="admin123" class="form-control" id="inputConfirmPassword">
                         <div class="invalid-feedback">
                             Password not match.
                         </div>
