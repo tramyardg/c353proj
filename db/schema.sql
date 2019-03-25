@@ -1,8 +1,8 @@
 CREATE DATABASE IF NOT EXISTS bookstore353;
 ALTER
-DATABASE bookstore353
-DEFAULT CHARACTER SET utf8
-DEFAULT COLLATE utf8_general_ci;
+  DATABASE bookstore353
+  DEFAULT CHARACTER SET utf8
+  DEFAULT COLLATE utf8_general_ci;
 
 USE bookstore353;
 
@@ -13,12 +13,12 @@ DROP TABLE IF EXISTS `customers`;
 DROP TABLE IF EXISTS `orders`;
 DROP TABLE IF EXISTS `publishers`;
 DROP TABLE IF EXISTS `books`;
-DROP TABLE IF EXISTS `book_categories`;
 DROP TABLE IF EXISTS `order_items`;
 DROP TABLE IF EXISTS `branches`;
 SET FOREIGN_KEY_CHECKS = 1;
 
-CREATE TABLE IF NOT EXISTS `employees` (
+CREATE TABLE IF NOT EXISTS `employees`
+(
   `emp_id`       INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `emp_name`     VARCHAR(50)        NOT NULL,
   `ssn`          VARCHAR(10),
@@ -28,7 +28,8 @@ CREATE TABLE IF NOT EXISTS `employees` (
   `is_admin`     BOOL
 );
 
-CREATE TABLE IF NOT EXISTS `customers` (
+CREATE TABLE IF NOT EXISTS `customers`
+(
   `customer_id`   INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `customer_name` VARCHAR(50)        NOT NULL,
   `email`         VARCHAR(50)        NOT NULL,
@@ -37,21 +38,17 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `address`       VARCHAR(100)
 );
 
-CREATE TABLE IF NOT EXISTS `book_categories` (
-  `book_category_id`   INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `book_category`      VARCHAR(25)        NOT NULL,
-  `book_category_desc` VARCHAR(100)
-);
-
-CREATE TABLE IF NOT EXISTS `authors` (
+CREATE TABLE IF NOT EXISTS `authors`
+(
   `author_id`   INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `first_name`  VARCHAR(50)        NOT NULL,
-  `middle_name` VARCHAR(5)                  DEFAULT NULL,
+  `middle_name` VARCHAR(5)    DEFAULT NULL,
   `last_name`   VARCHAR(50)        NOT NULL,
-  `bio`         VARCHAR(2000)               DEFAULT NULL
+  `bio`         VARCHAR(2000) DEFAULT NULL
 );
 
-CREATE TABLE IF NOT EXISTS `publishers` (
+CREATE TABLE IF NOT EXISTS `publishers`
+(
   `publisher_id` INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `company_name` VARCHAR(50)        NOT NULL,
   `phone_number` VARCHAR(20),
@@ -59,7 +56,8 @@ CREATE TABLE IF NOT EXISTS `publishers` (
   `address`      VARCHAR(255)
 );
 
-CREATE TABLE IF NOT EXISTS `books` (
+CREATE TABLE IF NOT EXISTS `books`
+(
   `book_id`          INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `isbn`             VARCHAR(20)        NOT NULL,
   `title`            VARCHAR(20)        NOT NULL,
@@ -71,13 +69,14 @@ CREATE TABLE IF NOT EXISTS `books` (
   `book_category_id` INT(4)             NOT NULL,
   `publisher_id`     INT(4)             NOT NULL,
   `author_id`        INT(4)             NOT NULL,
-  `image`            BLOB                        DEFAULT NULL,
+  `image`            BLOB                                                                            DEFAULT NULL,
+  `categories`       ENUM ('Biography', 'Literature and Fiction', 'History', 'Mystery and Thriller') DEFAULT NULL,
   FOREIGN KEY (`author_id`) REFERENCES `authors` (`author_id`),
-  FOREIGN KEY (`publisher_id`) REFERENCES `publishers` (`publisher_id`),
-  FOREIGN KEY (`book_category_id`) REFERENCES `book_categories` (`book_category_id`)
+  FOREIGN KEY (`publisher_id`) REFERENCES `publishers` (`publisher_id`)
 );
 
-CREATE TABLE IF NOT EXISTS `orders` (
+CREATE TABLE IF NOT EXISTS `orders`
+(
   `order_id`     INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `customer_id`  INT(4)             NOT NULL,
   `order_date`   TIMESTAMP          NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -86,7 +85,8 @@ CREATE TABLE IF NOT EXISTS `orders` (
   FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`)
 );
 
-CREATE TABLE IF NOT EXISTS `order_items` (
+CREATE TABLE IF NOT EXISTS `order_items`
+(
   `order_item_id` INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `order_id`      INT(4)             NOT NULL,
   `book_id`       INT(4)             NOT NULL,
@@ -96,7 +96,8 @@ CREATE TABLE IF NOT EXISTS `order_items` (
   FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`)
 );
 
-CREATE TABLE IF NOT EXISTS `branches` (
+CREATE TABLE IF NOT EXISTS `branches`
+(
   `branch_id`      INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `publisher_id`   INT(4)             NOT NULL,
   `branch_name`    VARCHAR(50)        NOT NULL,
