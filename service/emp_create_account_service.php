@@ -6,19 +6,19 @@ require '../controller/EmployeeController.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isValidFormSubmitted()) {
-//        $customer = new Customer();
-//        $controller = new CustomerController();
-//        if ($controller->findByEmail($_POST["email"])) {
-//            echo json_encode(array('result' => false));
-//        } else {
-//            $customer->setCustomerName($_POST["fullName"]);
-//            $customer->setEmail($_POST["email"]);
-//            $customer->setPhoneNumber($_POST["phone"]);
-//            $customer->setAddress(addressCombined());
-//            $customer->setPassword($_POST["password"]);
-//            $controller->save($customer);
-//        }
-        print_r($_POST);
+        $employee = new Employee();
+        $controller = new EmployeeController();
+        if ($controller->findByEmail($_POST["email"])) {
+            echo json_encode(array('result' => false));
+        } else {
+            $employee->setEmpName($_POST["fullName"]);
+            $employee->setSsn($_POST["ssn"]);
+            $employee->setPhoneNumber($_POST["phone"]);
+            $employee->setEmail($_POST["email"]);
+            $employee->setAddress(addressCombined());
+            $employee->setPassword($_POST["password"]);
+            $controller->save($employee);
+        }
     }
 } else {
     echo $commonMessage["formSubmissionError"];

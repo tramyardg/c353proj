@@ -8,6 +8,7 @@ class Employee
     private $phone_number;
     private $email;
     private $address;
+    private $password;
     private $is_admin;
 
     public function __construct()
@@ -72,6 +73,16 @@ class Employee
     public function setAddress($address)
     {
         $this->address = $address;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
     }
 
     public function getIsAdmin()

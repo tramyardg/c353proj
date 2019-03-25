@@ -15,6 +15,7 @@ class EmployeeControllerTest extends PHPUnit_Framework_TestCase
         $this->employee->setPhoneNumber("5141234567");
         $this->employee->setEmail("test@gmail.com");
         $this->employee->setAddress("test address");
+        $this->employee->setPassword("test");
     }
 
     public function testFindByEmail()

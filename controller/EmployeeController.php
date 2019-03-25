@@ -8,7 +8,7 @@ class EmployeeController
 
     public function save(Employee $employee)
     {
-        $sql = 'INSERT INTO `employees` (`emp_name`, `ssn`, `phone_number`, `email`, `address`) VALUES (?, ?, ?, ?, ?)';
+        $sql = 'INSERT INTO `employees` (`emp_name`, `ssn`, `phone_number`, `email`, `password`, `address`) VALUES (?, ?, ?, ?, ?, ?)';
         $stmt = DB::getInstance()->prepare($sql);
         $exec = $stmt->execute(
             array(
@@ -16,6 +16,7 @@ class EmployeeController
                 $employee->getSsn(),
                 $employee->getPhoneNumber(),
                 $employee->getEmail(),
+                $employee->getPassword(),
                 $employee->getAddress()
             )
         );

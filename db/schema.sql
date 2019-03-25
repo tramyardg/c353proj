@@ -27,8 +27,9 @@ CREATE TABLE IF NOT EXISTS `employees`
   `ssn`          VARCHAR(10),
   `phone_number` VARCHAR(20),
   `email`        VARCHAR(50)        NOT NULL,
+  `password`     VARCHAR(50)        NOT NULL,
   `address`      VARCHAR(100),
-  `is_admin`     BOOL DEFAULT FALSE
+  `is_admin`     BOOL                        DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS `customers`
