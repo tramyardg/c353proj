@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `employees`
   `email`        VARCHAR(50)        NOT NULL,
   `password`     VARCHAR(50)        NOT NULL,
   `address`      VARCHAR(100),
-  `is_admin`     BOOL                        DEFAULT FALSE
+  `is_admin`     BOOL DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS `customers`
@@ -62,14 +62,14 @@ CREATE TABLE IF NOT EXISTS `publishers`
 
 CREATE TABLE IF NOT EXISTS `books`
 (
-  `book_id`      INT(4) PRIMARY KEY NOT NULL                                                     AUTO_INCREMENT,
+  `book_id`      INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `isbn`         VARCHAR(20)        NOT NULL,
-  `title`        VARCHAR(20)        NOT NULL,
+  `title`        VARCHAR(250)       NOT NULL,
   `edition`      INT,
   `price`        DOUBLE(8, 2),
   `publisher_id` INT(4)             NOT NULL,
-  `image`        BLOB                                                                            DEFAULT NULL,
-  `category`     ENUM ('Biography', 'Literature and Fiction', 'History', 'Mystery and Thriller') DEFAULT NULL,
+  `image`        BLOB                                DEFAULT NULL,
+  `category`     ENUM ('0', '1', '2', '3', '4', '5') DEFAULT NULL,
   FOREIGN KEY (`publisher_id`) REFERENCES `publishers` (`publisher_id`)
 );
 
@@ -120,6 +120,26 @@ CREATE TABLE IF NOT EXISTS `branches`
   `branch_manager` VARCHAR(50),
   `phone_number`   VARCHAR(20),
   `email`          VARCHAR(50),
-  `address`        VARCHAR(100),
+  `address`        VARCHAR(250),
   FOREIGN KEY (`publisher_id`) REFERENCES `publishers` (`publisher_id`)
 );
+
+ALTER TABLE authors
+  AUTO_INCREMENT = 1;
+ALTER TABLE books
+  AUTO_INCREMENT = 1;
+ALTER TABLE books_authors
+  AUTO_INCREMENT = 1;
+ALTER TABLE books_inventory
+  AUTO_INCREMENT = 1;
+ALTER TABLE branches
+  AUTO_INCREMENT = 1;
+ALTER TABLE employees
+  AUTO_INCREMENT = 1;
+ALTER TABLE order_items
+  AUTO_INCREMENT = 1;
+ALTER TABLE orders
+  AUTO_INCREMENT = 1;
+ALTER TABLE publishers
+  AUTO_INCREMENT = 1;
+

@@ -13,6 +13,7 @@ INSERT INTO bookstore353.authors (first_name, middle_name, last_name, bio) VALUE
 INSERT INTO bookstore353.authors (first_name, middle_name, last_name, bio) VALUES ('Ron', null, 'Chernow', 'New York Times bestselling author Ron Chernow has gained recent attention for Alexander Hamilton, the inspiration for the hit Broadway musical Hamilton. His more recent biography of a Founding Father, Washington: A Life, won a Pulitzer Prize for Biography. In addition to writing award-winning books, he’s a freelance journalist and has advised on TV documentaries.');
 INSERT INTO bookstore353.authors (first_name, middle_name, last_name, bio) VALUES ('Edmund', null, 'Morris', 'From his prizewinning biographies of his favorite president -- The Rise of Theodore Roosevelt and, more recently, Theodore Rex -- to his controversial coverage of Ronald Reagan in Dutch, Edmund Morris has established a reputation as a presidential profiler to watch.');
 
+# good publishers
 INSERT INTO bookstore353.publishers (company_name, phone_number, email, address) VALUES ('Hachette Book Group', '800-759-0190', 'hbg@support.com', '1290 6th Ave, New York, NY 10019, USA');
 INSERT INTO bookstore353.publishers (company_name, phone_number, email, address) VALUES ('McGill-Queen''s University Press', '(514) 398-3750', 'mqup@mcgill.ca', '1010 Sherbrooke West Suite 1720 Montreal, Quebec H3A 2R7 Canada');
 INSERT INTO bookstore353.publishers (company_name, phone_number, email, address) VALUES ('The Crown Publishing Group', '978-750-8400', 'customerservice@prh.com.', '222 Rosewood Drive, Danvers, MA 01923');
@@ -22,3 +23,15 @@ INSERT INTO bookstore353.branches (publisher_id, branch_name, branch_manager, ph
 INSERT INTO bookstore353.branches (publisher_id, branch_name, branch_manager, phone_number, email, address) VALUES (1, 'Hachette Canada Inc', 'Gail Carriger', '(514) 382-3034', null, '9001 Boulevard de l''Acadie, Montréal, QC H4N 3H5');
 INSERT INTO bookstore353.branches (publisher_id, branch_name, branch_manager, phone_number, email, address) VALUES (2, 'McGill-Queen''s University Press Kingston', 'Dale Carnegie', '(613) 533-2610', 'mqup@queensu.ca', 'McGill-Queen''s University Press Douglas Library Building 93 University Avenue Kingston, ON K7L 5C4 Canada');
 INSERT INTO bookstore353.branches (publisher_id, branch_name, branch_manager, phone_number, email, address) VALUES (2, 'UK Office MQUP', 'Richard Baggaley', '(+44) 1295 720025', 'richard.baggaley.mqup@mcgill.ca', null);
+
+# good books
+insert into books (book_id, isbn, title, edition, price, publisher_id, category) values (1, '825211850-X', '21 tapaa pilata avioliitto', '6', 11.98, 2, '0');
+insert into books (book_id, isbn, title, edition, price, publisher_id, category) values (2, '207229379-0', 'Out-of-Towners, The', '8', 12.29, 6, '0');
+insert into books (book_id, isbn, title, edition, price, publisher_id, category) values (3, '767745835-1', 'Infernal Affairs (Mou gaan dou)', '6', 22.45, 3, '3');
+insert into books (book_id, isbn, title, edition, price, publisher_id, category) values (4, '102105236-1', 'Washington Heights', '9', 30.67, 3, '2');
+insert into books (book_id, isbn, title, edition, price, publisher_id, category) values (5, '853487402-6', 'Dirty Money (Un flic)', '2', 20.47, 1, '4');
+insert into books (book_id, isbn, title, edition, price, publisher_id, category) values (6, '047443413-3', 'M. Hulot’s Holiday (Mr. Hulot''s Holiday) (Vacances de Monsieur Hulot, Les)', '9', 169.88, 2, '0');
+insert into books (book_id, isbn, title, edition, price, publisher_id, category) values (7, '255549224-0', 'Original Sin', '7', 59.61, 1, '0');
+insert into books (book_id, isbn, title, edition, price, publisher_id, category) values (8, '092091632-5', 'Dreamboat', '7', 36.55, 1, '5');
+insert into books (book_id, isbn, title, edition, price, publisher_id, category) values (9, '590749912-5', 'Journey to the Far Side of the Sun (a.k.a. Doppelgänger)', '9', 51.13, 3, '0');
+insert into books (book_id, isbn, title, edition, price, publisher_id, category) values (10, '144391520-3', 'Made in Heaven', '3', 98.56, 2, '5');
