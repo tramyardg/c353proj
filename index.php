@@ -2,6 +2,8 @@
 $commonNameTitle = parse_ini_file("./common.ini");
 require 'db/DB.php';
 require 'model/Customer.php';
+require 'model/Enum.php';
+require 'model/BookCategory.php';
 
 ob_start();
 session_start();
@@ -74,16 +76,30 @@ if (isset($_SESSION["customer"])) {
 
     <main role="main">
         <div class="tab">
-            <button class="tablinks active" onclick="openCategory(this, 'biography')">Biographies</button>
-            <button class="tablinks" onclick="openCategory(this, 'fiction')">Literature & Fiction</button>
-            <button class="tablinks" onclick="openCategory(this, 'history')">History</button>
-            <button class="tablinks" onclick="openCategory(this, 'thriller')">Thriller</button>
+            <button class="tablinks active" onclick="openCategory(this, <?php echo BookCategory::toString(0); ?>)">
+                <?php echo BookCategory::toString(0); ?>
+            </button>
+            <button class="tablinks" onclick="openCategory(this, <?php echo BookCategory::toString(1); ?>)">
+                <?php echo BookCategory::toString(1); ?>
+            </button>
+            <button class="tablinks" onclick="openCategory(this, <?php echo BookCategory::toString(2); ?>)">
+                <?php echo BookCategory::toString(2); ?>
+            </button>
+            <button class="tablinks" onclick="openCategory(this, <?php echo BookCategory::toString(3); ?>)">
+                <?php echo BookCategory::toString(3); ?>
+            </button>
+            <button class="tablinks" onclick="openCategory(this, <?php echo BookCategory::toString(4); ?>)">
+                <?php echo BookCategory::toString(4); ?>
+            </button>
+            <button class="tablinks" onclick="openCategory(this, <?php echo BookCategory::toString(5); ?>)">
+                <?php echo BookCategory::toString(5); ?>
+            </button>
         </div>
-        <div id="biography" class="tabcontent">
-            <table id="example" class="" style="width:100%">
+        <div id="<?php echo BookCategory::toString(0); ?>Div" class="tabcontent">
+            <table id="<?php echo BookCategory::toString(0); ?>Table" class="" style="width:100%">
                 <thead>
                 <tr>
-                    <th scope="col">Biographies</th>
+                    <th scope="col"><?php echo BookCategory::toString(0); ?></th>
                     <th scope="col">Price</th>
                     <th scope="col">Publication Date</th>
                 </tr>
@@ -118,14 +134,200 @@ if (isset($_SESSION["customer"])) {
                 </tbody>
             </table>
         </div>
-        <div id="fiction" class="tabcontent d-none">
-            <h3>Literature and Fiction</h3>
+        <div id="<?php echo BookCategory::toString(1); ?>Div" class="tabcontent d-none">
+            <table id="<?php echo BookCategory::toString(1); ?>Table" class="" style="width:100%">
+                <thead>
+                <tr>
+                    <th scope="col"><?php echo BookCategory::toString(1); ?></th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Publication Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <div class="row">
+                            <div class="col-auto d-none d-lg-block">
+                                <svg class="bd-placeholder-img" width="180" height="230"
+                                     xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
+                                     role="img" aria-label="Placeholder: Thumbnail"><title>
+                                        Placeholder</title>
+                                    <rect width="100%" height="100%" fill="#55595c"></rect>
+                                    <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                                </svg>
+                            </div>
+                            <div class="col p-4 d-flex flex-column position-static">
+                                <h3 class="mb-0">Featured post</h3>
+                                <strong class="d-inline-block mb-2 text-primary">by World</strong>
+                                <a href="#">Add to cart</a>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="card-text mb-auto">CDN$ 14.99</p>
+                    </td>
+                    <td>
+                        <p class="card-text mb-auto">Nov 12, 2018</p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-        <div id="history" class="tabcontent d-none">
-            <h3>History</h3>
+        <div id="<?php echo BookCategory::toString(2); ?>Div" class="tabcontent d-none">
+            <table id="<?php echo BookCategory::toString(2); ?>Table" class="" style="width:100%">
+                <thead>
+                <tr>
+                    <th scope="col"><?php echo BookCategory::toString(2); ?></th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Publication Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <div class="row">
+                            <div class="col-auto d-none d-lg-block">
+                                <svg class="bd-placeholder-img" width="180" height="230"
+                                     xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
+                                     role="img" aria-label="Placeholder: Thumbnail"><title>
+                                        Placeholder</title>
+                                    <rect width="100%" height="100%" fill="#55595c"></rect>
+                                    <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                                </svg>
+                            </div>
+                            <div class="col p-4 d-flex flex-column position-static">
+                                <h3 class="mb-0">Featured post</h3>
+                                <strong class="d-inline-block mb-2 text-primary">by World</strong>
+                                <a href="#">Add to cart</a>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="card-text mb-auto">CDN$ 14.99</p>
+                    </td>
+                    <td>
+                        <p class="card-text mb-auto">Nov 12, 2018</p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-        <div id="thriller" class="tabcontent d-none">
-            <h3>Thriller</h3>
+        <div id="<?php echo BookCategory::toString(3); ?>Div" class="tabcontent d-none">
+            <table id="<?php echo BookCategory::toString(3); ?>Table" class="" style="width:100%">
+                <thead>
+                <tr>
+                    <th scope="col"><?php echo BookCategory::toString(3); ?></th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Publication Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <div class="row">
+                            <div class="col-auto d-none d-lg-block">
+                                <svg class="bd-placeholder-img" width="180" height="230"
+                                     xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
+                                     role="img" aria-label="Placeholder: Thumbnail"><title>
+                                        Placeholder</title>
+                                    <rect width="100%" height="100%" fill="#55595c"></rect>
+                                    <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                                </svg>
+                            </div>
+                            <div class="col p-4 d-flex flex-column position-static">
+                                <h3 class="mb-0">Featured post</h3>
+                                <strong class="d-inline-block mb-2 text-primary">by World</strong>
+                                <a href="#">Add to cart</a>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="card-text mb-auto">CDN$ 14.99</p>
+                    </td>
+                    <td>
+                        <p class="card-text mb-auto">Nov 12, 2018</p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="<?php echo BookCategory::toString(4); ?>Div" class="tabcontent d-none">
+            <table id="<?php echo BookCategory::toString(4); ?>Table" class="" style="width:100%">
+                <thead>
+                <tr>
+                    <th scope="col"><?php echo BookCategory::toString(4); ?></th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Publication Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <div class="row">
+                            <div class="col-auto d-none d-lg-block">
+                                <svg class="bd-placeholder-img" width="180" height="230"
+                                     xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
+                                     role="img" aria-label="Placeholder: Thumbnail"><title>
+                                        Placeholder</title>
+                                    <rect width="100%" height="100%" fill="#55595c"></rect>
+                                    <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                                </svg>
+                            </div>
+                            <div class="col p-4 d-flex flex-column position-static">
+                                <h3 class="mb-0">Featured post</h3>
+                                <strong class="d-inline-block mb-2 text-primary">by World</strong>
+                                <a href="#">Add to cart</a>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="card-text mb-auto">CDN$ 14.99</p>
+                    </td>
+                    <td>
+                        <p class="card-text mb-auto">Nov 12, 2018</p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="<?php echo BookCategory::toString(5); ?>Div" class="tabcontent d-none">
+            <table id="<?php echo BookCategory::toString(5); ?>Table" class="" style="width:100%">
+                <thead>
+                <tr>
+                    <th scope="col"><?php echo BookCategory::toString(5); ?></th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Publication Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <div class="row">
+                            <div class="col-auto d-none d-lg-block">
+                                <svg class="bd-placeholder-img" width="180" height="230"
+                                     xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
+                                     role="img" aria-label="Placeholder: Thumbnail"><title>
+                                        Placeholder</title>
+                                    <rect width="100%" height="100%" fill="#55595c"></rect>
+                                    <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                                </svg>
+                            </div>
+                            <div class="col p-4 d-flex flex-column position-static">
+                                <h3 class="mb-0">Featured post</h3>
+                                <strong class="d-inline-block mb-2 text-primary">by World</strong>
+                                <a href="#">Add to cart</a>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="card-text mb-auto">CDN$ 14.99</p>
+                    </td>
+                    <td>
+                        <p class="card-text mb-auto">Nov 12, 2018</p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </main>
 </div>
