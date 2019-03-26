@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `books`
   `book_id`      INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `isbn`         VARCHAR(20)        NOT NULL,
   `title`        VARCHAR(250)       NOT NULL,
-  `edition`      INT,
+  `edition`      INT                                 DEFAULT 1,
   `price`        DOUBLE(8, 2),
   `publisher_id` INT(4)             NOT NULL,
   `image`        BLOB                                DEFAULT NULL,
