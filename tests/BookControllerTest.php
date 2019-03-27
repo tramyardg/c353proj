@@ -3,6 +3,9 @@ require '../db/DB.php';
 require '../model/Book.php';
 require '../controller/BookController.php';
 
+require '../model/Enum.php';
+require '../model/BookCategory.php';
+
 class BookControllerTest extends PHPUnit_Framework_TestCase
 {
     private $book;
@@ -34,6 +37,13 @@ class BookControllerTest extends PHPUnit_Framework_TestCase
     {
         $controller = new BookController();
         $controller->save($this->book);
+    }
+
+    public function testFetchBookByCategory()
+    {
+        $controller = new BookController();
+        $biographyBooks = $controller->fetchBookByCategory(BookCategory::Biography);
+        print_r($biographyBooks);
     }
 
 }

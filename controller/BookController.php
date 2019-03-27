@@ -25,6 +25,15 @@ class BookController
             "Book");
     }
 
+    public function fetchBookByCategory($n)
+    {
+        $sql = "SELECT * FROM books WHERE category = ?;";
+        $stmt = DB::getInstance()->prepare($sql);
+        $stmt->execute([$n]);
+        return $stmt->fetchAll(PDO::FETCH_CLASS,
+            "Book");
+    }
+
     public function save(Book $book)
     {
         $sql = 'INSERT INTO `books` (`isbn`, `title`, `edition`, `price`, `publisher_id`, `image`, `category`) VALUES (?, ?, ?, ?, ?, ?, ?)';

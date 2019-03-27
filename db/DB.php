@@ -3,7 +3,6 @@
 class DB
 {
     private static $instance = null;
-    private static $db_config_array;
 
     private function __construct()
     {
@@ -11,15 +10,14 @@ class DB
 
     public static function getInstance()
     {
-        self::$db_config_array = parse_ini_file("../database.ini");
         if (empty(self::$instance)) {
             $db_info = array(
-                "host" => self::$db_config_array["host"],
-                "port" => self::$db_config_array["port"],
-                "user" => self::$db_config_array["user"],
-                "pass" => self::$db_config_array["password"],
-                "name" => self::$db_config_array["dbname"],
-                "charset" => self::$db_config_array["charset"]
+                "host" => 'localhost',
+                "port" => '3306',
+                "user" => 'root',
+                "pass" => '',
+                "name" => 'bookstore353',
+                "charset" => 'UTF-8'
             );
             try {
                 self::$instance = new PDO(

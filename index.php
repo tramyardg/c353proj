@@ -2,8 +2,31 @@
 $commonNameTitle = parse_ini_file("./common.ini");
 require 'db/DB.php';
 require 'model/Customer.php';
+require 'model/Book.php';
+require 'controller/BookController.php';
+
 require 'model/Enum.php';
 require 'model/BookCategory.php';
+
+$bkController = new BookController();
+$biographies = $bkController->fetchBookByCategory(BookCategory::Biography);
+$biography = new Book();
+
+$fictions = $bkController->fetchBookByCategory(BookCategory::Fiction);
+$fiction = new Book();
+
+$histories = $bkController->fetchBookByCategory(BookCategory::History);
+$history = new Book();
+
+$mysteries = $bkController->fetchBookByCategory(BookCategory::Mystery);
+$mystery = new Book();
+
+$suspenseBooks = $bkController->fetchBookByCategory(BookCategory::Suspense);
+$suspense = new Book();
+
+$thrillers = $bkController->fetchBookByCategory(BookCategory::Thriller);
+$thriller = new Book();
+
 
 ob_start();
 session_start();
@@ -76,22 +99,28 @@ if (isset($_SESSION["customer"])) {
 
     <main role="main">
         <div class="tab">
-            <button class="tablinks active" onclick="openCategory(this, <?php echo BookCategory::toString(0); ?>)">
+            <button class="tablinks active"
+                    onclick="openCategory(this, <?php echo "'". BookCategory::toString(0) . "Div'"; ?>)">
                 <?php echo BookCategory::toString(0); ?>
             </button>
-            <button class="tablinks" onclick="openCategory(this, <?php echo BookCategory::toString(1); ?>)">
+            <button class="tablinks"
+                    onclick="openCategory(this, <?php echo "'". BookCategory::toString(1) . "Div'"; ?>)">
                 <?php echo BookCategory::toString(1); ?>
             </button>
-            <button class="tablinks" onclick="openCategory(this, <?php echo BookCategory::toString(2); ?>)">
+            <button class="tablinks"
+                    onclick="openCategory(this, <?php echo "'". BookCategory::toString(2) . "Div'"; ?>)">
                 <?php echo BookCategory::toString(2); ?>
             </button>
-            <button class="tablinks" onclick="openCategory(this, <?php echo BookCategory::toString(3); ?>)">
+            <button class="tablinks"
+                    onclick="openCategory(this, <?php echo "'". BookCategory::toString(3) . "Div'"; ?>)">
                 <?php echo BookCategory::toString(3); ?>
             </button>
-            <button class="tablinks" onclick="openCategory(this, <?php echo BookCategory::toString(4); ?>)">
+            <button class="tablinks"
+                    onclick="openCategory(this, <?php echo "'". BookCategory::toString(4) . "Div'"; ?>)">
                 <?php echo BookCategory::toString(4); ?>
             </button>
-            <button class="tablinks" onclick="openCategory(this, <?php echo BookCategory::toString(5); ?>)">
+            <button class="tablinks"
+                    onclick="openCategory(this, <?php echo "'". BookCategory::toString(5) . "Div'"; ?>)">
                 <?php echo BookCategory::toString(5); ?>
             </button>
         </div>
@@ -101,36 +130,36 @@ if (isset($_SESSION["customer"])) {
                 <tr>
                     <th scope="col"><?php echo BookCategory::toString(0); ?></th>
                     <th scope="col">Price</th>
-                    <th scope="col">Publication Date</th>
+                    <th scope="col">ISBN</th>
                 </tr>
                 </thead>
                 <tbody>
+                <?php foreach ($biographies as $k => $v) { $biography = $v; ?>
                 <tr>
                     <td>
                         <div class="row">
                             <div class="col-auto d-none d-lg-block">
-                                <svg class="bd-placeholder-img" width="180" height="230"
-                                     xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
-                                     role="img" aria-label="Placeholder: Thumbnail"><title>
-                                        Placeholder</title>
-                                    <rect width="100%" height="100%" fill="#55595c"></rect>
-                                    <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                                </svg>
+                                <?php if (empty($biography->getImage())) { ?>
+                                    <img alt="book image" src="https://via.placeholder.com/200x230/55595c/FFFFFF/?text=Coming%20Soon">
+                                <?php } else { ?>
+                                    <img alt="book image" src="https://via.placeholder.com/200x230/55595c/FFFFFF/?text=Coming%20Soon">
+                                <?php } ?>
                             </div>
-                            <div class="col p-4 d-flex flex-column position-static">
-                                <h3 class="mb-0">Featured post</h3>
+                            <div class="col d-flex p-0 flex-column">
+                                <h5 class="mb-0"><?php echo $biography->getTitle(); ?></h5>
                                 <strong class="d-inline-block mb-2 text-primary">by World</strong>
                                 <a href="#">Add to cart</a>
                             </div>
                         </div>
                     </td>
                     <td>
-                        <p class="card-text mb-auto">CDN$ 14.99</p>
+                        <span class="card-text mb-auto"><?php echo $biography->getPrice(); ?></span>
                     </td>
                     <td>
-                        <p class="card-text mb-auto">Nov 12, 2018</p>
+                        <span class="card-text mb-auto"><?php echo $biography->getIsbn(); ?></span>
                     </td>
                 </tr>
+                <?php } ?>
                 </tbody>
             </table>
         </div>
@@ -144,10 +173,12 @@ if (isset($_SESSION["customer"])) {
                 </tr>
                 </thead>
                 <tbody>
+                <?php foreach ($fictions as $k => $v) { $fiction = $v; ?>
                 <tr>
                     <td>
                         <div class="row">
                             <div class="col-auto d-none d-lg-block">
+                                <?php if (empty($fiction->getImage())) { ?>
                                 <svg class="bd-placeholder-img" width="180" height="230"
                                      xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
                                      role="img" aria-label="Placeholder: Thumbnail"><title>
@@ -155,21 +186,25 @@ if (isset($_SESSION["customer"])) {
                                     <rect width="100%" height="100%" fill="#55595c"></rect>
                                     <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
                                 </svg>
+                                <?php } else { ?>
+                                <img alt="book image" src="https://via.placeholder.com/200x230/55595c/FFFFFF/?text=Coming%20Soon">
+                                <?php } ?>
                             </div>
                             <div class="col p-4 d-flex flex-column position-static">
-                                <h3 class="mb-0">Featured post</h3>
+                                <h5 class="mb-0"><?php echo $fiction->getTitle(); ?></h5>
                                 <strong class="d-inline-block mb-2 text-primary">by World</strong>
                                 <a href="#">Add to cart</a>
                             </div>
                         </div>
                     </td>
                     <td>
-                        <p class="card-text mb-auto">CDN$ 14.99</p>
+                        <p class="card-text mb-auto"><?php echo $fiction->getPrice(); ?></p>
                     </td>
                     <td>
-                        <p class="card-text mb-auto">Nov 12, 2018</p>
+                        <p class="card-text mb-auto"><?php echo $fiction->getIsbn(); ?></p>
                     </td>
                 </tr>
+                <?php } ?>
                 </tbody>
             </table>
         </div>
@@ -183,32 +218,38 @@ if (isset($_SESSION["customer"])) {
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>
-                        <div class="row">
-                            <div class="col-auto d-none d-lg-block">
-                                <svg class="bd-placeholder-img" width="180" height="230"
-                                     xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
-                                     role="img" aria-label="Placeholder: Thumbnail"><title>
-                                        Placeholder</title>
-                                    <rect width="100%" height="100%" fill="#55595c"></rect>
-                                    <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                                </svg>
+                <?php foreach ($histories as $k => $v) { $history = $v; ?>
+                    <tr>
+                        <td>
+                            <div class="row">
+                                <div class="col-auto d-none d-lg-block">
+                                    <?php if (empty($history->getImage())) { ?>
+                                        <svg class="bd-placeholder-img" width="180" height="230"
+                                             xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
+                                             role="img" aria-label="Placeholder: Thumbnail"><title>
+                                                Placeholder</title>
+                                            <rect width="100%" height="100%" fill="#55595c"></rect>
+                                            <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                                        </svg>
+                                    <?php } else { ?>
+                                        <img alt="book image" src="https://via.placeholder.com/200x230/55595c/FFFFFF/?text=Coming%20Soon">
+                                    <?php } ?>
+                                </div>
+                                <div class="col p-4 d-flex flex-column position-static">
+                                    <h5 class="mb-0"><?php echo $history->getTitle(); ?></h5>
+                                    <strong class="d-inline-block mb-2 text-primary">by World</strong>
+                                    <a href="#">Add to cart</a>
+                                </div>
                             </div>
-                            <div class="col p-4 d-flex flex-column position-static">
-                                <h3 class="mb-0">Featured post</h3>
-                                <strong class="d-inline-block mb-2 text-primary">by World</strong>
-                                <a href="#">Add to cart</a>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <p class="card-text mb-auto">CDN$ 14.99</p>
-                    </td>
-                    <td>
-                        <p class="card-text mb-auto">Nov 12, 2018</p>
-                    </td>
-                </tr>
+                        </td>
+                        <td>
+                            <p class="card-text mb-auto"><?php echo $history->getPrice(); ?></p>
+                        </td>
+                        <td>
+                            <p class="card-text mb-auto"><?php echo $history->getIsbn(); ?></p>
+                        </td>
+                    </tr>
+                <?php } ?>
                 </tbody>
             </table>
         </div>
@@ -222,32 +263,38 @@ if (isset($_SESSION["customer"])) {
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>
-                        <div class="row">
-                            <div class="col-auto d-none d-lg-block">
-                                <svg class="bd-placeholder-img" width="180" height="230"
-                                     xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
-                                     role="img" aria-label="Placeholder: Thumbnail"><title>
-                                        Placeholder</title>
-                                    <rect width="100%" height="100%" fill="#55595c"></rect>
-                                    <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                                </svg>
+                <?php foreach ($mysteries as $k => $v) { $mystery = $v; ?>
+                    <tr>
+                        <td>
+                            <div class="row">
+                                <div class="col-auto d-none d-lg-block">
+                                    <?php if (empty($mystery->getImage())) { ?>
+                                        <svg class="bd-placeholder-img" width="180" height="230"
+                                             xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
+                                             role="img" aria-label="Placeholder: Thumbnail"><title>
+                                                Placeholder</title>
+                                            <rect width="100%" height="100%" fill="#55595c"></rect>
+                                            <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                                        </svg>
+                                    <?php } else { ?>
+                                        <img alt="book image" src="https://via.placeholder.com/200x230/55595c/FFFFFF/?text=Coming%20Soon">
+                                    <?php } ?>
+                                </div>
+                                <div class="col p-4 d-flex flex-column position-static">
+                                    <h5 class="mb-0"><?php echo $mystery->getTitle(); ?></h5>
+                                    <strong class="d-inline-block mb-2 text-primary">by World</strong>
+                                    <a href="#">Add to cart</a>
+                                </div>
                             </div>
-                            <div class="col p-4 d-flex flex-column position-static">
-                                <h3 class="mb-0">Featured post</h3>
-                                <strong class="d-inline-block mb-2 text-primary">by World</strong>
-                                <a href="#">Add to cart</a>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <p class="card-text mb-auto">CDN$ 14.99</p>
-                    </td>
-                    <td>
-                        <p class="card-text mb-auto">Nov 12, 2018</p>
-                    </td>
-                </tr>
+                        </td>
+                        <td>
+                            <p class="card-text mb-auto"><?php echo $mystery->getPrice(); ?></p>
+                        </td>
+                        <td>
+                            <p class="card-text mb-auto"><?php echo $mystery->getIsbn(); ?></p>
+                        </td>
+                    </tr>
+                <?php } ?>
                 </tbody>
             </table>
         </div>
@@ -261,32 +308,38 @@ if (isset($_SESSION["customer"])) {
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>
-                        <div class="row">
-                            <div class="col-auto d-none d-lg-block">
-                                <svg class="bd-placeholder-img" width="180" height="230"
-                                     xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
-                                     role="img" aria-label="Placeholder: Thumbnail"><title>
-                                        Placeholder</title>
-                                    <rect width="100%" height="100%" fill="#55595c"></rect>
-                                    <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                                </svg>
+                <?php foreach ($suspenseBooks as $k => $v) { $suspense = $v; ?>
+                    <tr>
+                        <td>
+                            <div class="row">
+                                <div class="col-auto d-none d-lg-block">
+                                    <?php if (empty($suspense->getImage())) { ?>
+                                        <svg class="bd-placeholder-img" width="180" height="230"
+                                             xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
+                                             role="img" aria-label="Placeholder: Thumbnail"><title>
+                                                Placeholder</title>
+                                            <rect width="100%" height="100%" fill="#55595c"></rect>
+                                            <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                                        </svg>
+                                    <?php } else { ?>
+                                        <img alt="book image" src="https://via.placeholder.com/200x230/55595c/FFFFFF/?text=Coming%20Soon">
+                                    <?php } ?>
+                                </div>
+                                <div class="col p-4 d-flex flex-column position-static">
+                                    <h5 class="mb-0"><?php echo $suspense->getTitle(); ?></h5>
+                                    <strong class="d-inline-block mb-2 text-primary">by World</strong>
+                                    <a href="#">Add to cart</a>
+                                </div>
                             </div>
-                            <div class="col p-4 d-flex flex-column position-static">
-                                <h3 class="mb-0">Featured post</h3>
-                                <strong class="d-inline-block mb-2 text-primary">by World</strong>
-                                <a href="#">Add to cart</a>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <p class="card-text mb-auto">CDN$ 14.99</p>
-                    </td>
-                    <td>
-                        <p class="card-text mb-auto">Nov 12, 2018</p>
-                    </td>
-                </tr>
+                        </td>
+                        <td>
+                            <p class="card-text mb-auto"><?php echo $suspense->getPrice(); ?></p>
+                        </td>
+                        <td>
+                            <p class="card-text mb-auto"><?php echo $suspense->getIsbn(); ?></p>
+                        </td>
+                    </tr>
+                <?php } ?>
                 </tbody>
             </table>
         </div>
@@ -300,32 +353,38 @@ if (isset($_SESSION["customer"])) {
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>
-                        <div class="row">
-                            <div class="col-auto d-none d-lg-block">
-                                <svg class="bd-placeholder-img" width="180" height="230"
-                                     xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
-                                     role="img" aria-label="Placeholder: Thumbnail"><title>
-                                        Placeholder</title>
-                                    <rect width="100%" height="100%" fill="#55595c"></rect>
-                                    <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                                </svg>
+                <?php foreach ($thrillers as $k => $v) { $thriller = $v; ?>
+                    <tr>
+                        <td>
+                            <div class="row">
+                                <div class="col-auto d-none d-lg-block">
+                                    <?php if (empty($thriller->getImage())) { ?>
+                                        <svg class="bd-placeholder-img" width="180" height="230"
+                                             xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
+                                             role="img" aria-label="Placeholder: Thumbnail"><title>
+                                                Placeholder</title>
+                                            <rect width="100%" height="100%" fill="#55595c"></rect>
+                                            <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                                        </svg>
+                                    <?php } else { ?>
+                                        <img alt="book image" src="https://via.placeholder.com/200x230/55595c/FFFFFF/?text=Coming%20Soon">
+                                    <?php } ?>
+                                </div>
+                                <div class="col p-4 d-flex flex-column position-static">
+                                    <h5 class="mb-0"><?php echo $thriller->getTitle(); ?></h5>
+                                    <strong class="d-inline-block mb-2 text-primary">by World</strong>
+                                    <a href="#">Add to cart</a>
+                                </div>
                             </div>
-                            <div class="col p-4 d-flex flex-column position-static">
-                                <h3 class="mb-0">Featured post</h3>
-                                <strong class="d-inline-block mb-2 text-primary">by World</strong>
-                                <a href="#">Add to cart</a>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <p class="card-text mb-auto">CDN$ 14.99</p>
-                    </td>
-                    <td>
-                        <p class="card-text mb-auto">Nov 12, 2018</p>
-                    </td>
-                </tr>
+                        </td>
+                        <td>
+                            <p class="card-text mb-auto"><?php echo $thriller->getPrice(); ?></p>
+                        </td>
+                        <td>
+                            <p class="card-text mb-auto"><?php echo $thriller->getIsbn(); ?></p>
+                        </td>
+                    </tr>
+                <?php } ?>
                 </tbody>
             </table>
         </div>
@@ -349,8 +408,13 @@ if (isset($_SESSION["customer"])) {
 <script src="js/vertical-tabs.js"></script>
 <script>
     $(document).ready(function () {
-        $('table#example').DataTable({
-            'pageLength': 2
+        $('table#BiographyTable, ' +
+            'table#FictionTable, ' +
+            'table#HistoryTable, ' +
+            'table#SuspenseTable, ' +
+            'table#MysteryTable, ' +
+            'table#ThrillerTable' ).DataTable({
+            'pageLength': 5
         });
     });
 </script>
