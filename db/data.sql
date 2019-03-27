@@ -85,3 +85,16 @@ insert into books_inventory (book_inv_id, book_id, qty_on_hand, qty_sold) values
 insert into books_inventory (book_inv_id, book_id, qty_on_hand, qty_sold) values (9, 9, 17, 0);
 insert into books_inventory (book_inv_id, book_id, qty_on_hand, qty_sold) values (10, 10, 58, 0);
 SET FOREIGN_KEY_CHECKS = 1;
+
+SET FOREIGN_KEY_CHECKS = 0;
+insert into customers (customer_name, email, password, phone_number, address) values ('Baxie Picken', 'bpicken0@shutterfly.com', 'V0FBCPCVmC', '807-639-6673', '39829 Pawling Pass, Montreal, QC');
+insert into customers (customer_name, email, password, phone_number, address) values ('Leonard Gibbett', 'lgibbett1@pbs.org', '6Du82Trz7tr5', '900-915-4896', '0 Kim Parkway, Toronto, ON');
+insert into customers (customer_name, email, password, phone_number, address) values ('Cedric Speak', 'cspeak2@sun.com', 'bdrGwq53yL', '831-811-0574', '52275 Valley Edge Point, Quebec, QC');
+insert into customers (customer_name, email, password, phone_number, address) values ('Hurley Ewdale', 'hewdale3@hao123.com', '5hQbWz', '397-843-0930', '4145 Fuller Lane, Vancouver, BC');
+insert into customers (customer_name, email, password, phone_number, address) values ('Lorilyn Eke', 'leke4@abc.net.au', 'ThcQ4Du', '938-669-4623', '87 Forest Dale Trail, Calgary, AB');
+insert into customers (customer_name, email, password, phone_number, address) values ('Kenny MacLaig', 'kmaclaig5@free.fr', 'hSUYx5PV', '306-769-4133', '52 Park Meadow Avenue, Montreal, QC');
+insert into customers (customer_name, email, password, phone_number, address) values ('Camala Cissell', 'ccissell6@accuweather.com', 'f21CXx7IhV', '836-276-6731', '5029 Oak Court, Laval, QC');
+insert into customers (customer_name, email, password, phone_number, address) values ('Sherie Conrart', 'sconrart7@cmu.edu', 'BlUJmFij', '287-423-2914', '64844 Commercial Drive, Toronto, ON');
+insert into customers (customer_name, email, password, phone_number, address) values ('Jock Jacklings', 'jjacklings8@paypal.com', 'JgpV2tVI', '504-273-4460', '4 Carey Alley, Hamilton, ON');
+insert into customers (customer_name, email, password, phone_number, address) values ( 'Daffi Gierck', 'dgierck9@amazon.co.jp', 'mstyFyucu', '917-864-9355', '3121 Sloan Pass, Kingston, ON');
+SET FOREIGN_KEY_CHECKS = 1;
