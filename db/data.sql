@@ -35,3 +35,16 @@ insert into books (book_id, isbn, title, edition, price, publisher_id, category)
 insert into books (book_id, isbn, title, edition, price, publisher_id, category) values (8, '092091632-5', 'Dreamboat', '7', 36.55, 1, '5');
 insert into books (book_id, isbn, title, edition, price, publisher_id, category) values (9, '590749912-5', 'Journey to the Far Side of the Sun (a.k.a. Doppelgänger)', '9', 51.13, 3, '0');
 insert into books (book_id, isbn, title, edition, price, publisher_id, category) values (10, '144391520-3', 'Made in Heaven', '3', 98.56, 2, '5');
+
+# e.g. book with book id 1 is written by author with author id 1 and 2
+INSERT INTO bookstore353.books_authors (book_authors_id, book_id, author_id) VALUES (1, 1, 1);
+INSERT INTO bookstore353.books_authors (book_authors_id, book_id, author_id) VALUES (2, 2, 12);
+INSERT INTO bookstore353.books_authors (book_authors_id, book_id, author_id) VALUES (3, 3, 13);
+INSERT INTO bookstore353.books_authors (book_authors_id, book_id, author_id) VALUES (4, 4, 12);
+INSERT INTO bookstore353.books_authors (book_authors_id, book_id, author_id) VALUES (5, 5, 1);
+INSERT INTO bookstore353.books_authors (book_authors_id, book_id, author_id) VALUES (6, 6, 2);
+INSERT INTO bookstore353.books_authors (book_authors_id, book_id, author_id) VALUES (7, 7, 3);
+INSERT INTO bookstore353.books_authors (book_authors_id, book_id, author_id) VALUES (8, 8, 3);
+INSERT INTO bookstore353.books_authors (book_authors_id, book_id, author_id) VALUES (9, 9, 8);
+INSERT INTO bookstore353.books_authors (book_authors_id, book_id, author_id) VALUES (10, 10, 12);
+INSERT INTO bookstore353.books_authors (book_authors_id, book_id, author_id) VALUES (11, 1, 2);
