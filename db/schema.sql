@@ -134,6 +134,8 @@ ALTER TABLE books_inventory
   AUTO_INCREMENT = 1;
 ALTER TABLE branches
   AUTO_INCREMENT = 1;
+ALTER TABLE customers
+  AUTO_INCREMENT = 1;
 ALTER TABLE employees
   AUTO_INCREMENT = 1;
 ALTER TABLE order_items

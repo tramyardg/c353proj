@@ -57,6 +57,7 @@ if (isset($_SESSION["customer"])) {
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 </head>
 <body>
+<?php $savedCartItems = $_COOKIE; ?>
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
         <a class="navbar-brand" href="#"><?php echo $commonNameTitle['siteName']; ?></a>
@@ -85,7 +86,10 @@ if (isset($_SESSION["customer"])) {
                         <a class="dropdown-item btn-success" href="#"><i class="mr-2" data-feather="user-check"></i>Your
                             account</a>
                         <?php } ?>
-                        <a class="dropdown-item" href="#"><i class="mr-2" data-feather="shopping-cart"></i>Cart</a>
+                        <a class="dropdown-item" href="#"><i class="mr-2" data-feather="shopping-cart"></i>
+                            Cart
+                            <span class="badge badge-info cart-counter"></span>
+                        </a>
                         <?php if (!isset($_SESSION["customer"])) { ?>
                         <a class="dropdown-item" href="login.php"><i class="mr-2" data-feather="log-in"></i>Log in</a>
                         <?php } ?>
@@ -151,10 +155,15 @@ if (isset($_SESSION["customer"])) {
                                 <?php } ?>
                             </div>
                             <div class="col d-flex p-0 flex-column">
-                                <h5 class="mb-0"><?php echo $biography->getTitle(); ?></h5>
-                                <strong class="d-inline-block mb-2 text-primary">by
-                                    <?php echo $atController->viewAuthors($biography->getBookId()) ?></strong>
-                                <a href="#">Add to cart</a>
+                                <div class="col p-0">
+                                    <h5 class="mb-0"><?php echo $biography->getTitle(); ?></h5>
+                                    <strong class="d-inline-block mb-2 text-primary">by
+                                        <?php echo $atController->viewAuthors($biography->getBookId()) ?></strong>
+                                </div>
+                                <div class="col p-0">
+                                    <button type="button" class="btn btn-success btn-xs add-to-cart"
+                                            data="<?php echo $biography->getBookId(); ?>" name="addToCart">Add to Cart</button>
+                                </div>
                             </div>
                         </div>
                     </td>
@@ -175,7 +184,7 @@ if (isset($_SESSION["customer"])) {
                 <tr>
                     <th scope="col"><?php echo BookCategory::toString(1); ?></th>
                     <th scope="col">Price</th>
-                    <th scope="col">Publication Date</th>
+                    <th scope="col">ISBN</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -221,7 +230,7 @@ if (isset($_SESSION["customer"])) {
                 <tr>
                     <th scope="col"><?php echo BookCategory::toString(2); ?></th>
                     <th scope="col">Price</th>
-                    <th scope="col">Publication Date</th>
+                    <th scope="col">ISBN</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -267,7 +276,7 @@ if (isset($_SESSION["customer"])) {
                 <tr>
                     <th scope="col"><?php echo BookCategory::toString(3); ?></th>
                     <th scope="col">Price</th>
-                    <th scope="col">Publication Date</th>
+                    <th scope="col">ISBN</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -313,7 +322,7 @@ if (isset($_SESSION["customer"])) {
                 <tr>
                     <th scope="col"><?php echo BookCategory::toString(4); ?></th>
                     <th scope="col">Price</th>
-                    <th scope="col">Publication Date</th>
+                    <th scope="col">ISBN</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -359,7 +368,7 @@ if (isset($_SESSION["customer"])) {
                 <tr>
                     <th scope="col"><?php echo BookCategory::toString(5); ?></th>
                     <th scope="col">Price</th>
-                    <th scope="col">Publication Date</th>
+                    <th scope="col">ISBN</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -417,6 +426,7 @@ if (isset($_SESSION["customer"])) {
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/select/1.2.5/js/dataTables.select.min.js"></script>
 <script src="js/vertical-tabs.js"></script>
+<script src="js/add-to-cart.js"></script>
 <script>
     $(document).ready(function () {
         $('table#BiographyTable, ' +
