@@ -48,3 +48,16 @@ INSERT INTO bookstore353.books_authors (book_authors_id, book_id, author_id) VAL
 INSERT INTO bookstore353.books_authors (book_authors_id, book_id, author_id) VALUES (9, 9, 8);
 INSERT INTO bookstore353.books_authors (book_authors_id, book_id, author_id) VALUES (10, 10, 12);
 INSERT INTO bookstore353.books_authors (book_authors_id, book_id, author_id) VALUES (11, 1, 2);
+
+# one-to-one relationship with books
+# e.g. book with book id 1 has sold 0 copies and 162 left in stock
+insert into books_inventory (book_inv_id, book_id, qty_on_hand, qty_sold) values (1, 1, 162, 0);
+insert into books_inventory (book_inv_id, book_id, qty_on_hand, qty_sold) values (2, 2, 59, 0);
+insert into books_inventory (book_inv_id, book_id, qty_on_hand, qty_sold) values (3, 3, 39, 0);
+insert into books_inventory (book_inv_id, book_id, qty_on_hand, qty_sold) values (4, 4, 61, 0);
+insert into books_inventory (book_inv_id, book_id, qty_on_hand, qty_sold) values (5, 5, 30, 0);
+insert into books_inventory (book_inv_id, book_id, qty_on_hand, qty_sold) values (6, 6, 68, 0);
+insert into books_inventory (book_inv_id, book_id, qty_on_hand, qty_sold) values (7, 7, 106, 0);
+insert into books_inventory (book_inv_id, book_id, qty_on_hand, qty_sold) values (8, 8, 97, 0);
+insert into books_inventory (book_inv_id, book_id, qty_on_hand, qty_sold) values (9, 9, 17, 0);
+insert into books_inventory (book_inv_id, book_id, qty_on_hand, qty_sold) values (10, 10, 58, 0);
