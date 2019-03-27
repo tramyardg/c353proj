@@ -100,14 +100,14 @@ insert into customers (customer_name, email, password, phone_number, address) va
 SET FOREIGN_KEY_CHECKS = 1;
 
 SET FOREIGN_KEY_CHECKS = 0;
-INSERT INTO bookstore353.employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (1, 'Franz Whitham', '901419755', '543-875-6085', 'fwhitham0@ebay.co.uk', 'wroTWL', '18 Kim Alley, Toronto, ON', 0);
-INSERT INTO bookstore353.employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (2, 'Guglielma Woodroffe', '847163023', '593-593-7903', 'gwoodroffe1@wisc.edu', 'ArtT10MZf', '22750 Coolidge Park, Kingston, ON', 1);
-INSERT INTO bookstore353.employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (3, 'Franciska Gilyott', '202272250', '238-401-3427', 'fgilyott2@dell.com', 'vO4Hjd9B5', '762 Spaight Avenue, Montreal, QC', 0);
-INSERT INTO bookstore353.employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (4, 'Lucio Mardall', '056441193', '176-839-6349', 'lmardall3@gravatar.com', '5qL0QmgjN', '18 Dottie Avenue, Montreal, QC', 1);
-INSERT INTO bookstore353.employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (5, 'Monika Sprowson', '956838039', '509-422-3192', 'msprowson4@exblog.jp', 'lrfZfobfQT', '7677 Eastwood Pass, Montreal, QC', 1);
-INSERT INTO bookstore353.employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (6, 'Annabelle Glossup', '931881837', '125-509-7975', 'aglossup5@psu.edu', 'VtnaHll', '68795 Washington Circle, Red Deer, AB', 1);
-INSERT INTO bookstore353.employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (7, 'Sallyanne Paske', '706699409', '509-849-2663', 'spaske6@google.com', 'R8nHxSkqV', '79 Marquette Street, Montreal, QC', 1);
-INSERT INTO bookstore353.employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (8, 'Diandra Bortoluzzi', '128475778', '632-435-1281', 'dbortoluzzi7@omniture.com', 'B3mheW', '8 Kenwood Pass, Quebec City, QC', 0);
-INSERT INTO bookstore353.employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (9, 'Neale MacNab', '424335084', '468-276-9816', 'nmacnab8@theguardian.com', 'KRrMX7a', '5 Pennsylvania Avenue, Toronto, ON', 0);
-INSERT INTO bookstore353.employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (10, 'Dru Cockin', '184698694', '591-965-1724', 'dcockin9@mapquest.com', 'HHGHpJkXO8', '4892 Starling Plaza, Montreal, QC', 1);
+INSERT INTO employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (1, 'Franz Whitham', '901419755', '543-875-6085', 'fwhitham0@ebay.co.uk', 'wroTWL', '18 Kim Alley, Toronto, ON', 0);
+INSERT INTO employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (2, 'Guglielma Woodroffe', '847163023', '593-593-7903', 'gwoodroffe1@wisc.edu', 'ArtT10MZf', '22750 Coolidge Park, Kingston, ON', 1);
+INSERT INTO employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (3, 'Franciska Gilyott', '202272250', '238-401-3427', 'fgilyott2@dell.com', 'vO4Hjd9B5', '762 Spaight Avenue, Montreal, QC', 0);
+INSERT INTO employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (4, 'Lucio Mardall', '056441193', '176-839-6349', 'lmardall3@gravatar.com', '5qL0QmgjN', '18 Dottie Avenue, Montreal, QC', 1);
+INSERT INTO employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (5, 'Monika Sprowson', '956838039', '509-422-3192', 'msprowson4@exblog.jp', 'lrfZfobfQT', '7677 Eastwood Pass, Montreal, QC', 1);
+INSERT INTO employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (6, 'Annabelle Glossup', '931881837', '125-509-7975', 'aglossup5@psu.edu', 'VtnaHll', '68795 Washington Circle, Red Deer, AB', 1);
+INSERT INTO employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (7, 'Sallyanne Paske', '706699409', '509-849-2663', 'spaske6@google.com', 'R8nHxSkqV', '79 Marquette Street, Montreal, QC', 1);
+INSERT INTO employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (8, 'Diandra Bortoluzzi', '128475778', '632-435-1281', 'dbortoluzzi7@omniture.com', 'B3mheW', '8 Kenwood Pass, Quebec City, QC', 0);
+INSERT INTO employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (9, 'Neale MacNab', '424335084', '468-276-9816', 'nmacnab8@theguardian.com', 'KRrMX7a', '5 Pennsylvania Avenue, Toronto, ON', 0);
+INSERT INTO employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (10, 'Dru Cockin', '184698694', '591-965-1724', 'dcockin9@mapquest.com', 'HHGHpJkXO8', '4892 Starling Plaza, Montreal, QC', 1);
 SET FOREIGN_KEY_CHECKS = 1;
