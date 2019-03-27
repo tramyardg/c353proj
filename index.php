@@ -8,6 +8,9 @@ require 'controller/BookController.php';
 require 'model/Enum.php';
 require 'model/BookCategory.php';
 
+require 'model/Author.php';
+require 'controller/AuthorController.php';
+
 $bkController = new BookController();
 $biographies = $bkController->fetchBookByCategory(BookCategory::Biography);
 $biography = new Book();
@@ -27,6 +30,8 @@ $suspense = new Book();
 $thrillers = $bkController->fetchBookByCategory(BookCategory::Thriller);
 $thriller = new Book();
 
+///////////////////////////////////
+$atController = new AuthorController();
 
 ob_start();
 session_start();
@@ -147,7 +152,8 @@ if (isset($_SESSION["customer"])) {
                             </div>
                             <div class="col d-flex p-0 flex-column">
                                 <h5 class="mb-0"><?php echo $biography->getTitle(); ?></h5>
-                                <strong class="d-inline-block mb-2 text-primary">by World</strong>
+                                <strong class="d-inline-block mb-2 text-primary">by
+                                    <?php echo $atController->viewAuthors($biography->getBookId()) ?></strong>
                                 <a href="#">Add to cart</a>
                             </div>
                         </div>
@@ -192,7 +198,8 @@ if (isset($_SESSION["customer"])) {
                             </div>
                             <div class="col p-4 d-flex flex-column position-static">
                                 <h5 class="mb-0"><?php echo $fiction->getTitle(); ?></h5>
-                                <strong class="d-inline-block mb-2 text-primary">by World</strong>
+                                <strong class="d-inline-block mb-2 text-primary">by
+                                    <?php echo $atController->viewAuthors($fiction->getBookId()) ?></strong>
                                 <a href="#">Add to cart</a>
                             </div>
                         </div>
@@ -237,7 +244,8 @@ if (isset($_SESSION["customer"])) {
                                 </div>
                                 <div class="col p-4 d-flex flex-column position-static">
                                     <h5 class="mb-0"><?php echo $history->getTitle(); ?></h5>
-                                    <strong class="d-inline-block mb-2 text-primary">by World</strong>
+                                    <strong class="d-inline-block mb-2 text-primary">by
+                                        <?php echo $atController->viewAuthors($history->getBookId()) ?></strong>
                                     <a href="#">Add to cart</a>
                                 </div>
                             </div>
@@ -282,7 +290,8 @@ if (isset($_SESSION["customer"])) {
                                 </div>
                                 <div class="col p-4 d-flex flex-column position-static">
                                     <h5 class="mb-0"><?php echo $mystery->getTitle(); ?></h5>
-                                    <strong class="d-inline-block mb-2 text-primary">by World</strong>
+                                    <strong class="d-inline-block mb-2 text-primary">by
+                                        <?php echo $atController->viewAuthors($mystery->getBookId()) ?></strong>
                                     <a href="#">Add to cart</a>
                                 </div>
                             </div>
@@ -327,7 +336,8 @@ if (isset($_SESSION["customer"])) {
                                 </div>
                                 <div class="col p-4 d-flex flex-column position-static">
                                     <h5 class="mb-0"><?php echo $suspense->getTitle(); ?></h5>
-                                    <strong class="d-inline-block mb-2 text-primary">by World</strong>
+                                    <strong class="d-inline-block mb-2 text-primary">by
+                                        <?php echo $atController->viewAuthors($suspense->getBookId()) ?></strong>
                                     <a href="#">Add to cart</a>
                                 </div>
                             </div>
@@ -372,7 +382,8 @@ if (isset($_SESSION["customer"])) {
                                 </div>
                                 <div class="col p-4 d-flex flex-column position-static">
                                     <h5 class="mb-0"><?php echo $thriller->getTitle(); ?></h5>
-                                    <strong class="d-inline-block mb-2 text-primary">by World</strong>
+                                    <strong class="d-inline-block mb-2 text-primary">by
+                                        <?php echo $atController->viewAuthors($thriller->getBookId()) ?></strong>
                                     <a href="#">Add to cart</a>
                                 </div>
                             </div>

@@ -12,4 +12,10 @@ class AuthorControllerTest extends PHPUnit_Framework_TestCase
         print_r($controller->getAuthorsByBookId(1));
     }
 
+    public function testViewAuthors()
+    {
+        $controller = new AuthorController();
+        echo $controller->viewAuthors(1);
+    }
+
 }
