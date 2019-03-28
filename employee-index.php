@@ -8,6 +8,8 @@ session_start();
 if (isset($_SESSION["employee"])) {
     $employee = $_SESSION["employee"];
     // print_r($employee);
+} else {
+    header("Location: index.php");
 }
 ?>
 
