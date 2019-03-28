@@ -3,18 +3,18 @@ ob_start();
 session_start();
 
 require '../db/DB.php';
-require '../model/Customer.php';
-require '../controller/CustomerController.php';
+require '../model/Employee.php';
+require '../controller/EmployeeController.php';
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST)) {
-    $controller = new CustomerController();
-    $customer = new Customer();
-    $customer = $controller->findByEmail($_POST["email"]);
+    $controller = new EmployeeController();
+    $employee = new Employee();
+    $employee = $controller->findByEmail($_POST["email"]);
 
-    if (!empty($customer[0])) {
-        if ($_POST["password"] == $customer[0]->getPassword()) {
-            $_SESSION["customer"] = $customer[0];
+    if (!empty($employee[0])) {
+        if ($_POST["password"] == $employee[0]->getPassword()) {
+            $_SESSION["employee"] = $employee[0];
             echo json_encode(array('result' => true));
         } else {
             echo json_encode(array(
@@ -28,5 +28,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST)) {
             'message' => 'No account associated with this email.')
         );
     }
-
 }

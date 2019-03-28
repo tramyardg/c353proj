@@ -7,17 +7,11 @@ require 'model/Enum.php';
 require 'model/BookCategory.php';
 require 'model/Book.php';
 
-// authors
-require 'model/Author.php';
-require 'controller/AuthorController.php';
-
-$aController = new AuthorController();
-//$authors = ;
-
 ob_start();
 session_start();
 if (isset($_SESSION["employee"])) {
     $employee = $_SESSION["employee"];
+    // print_r($employee);
 }
 ?>
 

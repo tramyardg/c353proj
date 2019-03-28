@@ -1,12 +1,12 @@
 <?php
 $commonNameTitle = parse_ini_file("./common.ini");
 
-//ob_start();
-//session_start();
-//if (isset($_SESSION["customer"]))
-//{
-//    header("Location: index.php");
-//}
+ob_start();
+session_start();
+if (isset($_SESSION["employee"]))
+{
+    header("Location: index.php");
+}
 ?>
 <!doctype html>
 <html lang="en">

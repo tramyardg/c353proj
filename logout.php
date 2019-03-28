@@ -70,14 +70,11 @@ $commonNameTitle = parse_ini_file("./common.ini");
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
     (function () {
-        $.ajax({
-            url: 'service/logout_service.php',
-            type: 'get'
-        }).done(function (response) {
-            if (response) {
-                var locHref = location.href;
-                var siteRoot = locHref.substring(0, locHref.lastIndexOf('/'));
-                var homePageLink = siteRoot + '/index.php';
+        $.get('service/logout.php', function (data) {
+            if (data) {
+                let locHref = location.href;
+                let siteRoot = locHref.substring(0, locHref.lastIndexOf('/'));
+                let homePageLink = siteRoot + '/index.php';
                 window.location.replace(homePageLink);
             }
         });

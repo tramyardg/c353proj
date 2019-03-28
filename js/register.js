@@ -55,26 +55,23 @@ const isValidPassword = function () {
 };
 const registerFormSubmit = function () {
     if (isValidAddress() && isValidPassword()) {
-        let url = 'service/customer_create_account_service.php';
+        let url = 'service/customer_create_account.php';
         if (formData.registerForm().registerAs === "employee") {
             if (formData.registerForm().ssn !== "") {
-                url = 'service/emp_create_account_service.php';
+                url = 'service/employee_create_account.php';
             } else {
                 alert("SSN cannot be empty");
                 return;
             }
         }
-        $.ajax({
-            url: url,
-            type: 'post',
-            data: formData.registerForm()
-        }).done(function (response) {
+        $.post(url, formData.registerForm(), function (response) {
             let res = JSON.parse(response);
             if (res.result) {
                 $('#successMessage').removeClass('d-none');
                 scrollTop();
                 disableInputSubmit($('input[id=inputRegister]'));
-                refreshTimer(3, $('#refreshSeconds'), function () {});
+                refreshTimer(3, $('#refreshSeconds'), function () {
+                });
             } else {
                 alert('There is already an account associated with this email.');
             }

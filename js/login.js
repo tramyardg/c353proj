@@ -1,42 +1,74 @@
-const loginForm = $('#loginForm');
+// common variables and functions
 const warnMessage = $('#warningMessage');
-const formData = {
-    loginForm: function () {
+
+const customerLoginForm = $('#customerLoginForm');
+const customerFormData = {
+    getVal: function () {
         return {
             email: $('input[id=inputEmail]').val(),
             password: $('input[id=inputPassword]').val()
         }
     }
 };
-const loginFormSubmit = function () {
-    if (formData.loginForm().email !== "" && formData.loginForm().password !== "") {
-        $.ajax({
-            url: 'service/login_service.php',
-            type: 'post',
-            data: formData.loginForm()
-        }).done(function (response) {
-            var res = JSON.parse(response);
+const customerLoginFormSubmit = function () {
+    if (customerFormData.getVal().email !== "" && customerFormData.getVal().password !== "") {
+        $.post('service/customer_login.php', customerFormData.getVal(), function (data) {
+            let res = JSON.parse(data);
             if (res.result) {
                 $('#successMessage').removeClass('d-none');
-                refreshTimer(3, $('#refreshSeconds'), redirectHome);
+                refreshTimer(3, $('#refreshSeconds'), function () {
+                    let locHref = location.href;
+                    let siteRoot = locHref.substring(0, locHref.lastIndexOf('/'));
+                    let homePageLink = siteRoot + '/index.php';
+                    window.location.replace(homePageLink);
+                });
             } else {
                 warnMessage.removeClass('d-none');
                 warnMessage.html(res.message);
             }
         });
     }
+};
 
+const employeeLoginForm = $('#employeeLoginForm');
+const employeeFormData = {
+    getVal: function () {
+        return {
+            email: $('input[id=inputEmpEmail]').val(),
+            password: $('input[id=inputEmpPassword]').val()
+        }
+    }
 };
-const redirectHome = function () {
-    let locHref = location.href;
-    let siteRoot = locHref.substring(0, locHref.lastIndexOf('/'));
-    let homePageLink = siteRoot + '/index.php';
-    window.location.replace(homePageLink);
+const employeeLoginFormSubmit = function () {
+    if (employeeFormData.getVal().email !== "" && employeeFormData.getVal().password !== "") {
+        $.post('service/employee_login.php', employeeFormData.getVal(), function (data) {
+            let res = JSON.parse(data);
+            if (res.result) {
+                $('#successMessage').removeClass('d-none');
+                refreshTimer(3, $('#refreshSeconds'), function () {
+                    let locHref = location.href;
+                    let siteRoot = locHref.substring(0, locHref.lastIndexOf('/'));
+                    let homePageLink = siteRoot + '/employee-index.php';
+                    window.location.replace(homePageLink);
+                });
+            } else {
+                warnMessage.removeClass('d-none');
+                warnMessage.html(res.message);
+            }
+        });
+    }
 };
+
 $(document).ready(function () {
-    loginForm.submit(function (e) {
+    customerLoginForm.submit(function (e) {
         e.preventDefault();
-        loginFormSubmit();
+        customerLoginFormSubmit();
         return false;
-    })
+    });
+
+    employeeLoginForm.submit(function (e) {
+        e.preventDefault();
+        employeeLoginFormSubmit();
+        return false;
+    });
 });

@@ -37,7 +37,7 @@ if (isset($_SESSION["customer"]))
                     <h4>Member Login</h4>
                 </button>
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                    <form class="needs-validation form-signin" id="loginForm" novalidate>
+                    <form class="needs-validation form-signin" id="customerLoginForm" novalidate>
                         <div class="form-label-group">
                             <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required>
                             <label for="inputEmail"><i class="mr-1" style="width: 20px; height: 20px;" data-feather="mail"></i>Email
@@ -63,7 +63,7 @@ if (isset($_SESSION["customer"]))
                     <span>Employee Login</span>
                 </button>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                    <form class="needs-validation form-signin" id="empLoginForm" novalidate>
+                    <form class="needs-validation form-signin" id="employeeLoginForm" novalidate>
                         <div class="form-label-group">
                             <input type="email" id="inputEmpEmail" class="form-control" placeholder="Email address" required>
                             <label for="inputEmpEmail"><i class="mr-1" style="width: 20px; height: 20px;" data-feather="mail"></i>Email
