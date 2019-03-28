@@ -85,10 +85,10 @@ if (isset($_SESSION["employee"])) {
                     <tbody>
                     <tr>
                         <td class="d-none">1</td>
-                        <td><input type="checkbox" name="bookCheckBox" value="" /></td>
+                        <td><input type="checkbox" name="bookCheckBox" value=""/></td>
                         <td>The Hobbit</td>
                         <td>ASDD3232</td>
-                        <td><input type="number" /></td>
+                        <td><input type="number"/></td>
                     </tr>
                     </tbody>
                 </table>
@@ -114,47 +114,68 @@ if (isset($_SESSION["employee"])) {
         </script>
         <!-- Add books tab -->
         <div class="tab-pane fade" id="addBooks" role="tabpanel" aria-labelledby="addBooks-tab">
+            <p><code>Loop through the publishers data in the database and display in publisher select dropdown</code>
+            </p>
+            <p><code>Loop through the authors data in the database and display author select dropdown</code></p>
             <form style="margin:2.5% 5%;">
-                <!-- isbn -->
-                <div class="form-group">
-                    <label for="isbn">ISBN</label>
-                    <input type="number" class="form-control" id="isbn" size="20">
+
+                <div class="row">
+                    <div class="col">
+                        <label for="isbn">ISBN</label>
+                        <input type="text" maxlength="11" class="form-control" id="isbn">
+                    </div>
+                    <!-- title -->
+                    <div class="col">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" id="title">
+                    </div>
+                    <!-- edition -->
+                    <div class="col">
+                        <label for="edition">Edition</label>
+                        <input type="number" class="form-control" id="edition">
+                    </div>
+                    <!-- price -->
+                    <div class="col">
+                        <label for="price">Price</label>
+                        <input type="number" class="form-control" id="price">
+                    </div>
                 </div>
-                <!-- title -->
-                <div class="form-group">
-                    <label for="title">Title</label>
-                    <input type="text" class="form-control" id="title" size="250">
-                </div>
-                <!-- edition -->
-                <div class="form-group">
-                    <label for="edition">Edition</label>
-                    <input type="number" class="form-control" id="edition" size="2">
-                </div>
-                <!-- price -->
-                <div class="form-group">
-                    <label for="price">Price</label>
-                    <input type="number" class="form-control" id="price" size="5">
-                </div>
-                <!-- publisher_id -->
-                <div class="form-group">
-                    <label for="publisher_id">Publisher ID</label>
-                    <input type="number" class="form-control" id="publisher_id" size="4">
-                </div>
-                <!-- Book Category -->
-                <div class="form-group">
-                    <label for="bookCategory">Genre</label>
-                    <select class="form-control" id="bookCategory">
-                        <option value="0">Biography</option>
-                        <option value="1">Fiction</option>
-                        <option value="2">History</option>
-                        <option value="3">Mystery</option>
-                        <option value="4">Suspense</option>
-                        <option value="5">Thriller</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlFile1">Example file input</label>
-                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                <div class="row mt-2">
+                    <!-- publisher_id -->
+                    <div class="col">
+                        <label for="publisher_id">Publisher</label>
+                        <select class="form-control" id="bookCategory">
+                            <option value="0">Publisher 1</option>
+                            <option value="1">Publisher 2</option>
+                            <option value="2">Publisher 3</option>
+                        </select>
+                    </div>
+                    <!-- authors -->
+                    <div class="col">
+                        <label for="authorsSelect">Authors</label>
+                        <select multiple class="form-control" id="authorsSelect">
+                            <option value="0">Author 1</option>
+                            <option value="1">Author 2</option>
+                            <option value="2">Author 3</option>
+                            <option value="3">Author 4</option>
+                        </select>
+                    </div>
+                    <!-- Book Category -->
+                    <div class="col">
+                        <label for="bookCategory">Genre</label>
+                        <select class="form-control" id="bookCategory">
+                            <option value="0">Biography</option>
+                            <option value="1">Fiction</option>
+                            <option value="2">History</option>
+                            <option value="3">Mystery</option>
+                            <option value="4">Suspense</option>
+                            <option value="5">Thriller</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="exampleFormControlFile1">Example file input</label>
+                        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                    </div>
                 </div>
             </form>
         </div>
