@@ -3,10 +3,6 @@ $commonNameTitle = parse_ini_file("./common.ini");
 require 'db/DB.php';
 require 'model/Enum.php';
 
-// books
-require 'model/BookCategory.php';
-require 'model/Book.php';
-
 ob_start();
 session_start();
 if (isset($_SESSION["employee"])) {
@@ -73,14 +69,16 @@ if (isset($_SESSION["employee"])) {
                                 account</a>
                         <?php } ?>
                         <?php if (!isset($_SESSION["employee"])) { ?>
-                            <a class="dropdown-item" href="login.php"><i class="mr-2" data-feather="log-in"></i>Log in</a>
+                            <a class="dropdown-item" href="login.php"><i class="mr-2" data-feather="log-in"></i>Log
+                                in</a>
                         <?php } ?>
                         <?php if (isset($_SESSION["employee"])) { ?>
                             <a class="dropdown-item" href="logout.php"><i class="mr-2" data-feather="log-out"></i>Log
                                 out</a>
                         <?php } ?>
                         <?php if (!isset($_SESSION["employee"])) { ?>
-                            <a class="dropdown-item" href="create-account.php"><i class="mr-2" data-feather="user-plus"></i>Register</a>
+                            <a class="dropdown-item" href="create-account.php"><i class="mr-2"
+                                                                                  data-feather="user-plus"></i>Register</a>
                         <?php } ?>
                     </div>
                 </li>
@@ -125,23 +123,6 @@ if (isset($_SESSION["employee"])) {
                 <input type="submit" class="btn btn-success btn-md" value="Submit"/>
             </form>
         </div>
-        <script>$(document).ready(function () {
-                $('#booksTable').DataTable({
-                    'pageLength': 2,
-                    columnDefs: [{"width": "10%", "targets": 1}]
-                });
-
-                $('#receiveForm').submit(function (event) {
-                    event.preventDefault();
-                    alert(
-                        "The following data would have been submitted to the server: \n\n"
-                    );
-
-                    return false;
-                });
-
-            });
-        </script>
         <!-- Add books tab -->
         <div class="tab-pane fade" id="addBooks" role="tabpanel" aria-labelledby="addBooks-tab">
             <p><code>Loop through the publishers data in the database and display in publisher select dropdown</code>
@@ -167,14 +148,14 @@ if (isset($_SESSION["employee"])) {
                     <!-- price -->
                     <div class="col">
                         <label for="price">Price</label>
-                        <input type="number" class="form-control" id="price">
+                        <input type="number" class="form-control" id="price" step=any>
                     </div>
                 </div>
                 <div class="row mt-2">
                     <!-- publisher_id -->
                     <div class="col">
                         <label for="publisher_id">Publisher</label>
-                        <select class="form-control" id="bookCategory">
+                        <select class="form-control" id="publishersSelect">
                             <option value="0">Publisher 1</option>
                             <option value="1">Publisher 2</option>
                             <option value="2">Publisher 3</option>
@@ -184,27 +165,6 @@ if (isset($_SESSION["employee"])) {
                     <div class="col">
                         <label for="authorsSelect">Authors</label>
                         <select multiple class="form-control" id="authorsSelect">
-                            <script>
-                                $(document).ready(function () {
-                                    $.get("service/author_service.php?fetch=all", function (data) {
-                                        console.log(JSON.parse(data));
-                                        let authors = JSON.parse(data);
-                                        let h = '';
-                                        for (let i = 0; i < authors.length; i++) {
-                                            let middleName = '';
-                                            if (authors[i].middle_name !== null) {
-                                                middleName = authors[i].middle_name
-                                            }
-                                            h += '<option value="' + authors[i].author_id + '">' +
-                                                authors[i].first_name + ' ' +
-                                                middleName + ' ' +
-                                                authors[i].last_name +
-                                                '</option>';
-                                        }
-                                        $('#authorsSelect').html(h);
-                                    });
-                                });
-                            </script>
                         </select>
                     </div>
                     <!-- Book Category -->
@@ -220,12 +180,54 @@ if (isset($_SESSION["employee"])) {
                         </select>
                     </div>
                     <div class="col">
-                        <label for="exampleFormControlFile1">Example file input</label>
-                        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                        <label for="bookImageControl">Book Cover</label>
+                        <input type="file" class="form-control-file" id="bookImageControl">
                     </div>
                 </div>
             </form>
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            $('#booksTable').DataTable({
+                'pageLength': 2,
+                columnDefs: [{"width": "10%", "targets": 1}]
+            });
+            $('#receiveForm').submit(function (event) {
+                event.preventDefault();
+                alert("The following data would have been submitted to the server: \n\n");
+                return false;
+            });
+        });
+        (function () {
+            $.get("service/fetch.php?authors=all", function (data) {
+                let authors = JSON.parse(data);
+                let h = '';
+                for (let i = 0; i < authors.length; i++) {
+                    let middleName = '';
+                    if (authors[i].middle_name !== null) {
+                        middleName = authors[i].middle_name
+                    }
+                    h += '<option value="' + authors[i].author_id + '">' +
+                        authors[i].first_name + ' ' +
+                        middleName + ' ' +
+                        authors[i].last_name +
+                        '</option>';
+                }
+                $('#authorsSelect').html(h);
+            });
+            $.get("service/fetch.php?publishers=all", function (data) {
+                let publishers = JSON.parse(data);
+                let h = '';
+                for (let i = 0; i < publishers.length; i++) {
+                    h += '<option value="' + publishers[i].publisher_id + '">' +
+                        publishers[i].publisher_id + ' ' +
+                        publishers[i].company_name + ' ' +
+                        '</option>';
+                }
+                $('#publishersSelect').html(h);
+            });
+        })();
+    </script>
 </body>
 </html>

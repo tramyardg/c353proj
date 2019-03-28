@@ -5,7 +5,7 @@ ob_start();
 session_start();
 if (isset($_SESSION["employee"]))
 {
-    header("Location: index.php");
+    header("Location: employee-index.php");
 }
 ?>
 <!doctype html>
