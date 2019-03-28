@@ -6,6 +6,14 @@ class AuthorController
     {
     }
 
+    public function fetchAuthors()
+    {
+        $sql = "SELECT * FROM authors;";
+        $stmt = DB::getInstance()->prepare($sql);
+        $stmt->execute();
+        return json_encode($stmt->fetchAll(PDO::FETCH_CLASS, "Author"), JSON_PRETTY_PRINT);
+    }
+
     // get authors of a book given a book id
     public function getAuthorsByBookId($id)
     {

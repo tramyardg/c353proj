@@ -1,5 +1,18 @@
 <?php
 $commonNameTitle = parse_ini_file("./common.ini");
+require 'db/DB.php';
+require 'model/Enum.php';
+
+// books
+require 'model/BookCategory.php';
+require 'model/Book.php';
+
+// authors
+require 'model/Author.php';
+require 'controller/AuthorController.php';
+
+$aController = new AuthorController();
+//$authors = ;
 
 ob_start();
 session_start();
@@ -36,6 +49,7 @@ if (isset($_SESSION["employee"])) {
     <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 </head>
 <body>
+<?php //print_r(json_encode($aController->fetchAuthors())); ?>
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
         <a class="navbar-brand" href="#"><?php echo $commonNameTitle['siteName']; ?></a>
@@ -52,7 +66,29 @@ if (isset($_SESSION["employee"])) {
             </ul>
             <ul class="nav my-2 my-md-0">
                 <li class="dropdown">
-
+                    <?php if (isset($_SESSION["employee"])) { ?>
+                        <a class="nav-link pl-0 dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">Hello, Employee</a>
+                    <?php } else { ?>
+                        <a class="nav-link pl-0 dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">Hello, Sign in</a>
+                    <?php } ?>
+                    <div class="dropdown-menu">
+                        <?php if (isset($_SESSION["employee"])) { ?>
+                            <a class="dropdown-item btn-success" href="#"><i class="mr-2" data-feather="user-check"></i>Your
+                                account</a>
+                        <?php } ?>
+                        <?php if (!isset($_SESSION["employee"])) { ?>
+                            <a class="dropdown-item" href="login.php"><i class="mr-2" data-feather="log-in"></i>Log in</a>
+                        <?php } ?>
+                        <?php if (isset($_SESSION["employee"])) { ?>
+                            <a class="dropdown-item" href="logout.php"><i class="mr-2" data-feather="log-out"></i>Log
+                                out</a>
+                        <?php } ?>
+                        <?php if (!isset($_SESSION["employee"])) { ?>
+                            <a class="dropdown-item" href="create-account.php"><i class="mr-2" data-feather="user-plus"></i>Register</a>
+                        <?php } ?>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -117,7 +153,7 @@ if (isset($_SESSION["employee"])) {
             <p><code>Loop through the publishers data in the database and display in publisher select dropdown</code>
             </p>
             <p><code>Loop through the authors data in the database and display author select dropdown</code></p>
-            <form style="margin:2.5% 5%;">
+            <form>
 
                 <div class="row">
                     <div class="col">
@@ -154,10 +190,27 @@ if (isset($_SESSION["employee"])) {
                     <div class="col">
                         <label for="authorsSelect">Authors</label>
                         <select multiple class="form-control" id="authorsSelect">
-                            <option value="0">Author 1</option>
-                            <option value="1">Author 2</option>
-                            <option value="2">Author 3</option>
-                            <option value="3">Author 4</option>
+                            <script>
+                                $(document).ready(function () {
+                                    $.get("service/author_service.php?fetch=all", function (data) {
+                                        console.log(JSON.parse(data));
+                                        let authors = JSON.parse(data);
+                                        let h = '';
+                                        for (let i = 0; i < authors.length; i++) {
+                                            let middleName = '';
+                                            if (authors[i].middle_name !== null) {
+                                                middleName = authors[i].middle_name
+                                            }
+                                            h += '<option value="' + authors[i].author_id + '">' +
+                                                authors[i].first_name + ' ' +
+                                                middleName + ' ' +
+                                                authors[i].last_name +
+                                                '</option>';
+                                        }
+                                        $('#authorsSelect').html(h);
+                                    });
+                                });
+                            </script>
                         </select>
                     </div>
                     <!-- Book Category -->
@@ -180,7 +233,5 @@ if (isset($_SESSION["employee"])) {
             </form>
         </div>
     </div>
-
-
 </body>
 </html>
