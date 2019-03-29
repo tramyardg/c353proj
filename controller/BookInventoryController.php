@@ -26,7 +26,7 @@ class BookInventoryController
 
     public function updateByBookIdAndQtyReceived($bookId, $qtyReceived)
     {
-        $sql = "UPDATE `books_inventory` SET `qty_on_hand` = ? WHERE `book_id` = ?;";
+        $sql = "UPDATE `books_inventory` SET `qty_on_hand` = `qty_on_hand` + ? WHERE `book_id` = ?;";
         $stmt = DB::getInstance()->prepare($sql);
         $exec = $stmt->execute([$qtyReceived, $bookId]);
         echo json_encode(array('result' => $exec));

@@ -1,5 +1,8 @@
 <?php
 
+require '../model/BookInventory.php';
+require '../controller/BookInventoryController.php';
+
 class ShipmentController
 {
    public function fetchShipments()
@@ -9,6 +12,14 @@ class ShipmentController
        $stmt->execute();
        return json_encode($stmt->fetchAll(PDO::FETCH_CLASS, "Shipment"), JSON_PRETTY_PRINT);
    }
+
+    public function fetchShipmentById(Shipment $shipment)
+    {
+        $sql = "SELECT * FROM shipments WHERE shipment_id = ?;";
+        $stmt = DB::getInstance()->prepare($sql);
+        $stmt->execute([$shipment->getShipmentId()]);
+        return $stmt->fetchAll(PDO::FETCH_CLASS, "Shipment");
+    }
 
     public function save(Shipment $shipment)
     {
@@ -38,7 +49,7 @@ class ShipmentController
        $current_date = date('Y-m-d');
        $sql = "UPDATE `shipments` SET is_received = ?, date_received = ? WHERE shipment_id = ?";
        $stmt = DB::getInstance()->prepare($sql);
-       $exec = $stmt->execute(['1', $current_date]);
+       $exec = $stmt->execute(['1', $current_date, $shipment->getShipmentId()]);
 
        // update book inventory
        $bkInventory = new BookInventoryController();
