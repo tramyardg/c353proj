@@ -82,6 +82,9 @@ if (isset($_SESSION["customer"]))
                         </div>
                         <input class="btn btn-lg btn-success btn-block" type="submit" value="Sign in"/>
                     </form>
+                    <div class="col-4 mx-auto pb-md-2" style="text-align: center;">
+                        <a href="create-account-employee.php" class="">Create an account</a>
+                    </div>
                 </div>
             </div>
         </div>
