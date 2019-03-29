@@ -53,6 +53,6 @@ class ShipmentControllerTest extends PHPUnit_Framework_TestCase
     public function testReceiveShipmentTab()
     {
         $shController = new ShipmentController();
-        print_r($shController->forReceiveShipmentTab());
+        print_r($shController->fetchShipmentsToReceive());
     }
 }

@@ -56,26 +56,35 @@ class ShipmentController
         echo json_encode(array('result' => $exec));
     }
 
-    public function forReceiveShipmentTab()
+    public function fetchShipmentsToReceive()
     {
+        $shipments = $this->fetchShipments(); // raw
+        $out = null;
 
-        $sql = 'SELECT b.title, b.isbn, s.qty_to_receive, p.publisher_id, p.company_name, s.date_shipped, s.is_received
-                FROM shipments s,
-                     books b,
-                     publishers p
-                WHERE b.publisher_id = p.publisher_id
-                  AND p.publisher_id = s.publisher_id
-                  AND b.book_id = s.book_id;';
+        $bkController = new BookController();
+        $pbController = new PublisherController();
 
-        $stmt = DB::getInstance()->prepare($sql);
-        $stmt->execute();
+        foreach ($shipments as $k) {
+            $book = new Book();
+            $book = $bkController->fetchBookById($k->getBookId())[0];
 
+            $publisher = new Publisher();
+            $publisher = $pbController->fetchPublisherById($k->getPublisherId())[0];
 
-        $shipments = null;
-
-        foreach ($stmt->fetchAll() as $k) {
-            print_r($k);
+            $item = [
+                'shipment_id' => $k->getShipmentId(),
+                'book_id' => $k->getBookId(),
+                'book_title' => $book->getTitle(),
+                'isbn' => $book->getIsbn(),
+                'qty_to_receive' => $k->getQtyToReceive(),
+                'publisher_id' => $k->getPublisherId(),
+                'company_name' => $publisher->getCompanyName(),
+                'date_shipped' => $k->getDateShipped(),
+                'date_received' => $k->getDateReceived(),
+                'is_received' => $k->getIsReceived()
+            ];
+            $out[] = $item;
         }
-        return $shipments;
+        return $out;
     }
 }
