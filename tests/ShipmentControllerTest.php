@@ -1,6 +1,13 @@
 <?php
 require '../db/DB.php';
+require '../model/Book.php';
+require '../model/Publisher.php';
+require '../model/BookInventory.php';
 require '../model/Shipment.php';
+
+require '../controller/BookController.php';
+require '../controller/PublisherController.php';
+require '../controller/BookInventoryController.php';
 require '../controller/ShipmentController.php';
 
 
@@ -10,7 +17,7 @@ class ShipmentControllerTest extends PHPUnit_Framework_TestCase
     public function testFetchShipments()
     {
         $shController = new ShipmentController();
-        echo $shController->fetchShipments();
+        print_r($shController->fetchShipments());
     }
 
     public function testSave()
@@ -41,5 +48,11 @@ class ShipmentControllerTest extends PHPUnit_Framework_TestCase
 
         // now check if shipment with id #8 has status received 1...
         print_r($shController->fetchShipmentById($shipment));
+    }
+
+    public function testReceiveShipmentTab()
+    {
+        $shController = new ShipmentController();
+        print_r($shController->forReceiveShipmentTab());
     }
 }

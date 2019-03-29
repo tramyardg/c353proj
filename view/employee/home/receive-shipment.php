@@ -1,3 +1,9 @@
+<?php
+
+$shController = new ShipmentController();
+$shipments = $shController->fetchShipments();
+$shipment = new Shipment();
+?>
 <div class="tab-pane fade show active" id="receive" role="tabpanel" aria-labelledby="receive-tab">
     <table id="booksReceiveTable" class="display" width="100%">
         <thead>
@@ -12,15 +18,17 @@
         </tr>
         </thead>
         <tbody>
+        <?php foreach ($shipments as $k => $v) { $shipment = $v; ?>
             <tr>
                 <td class="d-none"></td>
-                <td></td>
+                <td><?php echo $shipment->getBookId(); ?></td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
             </tr>
+        <?php } ?>
         </tbody>
     </table>
     <div class="my-3">

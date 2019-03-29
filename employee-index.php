@@ -1,9 +1,17 @@
 <?php
 $commonNameTitle = parse_ini_file("./common.ini");
 require 'db/DB.php';
+
 require 'model/Enum.php';
-require 'controller/BookController.php';
 require 'model/Book.php';
+require 'model/Publisher.php';
+require 'model/BookInventory.php';
+require 'model/Shipment.php';
+
+require 'controller/BookController.php';
+require 'controller/BookInventoryController.php';
+require 'controller/PublisherController.php';
+require 'controller/ShipmentController.php';
 
 ob_start();
 session_start();
