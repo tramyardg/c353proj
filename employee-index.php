@@ -192,8 +192,13 @@ $book = new Book();
                         </select>
                     </div>
                     <div class="col">
-                        <label for="bookImageControl">Book Cover</label>
+                        <label for="bookImageControl">Book Cover Image</label>
                         <input type="file" class="form-control-file" id="bookImageControl">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <input type="submit" class="btn btn-outline-success" id="addBookSubmit" />
                     </div>
                 </div>
             </form>
@@ -214,30 +219,26 @@ $book = new Book();
         (function () {
             $.get("service/fetch.php?authors=all", function (data) {
                 let authors = JSON.parse(data);
-                let h = '';
                 for (let i = 0; i < authors.length; i++) {
                     let middleName = '';
                     if (authors[i].middle_name !== null) {
                         middleName = authors[i].middle_name
                     }
-                    h += '<option value="' + authors[i].author_id + '">' +
+                    $('#authorsSelect').append('<option value="' + authors[i].author_id + '">' +
                         authors[i].first_name + ' ' +
                         middleName + ' ' +
                         authors[i].last_name +
-                        '</option>';
+                        '</option>');
                 }
-                $('#authorsSelect').html(h);
             });
             $.get("service/fetch.php?publishers=all", function (data) {
                 let publishers = JSON.parse(data);
-                let h = '';
                 for (let i = 0; i < publishers.length; i++) {
-                    h += '<option value="' + publishers[i].publisher_id + '">' +
+                    $('#publishersSelect').append('<option value="' + publishers[i].publisher_id + '">' +
                         publishers[i].publisher_id + ' ' +
                         publishers[i].company_name + ' ' +
-                        '</option>';
+                        '</option>');
                 }
-                $('#publishersSelect').html(h);
             });
         })();
     </script>
