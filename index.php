@@ -105,6 +105,27 @@ if (isset($_SESSION["customer"])) {
         </div>
     </nav>
     <main class="container-fluid">
+        <!-- Order Request Modal -->
+        <div class="modal fade" id="orderRequestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Send Order Request</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Put form in here<br>
+                book name, book quantity
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Send Order</button>
+            </div>
+            </div>
+        </div>
+        </div>
         <div class="row">
             <!-- All the filters are in here -->
             <div class="col-3">

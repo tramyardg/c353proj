@@ -37,7 +37,11 @@ const renderBookCard = (book) => {
                             </button>`
                         }
                         ${(book.qty_on_hand == 0) ? `
-                            <button type="button" class="btn btn-primary" onclick="requestOrder(${book.book_id})">Request Book</button>
+                            <button type="button" 
+                                class="btn btn-primary" 
+                                data-toggle="modal" 
+                                data-target="#orderRequestModal"
+                                onclick="requestOrder(${book.book_id})">Request Book</button>
                         ` : ""}
                     </div>
                 </div>
@@ -79,7 +83,8 @@ const containsOrder = (bookId) => {
 }
 
 const requestOrder = (bookId) => {
-    alert("SEND REQUEST BOOK HERE");
+    // alert("SEND REQUEST BOOK HERE");
+    console.log("open modal");
 }
 
 // apply filter changes on books
