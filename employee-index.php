@@ -136,18 +136,48 @@ $book = new Book();
                         <?php }?>
                     </tbody>
                 </table>
-                <input type="submit" class="btn btn-success btn-md" value="Submit"/>
+                <input type="submit" class="btn btn-outline-success btn-md" value="Submit"/>
             </form>
         </div>
+        <!-- Employee ordering books tab -->
         <div class="tab-pane fade" id="orderBooks" role="tabpanel" aria-labelledby="addBooks-tab">
             <p><code>To full fill the function of employee: the Bookstore can order books from several publishers.</code></p>
-            <p><code>https://github.com/tramyardg/c353proj#more-details</code></p>
+            <p><code>Ordering works one publisher at a time.</code></p>
+            <form id="employeeOrderBook">
+                <div class="form-group">
+                    <h5>Step 1: Select a publisher to order from</h5>
+                    <p><code>loop through the database and display the publishers to choose from</code></p>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="publishersGroupSelect">Publishers</label>
+                        </div>
+                        <select class="custom-select" id="publishersGroupSelect">
+                            <option selected>Choose...</option>
+                            <option value="1">Publisher 1</option>
+                            <option value="2">Publisher 1</option>
+                            <option value="3">Publisher 1</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h5>Step 2: Select book(s) to order from this publisher</h5>
+                    <p><code>loop through the database and get the books published from selected publisher in step 1</code></p>
+                    <p><code>generate a dynamic select options and display them below</code></p>
+                    <label for="booksToOrder">Books to Order</label>
+                    <select multiple class="form-control" id="booksToOrder"></select>
+                </div>
+                <div class="form-group">
+                    <h4>Step 2: Enter number of books needed</h4>
+                    <label for="edition">Order Quantity</label>
+                    <input type="number" class="form-control" id="edition">
+                </div>
+                <input type="submit" class="btn btn-outline-success" value="Order"/>
+            </form>
         </div>
         <!-- Add books tab -->
         <div class="tab-pane fade" id="addBooks" role="tabpanel" aria-labelledby="addBooks-tab">
-            <p><code>This tab is for adding book that does not exists yet in the inventory. For extra marks.</code></p>
+            <p><code>This tab is for adding new book that does <b>NOT</b> exists yet in the inventory. For extra marks.</code></p>
             <form>
-
                 <div class="row">
                     <div class="col">
                         <label for="isbn">ISBN</label>
@@ -163,16 +193,16 @@ $book = new Book();
                         <label for="edition">Edition</label>
                         <input type="number" class="form-control" id="edition">
                     </div>
+                </div>
+                <div class="row mt-2">
                     <!-- price -->
                     <div class="col">
                         <label for="price">Price</label>
                         <input type="number" class="form-control" id="price" step=any>
                     </div>
-                </div>
-                <div class="row mt-2">
                     <!-- publisher_id -->
                     <div class="col">
-                        <label for="publisher_id">Publisher</label>
+                        <label for="publishersSelect">Publisher</label>
                         <select class="form-control" id="publishersSelect"></select>
                     </div>
                     <!-- authors -->
@@ -192,14 +222,16 @@ $book = new Book();
                             <option value="5">Thriller</option>
                         </select>
                     </div>
-                    <div class="col">
-                        <label for="bookImageControl">Book Cover Image</label>
+                </div>
+                <div class="row ">
+                    <div class="col mb-2">
+                        <label for="bookImageControl">Book Cover Image (optional)</label>
                         <input type="file" class="form-control-file" id="bookImageControl">
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col">
-                        <input type="submit" class="btn btn-outline-success" id="addBookSubmit" />
+                        <input type="submit" class="btn btn-outline-success" value="Add" id="addBookSubmit" />
                     </div>
                 </div>
             </form>
