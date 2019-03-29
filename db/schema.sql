@@ -1,3 +1,4 @@
+/*
 CREATE DATABASE IF NOT EXISTS bookstore353;
 ALTER
   DATABASE bookstore353
@@ -5,6 +6,7 @@ ALTER
   DEFAULT COLLATE utf8_general_ci;
 
 USE bookstore353;
+*/
 
 # copy from here if database already exists
 SET FOREIGN_KEY_CHECKS = 0;
@@ -18,6 +20,7 @@ DROP TABLE IF EXISTS `books_authors`;
 DROP TABLE IF EXISTS `books_inventory`;
 DROP TABLE IF EXISTS `order_items`;
 DROP TABLE IF EXISTS `branches`;
+DROP TABLE IF EXISTS `shipments`;
 SET FOREIGN_KEY_CHECKS = 1;
 
 CREATE TABLE IF NOT EXISTS `employees`
@@ -124,6 +127,17 @@ CREATE TABLE IF NOT EXISTS `branches`
   FOREIGN KEY (`publisher_id`) REFERENCES `publishers` (`publisher_id`)
 );
 
+CREATE TABLE IF NOT EXISTS `shipments`
+(
+  `shipment_id`    INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `book_id`        INT(4)             NOT NULL,
+  `publisher_id`   INT(4)             NOT NULL,
+  `qty_to_receive` INT                NOT NULL,
+  `shipment_date`  TIMESTAMP          NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`),
+  FOREIGN KEY (`publisher_id`) REFERENCES `publishers` (`publisher_id`)
+);
+
 ALTER TABLE authors
   AUTO_INCREMENT = 1;
 ALTER TABLE books
@@ -143,5 +157,7 @@ ALTER TABLE order_items
 ALTER TABLE orders
   AUTO_INCREMENT = 1;
 ALTER TABLE publishers
+  AUTO_INCREMENT = 1;
+ALTER TABLE shipments
   AUTO_INCREMENT = 1;
 
