@@ -1,6 +1,6 @@
 <?php
 
-class BookInventory
+class BookInventory implements JsonSerializable
 {
     private $book_inv_id;
     private $book_id;
@@ -34,7 +34,7 @@ class BookInventory
 
     public function setQtyOnHand($qty_on_hand)
     {
-        $this->qty_on_hand = qty_on_hand;
+        $this->qty_on_hand = $qty_on_hand;
     }
 
     public function getQtySold()
@@ -44,7 +44,18 @@ class BookInventory
 
     public function setQtySold($qty_sold)
     {
-        $this->qty_sold = qty_sold;
+        $this->qty_sold = $qty_sold;
     }
 
+    /**
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
+    }
 }

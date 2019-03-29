@@ -12,8 +12,7 @@ class BookController
         $sql = "SELECT * FROM books;";
         $stmt = DB::getInstance()->prepare($sql);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_CLASS,
-            "Book");
+        return $stmt->fetchAll(PDO::FETCH_CLASS,"Book");
     }
 
     public function fetchBookById($id)
@@ -21,8 +20,7 @@ class BookController
         $sql = "SELECT * FROM books WHERE book_id = ?;";
         $stmt = DB::getInstance()->prepare($sql);
         $stmt->execute([$id]);
-        return $stmt->fetchAll(PDO::FETCH_CLASS,
-            "Book");
+        return $stmt->fetchAll(PDO::FETCH_CLASS, "Book");
     }
 
     public function fetchBookByCategory($n)
@@ -30,8 +28,15 @@ class BookController
         $sql = "SELECT * FROM books WHERE category = ?;";
         $stmt = DB::getInstance()->prepare($sql);
         $stmt->execute([$n]);
-        return $stmt->fetchAll(PDO::FETCH_CLASS,
-            "Book");
+        return $stmt->fetchAll(PDO::FETCH_CLASS, "Book");
+    }
+
+    public function fetchBookByIsbn($isbn)
+    {
+        $sql = 'SELECT * FROM books WHERE isbn = ?;';
+        $stmt = DB::getInstance()->prepare($sql);
+        $stmt->execute([$isbn]);
+        return $stmt->fetchAll(PDO::FETCH_CLASS, "Book");
     }
 
     public function save(Book $book)
