@@ -9,6 +9,7 @@ TRUNCATE TABLE `books_authors`;
 TRUNCATE TABLE `books_inventory`;
 TRUNCATE TABLE `order_items`;
 TRUNCATE TABLE `branches`;
+TRUNCATE TABLE `shipments`;
 
 SET FOREIGN_KEY_CHECKS = 0;
 INSERT INTO authors (first_name, middle_name, last_name, bio) VALUES ('Walter', null, 'Isaacson', 'Journalist and historian Walter Isaacson is best known in literary circles as the writer of magisterial biographies, scholarly and meticulously researched, yet immensely entertaining.');
@@ -110,4 +111,27 @@ INSERT INTO employees (emp_id, emp_name, ssn, phone_number, email, password, add
 INSERT INTO employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (8, 'Diandra Bortoluzzi', '128475778', '632-435-1281', 'dbortoluzzi7@omniture.com', 'B3mheW', '8 Kenwood Pass, Quebec City, QC', 0);
 INSERT INTO employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (9, 'Neale MacNab', '424335084', '468-276-9816', 'nmacnab8@theguardian.com', 'KRrMX7a', '5 Pennsylvania Avenue, Toronto, ON', 0);
 INSERT INTO employees (emp_id, emp_name, ssn, phone_number, email, password, address, is_admin) VALUES (10, 'Dru Cockin', '184698694', '591-965-1724', 'dcockin9@mapquest.com', 'HHGHpJkXO8', '4892 Starling Plaza, Montreal, QC', 1);
+SET FOREIGN_KEY_CHECKS = 1;
+
+SET FOREIGN_KEY_CHECKS = 0;
+INSERT INTO bookstore353.shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped, date_received) VALUES (1, 2, 6, 73, '0', '2018-04-26', null);
+INSERT INTO bookstore353.shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped, date_received) VALUES (2, 6, 2, 84, '0', '2018-06-28', null);
+INSERT INTO bookstore353.shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped, date_received) VALUES (3, 5, 1, 20, '0', '2018-10-05', null);
+INSERT INTO bookstore353.shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped, date_received) VALUES (4, 8, 1, 146, '0', '2018-05-29', null);
+INSERT INTO bookstore353.shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped, date_received) VALUES (5, 10, 2, 31, '0', '2018-07-14', null);
+INSERT INTO bookstore353.shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped, date_received) VALUES (6, 5, 1, 70, '0', '2018-04-29', null);
+INSERT INTO bookstore353.shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped, date_received) VALUES (7, 1, 2, 106, '0', '2019-03-07', null);
+INSERT INTO bookstore353.shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped, date_received) VALUES (8, 3, 3, 42, '0', '2018-08-16', null);
+INSERT INTO bookstore353.shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped, date_received) VALUES (9, 2, 6, 40, '0', '2018-05-05', null);
+INSERT INTO bookstore353.shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped, date_received) VALUES (10, 10, 2, 37, '0', '2018-12-07', null);
+INSERT INTO bookstore353.shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped, date_received) VALUES (11, 10, 2, 194, '0', '2019-02-19', null);
+INSERT INTO bookstore353.shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped, date_received) VALUES (12, 2, 6, 129, '0', '2018-10-15', null);
+INSERT INTO bookstore353.shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped, date_received) VALUES (13, 5, 1, 105, '0', '2018-05-10', null);
+INSERT INTO bookstore353.shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped, date_received) VALUES (14, 2, 6, 11, '0', '2019-02-16', null);
+INSERT INTO bookstore353.shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped, date_received) VALUES (15, 4, 3, 108, '0', '2018-07-05', null);
+INSERT INTO bookstore353.shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped, date_received) VALUES (16, 9, 3, 3, '0', '2018-07-09', null);
+INSERT INTO bookstore353.shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped, date_received) VALUES (17, 7, 1, 59, '0', '2018-05-05', null);
+INSERT INTO bookstore353.shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped, date_received) VALUES (18, 7, 1, 30, '0', '2018-11-23', null);
+INSERT INTO bookstore353.shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped, date_received) VALUES (19, 8, 1, 89, '0', '2018-07-26', null);
+INSERT INTO bookstore353.shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped, date_received) VALUES (20, 7, 1, 103, '0', '2018-04-26', null);
 SET FOREIGN_KEY_CHECKS = 1;
