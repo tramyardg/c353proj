@@ -28,3 +28,8 @@
 .filter-container {
     margin-bottom: 1rem;
 }
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}

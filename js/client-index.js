@@ -26,15 +26,20 @@ const renderBookCard = (book) => {
                     <div class="inventory" style="font-size: 0.75rem">
                         ${(book.qty_on_hand > 0) ? "In Stock" : "<b class='text-danger'>Out of Stock</b>"}
                     </div>
-                    ${(containsOrder(book.book_id)) ? 
-                        `<button type="button" class="btn btn-primary" onclick="removeOrder(${book.book_id})">Remove Order</button>` :
-                        `<button type="button" 
-                            class="btn btn-primary" 
-                            onclick="addOrder(${book.book_id})"
-                            ${(book.qty_on_hand > 0 || containsOrder(book.book_id)) ? "disabled" : ""}>
-                            ${(containsOrder(book.book_id)) ? "Already Added Order" : "Add Order"}
-                        </button>`
-                    }
+                    <div class="button-container">
+                        ${(containsOrder(book.book_id)) ? 
+                            `<button type="button" class="btn btn-success" onclick="removeOrder(${book.book_id})">Remove from Cart</button>` :
+                            `<button type="button" 
+                                class="btn btn-success" 
+                                onclick="addOrder(${book.book_id})"
+                                ${(book.qty_on_hand == 0 || containsOrder(book.book_id)) ? "disabled" : ""}>
+                                Add to Cart
+                            </button>`
+                        }
+                        ${(book.qty_on_hand == 0) ? `
+                            <button type="button" class="btn btn-primary" onclick="requestOrder(${book.book_id})">Request Book</button>
+                        ` : ""}
+                    </div>
                 </div>
             </div>
         </div>
@@ -47,30 +52,34 @@ const addOrder = (bookId) => {
     let orderBook = allBooks.filter(book => book.book_id == bookId)[0];
     // by deffault, order count is 1
     orderBook.order_count = 1;
-    let customerOrders = JSON.parse(localStorage.getItem("customer-orders")) || [];
+    let customerOrders = JSON.parse(localStorage.getItem("customer-cart")) || [];
     
     if (!containsOrder(bookId)) customerOrders.push(orderBook);
-    localStorage.setItem("customer-orders", JSON.stringify(customerOrders));
+    localStorage.setItem("customer-cart", JSON.stringify(customerOrders));
     rerenderBooks();
 };
 
 // removes order from localstorage
 const removeOrder = (bookId) => {
-    let customerOrders = JSON.parse(localStorage.getItem("customer-orders")) || [];
+    let customerOrders = JSON.parse(localStorage.getItem("customer-cart")) || [];
     let newCustomerOrders = customerOrders.filter(book => book.book_id != bookId);
-    localStorage.setItem("customer-orders", JSON.stringify(newCustomerOrders));
+    localStorage.setItem("customer-cart", JSON.stringify(newCustomerOrders));
     rerenderBooks();
 }
 
 // helper method to check if bookId is contained in localstorage
 const containsOrder = (bookId) => {
-    let customerOrders = JSON.parse(localStorage.getItem("customer-orders")) || [];
+    let customerOrders = JSON.parse(localStorage.getItem("customer-cart")) || [];
 
     for (let customerOrder of customerOrders) {
         if (customerOrder.book_id == bookId) return true;
     }
 
     return false;
+}
+
+const requestOrder = (bookId) => {
+    alert("SEND REQUEST BOOK HERE");
 }
 
 // apply filter changes on books
