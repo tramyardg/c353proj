@@ -117,6 +117,16 @@ if (isset($_SESSION["customer"])) {
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
+                        <option value="5">4</option>
+                    </select>
+                </div>
+
+                <div class="filter-container">
+                    <label for="inventory-filter">Availability</label>
+                    <select id="inventory-filter" class="custom-select" onchange="filterChange()">
+                        <option value="-1" selected>All</option>
+                        <option value="0">Out of Stock</option>
+                        <option value="1">In Stock</option>
                     </select>
                 </div>
             </div>
@@ -145,6 +155,7 @@ if (isset($_SESSION["customer"])) {
 <script>
     $(document).ready(() => {
         let books = <?php echo json_encode($bkController->fetchBooks()); ?>;
+        console.log(books);
         initializeBooks(books);
     })
 </script>

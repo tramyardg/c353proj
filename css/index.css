@@ -23,4 +23,8 @@
     color: white;
     line-height: 200px;
     text-align: center;
-}   
+} 
+
+.filter-container {
+    margin-bottom: 1rem;
+}
