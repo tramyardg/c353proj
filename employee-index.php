@@ -99,7 +99,11 @@ $book = new Book();
     <ul class="nav nav-tabs" id="tab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="receive-tab" data-toggle="tab" href="#receive" role="tab"
-               aria-controls="receive" aria-selected="true">Receive</a>
+               aria-controls="receive" aria-selected="true">Receive Shipment</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="orderBooks-tab" data-toggle="tab" href="#orderBooks" role="tab" aria-controls="orderBooks"
+               aria-selected="false">Order Books</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="addBooks-tab" data-toggle="tab" href="#addBooks" role="tab" aria-controls="addBooks"
@@ -135,11 +139,13 @@ $book = new Book();
                 <input type="submit" class="btn btn-success btn-md" value="Submit"/>
             </form>
         </div>
+        <div class="tab-pane fade" id="orderBooks" role="tabpanel" aria-labelledby="addBooks-tab">
+            <p><code>To full fill the function of employee: the Bookstore can order books from several publishers.</code></p>
+            <p><code>https://github.com/tramyardg/c353proj#more-details</code></p>
+        </div>
         <!-- Add books tab -->
         <div class="tab-pane fade" id="addBooks" role="tabpanel" aria-labelledby="addBooks-tab">
-            <p><code>Loop through the publishers data in the database and display in publisher select dropdown</code>
-            </p>
-            <p><code>Loop through the authors data in the database and display author select dropdown</code></p>
+            <p><code>This tab is for adding book that does not exists yet in the inventory. For extra marks.</code></p>
             <form>
 
                 <div class="row">
@@ -167,17 +173,12 @@ $book = new Book();
                     <!-- publisher_id -->
                     <div class="col">
                         <label for="publisher_id">Publisher</label>
-                        <select class="form-control" id="publishersSelect">
-                            <option value="0">Publisher 1</option>
-                            <option value="1">Publisher 2</option>
-                            <option value="2">Publisher 3</option>
-                        </select>
+                        <select class="form-control" id="publishersSelect"></select>
                     </div>
                     <!-- authors -->
                     <div class="col">
                         <label for="authorsSelect">Authors</label>
-                        <select multiple class="form-control" id="authorsSelect">
-                        </select>
+                        <select multiple class="form-control" id="authorsSelect"></select>
                     </div>
                     <!-- Book Category -->
                     <div class="col">
