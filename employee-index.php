@@ -36,17 +36,7 @@ $book = new Book();
     <link rel="stylesheet" href="https:////cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
 </head>
 <body>
 <?php //print_r(json_encode($aController->fetchAuthors())); ?>
@@ -78,20 +68,28 @@ $book = new Book();
                     <?php } ?>
                     <div class="dropdown-menu">
                         <?php if (isset($_SESSION["employee"])) { ?>
-                            <a class="dropdown-item btn-success" href="#"><i class="mr-2" data-feather="user-check"></i>Your
-                                account</a>
+                            <a class="dropdown-item btn-success" href="#">
+                                <i class="mr-2" data-feather="user-check"></i>
+                                Your account
+                            </a>
                         <?php } ?>
                         <?php if (!isset($_SESSION["employee"])) { ?>
-                            <a class="dropdown-item" href="login.php"><i class="mr-2" data-feather="log-in"></i>Log
-                                in</a>
+                            <a class="dropdown-item" href="login.php">
+                                <i class="mr-2" data-feather="log-in"></i>
+                                Log in
+                            </a>
                         <?php } ?>
                         <?php if (isset($_SESSION["employee"])) { ?>
-                            <a class="dropdown-item" href="logout.php"><i class="mr-2" data-feather="log-out"></i>Log
-                                out</a>
+                            <a class="dropdown-item" href="logout.php">
+                                <i class="mr-2" data-feather="log-out"></i>
+                                Log out
+                            </a>
                         <?php } ?>
                         <?php if (!isset($_SESSION["employee"])) { ?>
-                            <a class="dropdown-item" href="create-account.php"><i class="mr-2"
-                                                                                  data-feather="user-plus"></i>Register</a>
+                            <a class="dropdown-item" href="create-account.php">
+                                <i class="mr-2" data-feather="user-plus"></i>
+                                Register
+                            </a>
                         <?php } ?>
                     </div>
                 </li>
@@ -104,45 +102,27 @@ $book = new Book();
         <?php include 'view/employee/home/receive-shipment.php' ?>
     </div>
     <script>
+        feather.replace();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script>
         $(document).ready(function () {
             $('#booksReceiveTable').DataTable({
                 'pageLength': 5,
                 columnDefs: [{"width": "10%", "targets": 1}]
             });
-            $('#booksOrderedTable').DataTable({
-                'pageLength': 5
-            });
-//            $('#receiveForm').submit(function (event) {
-//                event.preventDefault();
-//                alert("The following data would have been submitted to the server: \n\n");
-//                return false;
-//            });
         });
-        (function () {
-            $.get("service/fetch.php?authors=all", function (data) {
-                let authors = JSON.parse(data);
-                for (let i = 0; i < authors.length; i++) {
-                    let middleName = '';
-                    if (authors[i].middle_name !== null) {
-                        middleName = authors[i].middle_name
-                    }
-                    $('#authorsSelect').append('<option value="' + authors[i].author_id + '">' +
-                        authors[i].first_name + ' ' +
-                        middleName + ' ' +
-                        authors[i].last_name +
-                        '</option>');
-                }
-            });
-            $.get("service/fetch.php?publishers=all", function (data) {
-                let publishers = JSON.parse(data);
-                for (let i = 0; i < publishers.length; i++) {
-                    $('#publishersSelect').append('<option value="' + publishers[i].publisher_id + '">' +
-                        publishers[i].publisher_id + ' ' +
-                        publishers[i].company_name + ' ' +
-                        '</option>');
-                }
-            });
-        })();
     </script>
 </body>
 </html>
