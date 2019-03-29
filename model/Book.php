@@ -1,7 +1,7 @@
 <?php
 
 
-class Book
+class Book implements JsonSerializable
 {
     // https://stackoverflow.com/questions/13353231/how-write-down-to-database-multiple-authors-in-simple-books-table
     // https://fmhelp.filemaker.com/help/17/fmp/en/index.html#page/FMP_Help/one-to-many-relationships.html
@@ -94,5 +94,10 @@ class Book
     public function setPublisherId($publisher_id)
     {
         $this->publisher_id = $publisher_id;
+    }
+
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
     }
 }
