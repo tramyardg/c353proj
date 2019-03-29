@@ -112,7 +112,7 @@ if (isset($_SESSION["customer"])) {
                     <label for="category-filter">Categories</label>
                     <select id="category-filter" class="custom-select" onchange="filterChange()">
                         <option value="-1" selected>All</option>
-                        <option value="0">0 (change these numbers to corespondidng category tag)</option>
+                        <option value="0"><?php echo BookCategory::toString(0); ?></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
