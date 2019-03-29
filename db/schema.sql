@@ -133,7 +133,9 @@ CREATE TABLE IF NOT EXISTS `shipments`
   `book_id`        INT(4)             NOT NULL,
   `publisher_id`   INT(4)             NOT NULL,
   `qty_to_receive` INT                NOT NULL,
-  `shipment_date`  TIMESTAMP          NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status`         ENUM ('0', '1')             DEFAULT '0',
+  `date_shipped`   TIMESTAMP,
+  `date_received`  TIMESTAMP                   DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`),
   FOREIGN KEY (`publisher_id`) REFERENCES `publishers` (`publisher_id`)
 );
