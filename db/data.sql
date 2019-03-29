@@ -76,7 +76,11 @@ INSERT INTO books_authors (book_authors_id, book_id, author_id) VALUES (7, 7, 3)
 INSERT INTO books_authors (book_authors_id, book_id, author_id) VALUES (8, 8, 3);
 INSERT INTO books_authors (book_authors_id, book_id, author_id) VALUES (9, 9, 8);
 INSERT INTO books_authors (book_authors_id, book_id, author_id) VALUES (10, 10, 12);
-INSERT INTO books_authors (book_authors_id, book_id, author_id) VALUES (11, 1, 2);
+INSERT INTO books_authors (book_authors_id, book_id, author_id) VALUES (11, 12, 7);
+INSERT INTO books_authors (book_authors_id, book_id, author_id) VALUES (12, 13, 9);
+INSERT INTO books_authors (book_authors_id, book_id, author_id) VALUES (13, 14, 4);
+INSERT INTO books_authors (book_authors_id, book_id, author_id) VALUES (14, 14, 5);
+INSERT INTO books_authors (book_authors_id, book_id, author_id) VALUES (15, 15, 6);
 SET FOREIGN_KEY_CHECKS = 1;
 
 SET FOREIGN_KEY_CHECKS = 0;
@@ -92,6 +96,11 @@ insert into books_inventory (book_inv_id, book_id, qty_on_hand, qty_sold) values
 insert into books_inventory (book_inv_id, book_id, qty_on_hand, qty_sold) values (8, 8, 97, 0);
 insert into books_inventory (book_inv_id, book_id, qty_on_hand, qty_sold) values (9, 9, 17, 0);
 insert into books_inventory (book_inv_id, book_id, qty_on_hand, qty_sold) values (10, 10, 58, 0);
+insert into books_inventory (book_inv_id, book_id, qty_on_hand, qty_sold) values (11, 11, 12, 0);
+insert into books_inventory (book_inv_id, book_id, qty_on_hand, qty_sold) values (12, 12, 31, 0);
+insert into books_inventory (book_inv_id, book_id, qty_on_hand, qty_sold) values (13, 13, 28, 0);
+insert into books_inventory (book_inv_id, book_id, qty_on_hand, qty_sold) values (14, 14, 10, 0);
+insert into books_inventory (book_inv_id, book_id, qty_on_hand, qty_sold) values (15, 15, 6, 0);
 SET FOREIGN_KEY_CHECKS = 1;
 
 SET FOREIGN_KEY_CHECKS = 0;
