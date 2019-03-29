@@ -60,11 +60,11 @@ $book = new Book();
 
         <div class="collapse navbar-collapse" id="navbarsExample09">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="employee-index.php">Home <span class="sr-only">(current)</span></a>
-                </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="employee-book-function.php">Book</a>
+                    <a class="nav-link" href="employee-index.php">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="employee-book-function.php">Book <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <ul class="nav my-2 my-md-0">
@@ -98,25 +98,20 @@ $book = new Book();
             </ul>
         </div>
     </nav>
-    <?php include 'view/employee/home-tab-list.php' ?>
+    <?php include 'view/employee/book-tab-list.php' ?>
     <div class="tab-content pt-2" id="myTabContent">
-        <!-- Receive books tab -->
-        <?php include 'view/employee/home/receive-shipment.php' ?>
+        <!-- Books Ordered -->
+        <?php include 'view/employee/book/books-ordered.php' ?>
+        <!-- Employee ordering books tab -->
+        <?php include 'view/employee/book/order-book.php' ?>
+        <!-- Add books tab -->
+        <?php include 'view/employee/book/add-book.php' ?>
     </div>
     <script>
         $(document).ready(function () {
-            $('#booksReceiveTable').DataTable({
-                'pageLength': 5,
-                columnDefs: [{"width": "10%", "targets": 1}]
-            });
             $('#booksOrderedTable').DataTable({
                 'pageLength': 5
             });
-//            $('#receiveForm').submit(function (event) {
-//                event.preventDefault();
-//                alert("The following data would have been submitted to the server: \n\n");
-//                return false;
-//            });
         });
         (function () {
             $.get("service/fetch.php?authors=all", function (data) {
