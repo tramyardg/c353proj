@@ -110,7 +110,7 @@ if (isset($_SESSION["customer"])) {
             <div class="col-3">
                 <div class="filter-container">
                     <label for="category-filter">Categories</label>
-                    <select id="category-filter" class="custom-select" onchange="filterChange()">
+                    <select id="category-filter" class="custom-select" onchange="rerenderBooks()">
                         <option value="-1" selected>All</option>
                         <option value="0"><?php echo BookCategory::toString(0); ?></option>
                         <option value="1">1</option>
@@ -123,7 +123,7 @@ if (isset($_SESSION["customer"])) {
 
                 <div class="filter-container">
                     <label for="inventory-filter">Availability</label>
-                    <select id="inventory-filter" class="custom-select" onchange="filterChange()">
+                    <select id="inventory-filter" class="custom-select" onchange="rerenderBooks()">
                         <option value="-1" selected>All</option>
                         <option value="0">Out of Stock</option>
                         <option value="1">In Stock</option>
