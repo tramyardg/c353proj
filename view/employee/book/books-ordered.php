@@ -1,4 +1,5 @@
 <div class="tab-pane fade show active" id="booksOrdered" role="tabpanel" aria-labelledby="booksOrdered-tab">
+    <p><code>Only displays books ordered by employee. For extra marks?</code></p>
     <table id="booksOrderedTable" class="display" width="100%">
         <thead>
         <tr>

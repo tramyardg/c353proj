@@ -9,7 +9,7 @@
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="publishersGroupSelect">Publishers</label>
                 </div>
-                <select class="custom-select" id="publishersGroupSelect">
+                <select class="custom-select" id="publishersGroupSelect" required>
                     <option selected>Choose...</option>
                     <option value="1">Publisher 1</option>
                     <option value="2">Publisher 1</option>
@@ -27,7 +27,7 @@
         <div class="form-group">
             <h5>Step 3: Enter number of books needed</h5>
             <label for="edition">Order Quantity</label>
-            <input type="number" class="form-control" id="edition">
+            <input type="number" class="form-control" id="edition" min="1" max="200" required>
         </div>
         <input type="submit" class="btn btn-secondary" value="Order"/>
     </form>

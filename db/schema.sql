@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `books`
   `price`        DOUBLE(8, 2),
   `publisher_id` INT(4)             NOT NULL,
   `image`        BLOB                                DEFAULT NULL,
-  `category`     ENUM ('0', '1', '2', '3', '4', '5') DEFAULT NULL,
+  `category`     ENUM ('0', '1', '2', '3', '4', '5') DEFAULT '-1',
   FOREIGN KEY (`publisher_id`) REFERENCES `publishers` (`publisher_id`)
 );
 
