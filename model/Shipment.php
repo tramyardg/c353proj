@@ -14,7 +14,39 @@ class Shipment implements JsonSerializable
     private $book_id;
     private $publisher_id;
     private $qty_to_receive;
-    private $shipment_date;
+    private $is_received;
+    private $date_shipped;
+    private $date_received;
+
+    public function getIsReceived()
+    {
+        return $this->is_received;
+    }
+
+    public function setIsReceived($is_received): void
+    {
+        $this->is_received = $is_received;
+    }
+
+    public function getDateShipped()
+    {
+        return $this->date_shipped;
+    }
+
+    public function setDateShipped($date_shipped): void
+    {
+        $this->date_shipped = $date_shipped;
+    }
+
+    public function getDateReceived()
+    {
+        return $this->date_received;
+    }
+
+    public function setDateReceived($date_received): void
+    {
+        $this->date_received = $date_received;
+    }
 
     public function getShipmentId()
     {
@@ -54,16 +86,6 @@ class Shipment implements JsonSerializable
     public function setQtyToReceive($qty_to_receive)
     {
         $this->qty_to_receive = $qty_to_receive;
-    }
-
-    public function getShipmentDate()
-    {
-        return $this->shipment_date;
-    }
-
-    public function setShipmentDate($shipment_date)
-    {
-        $this->shipment_date = $shipment_date;
     }
 
     /**

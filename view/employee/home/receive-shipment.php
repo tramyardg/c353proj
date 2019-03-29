@@ -6,8 +6,8 @@
             <th>Book Title</th>
             <th>ISBN</th>
             <th>Quantity</th>
-            <th>Publisher Name</th>
-            <th>Date Shipped</th>
+            <th>Publisher ID & Name</th>
+            <th>Date Shipped by Publisher</th>
             <th>Status</th>
         </tr>
         </thead>
