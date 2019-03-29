@@ -9,7 +9,15 @@ class BookController
 
     public function fetchBooks()
     {
-        $sql = "SELECT * FROM books;";
+        $sql = "SELECT * 
+                FROM `books` 
+                LEFT JOIN `books_authors` 
+                    ON books.book_id = books_authors.book_id
+                LEFT JOIN `authors` 
+                    ON books_authors.author_id = authors.author_id
+                LEFT JOIN `books_inventory`
+                    ON books.book_id = books_inventory.book_id
+                GROUP BY books.book_id";
         $stmt = DB::getInstance()->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS,"Book");
