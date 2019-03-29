@@ -12,11 +12,11 @@ class DB
     {
         if (empty(self::$instance)) {
             $db_info = array(
-                "host" => 'localhost',
+                "host" => 'cqc353.encs.concordia.ca',
                 "port" => '3306',
-                "user" => 'root',
-                "pass" => '',
-                "name" => 'bookstore353',
+                "user" => 'cqc353_4',
+                "pass" => 'c353dbms',
+                "name" => 'cqc353_4',
                 "charset" => 'UTF-8'
             );
             try {

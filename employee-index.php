@@ -2,16 +2,24 @@
 $commonNameTitle = parse_ini_file("./common.ini");
 require 'db/DB.php';
 require 'model/Enum.php';
+require 'controller/BookController.php';
+require 'model/Book.php';
 
 ob_start();
 session_start();
 if (isset($_SESSION["employee"])) {
     $employee = $_SESSION["employee"];
     // print_r($employee);
-} else {
+
+}/* else {
     header("Location: index.php");
-}
+}*/
+// Once employee login implemented add this into if statement
+$bkController = new BookController();
+$books = $bkController->fetchBooks();
+$book = new Book();
 ?>
+
 
 <!doctype html>
 <html lang="en">
@@ -113,13 +121,15 @@ if (isset($_SESSION["employee"])) {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td class="d-none">1</td>
-                        <td><input type="checkbox" name="bookCheckBox" value=""/></td>
-                        <td>The Hobbit</td>
-                        <td>ASDD3232</td>
-                        <td><input type="number"/></td>
-                    </tr>
+                    <?php foreach ($books as $k => $v) { $book = $v; ?>
+                        <tr>
+                            <td class="d-none">1</td>
+                            <td><input type="checkbox" name="bookCheckBox" value=""/></td>
+                            <td><?php echo $book->getTitle();?></td>
+                            <td><?php echo $book->getIsbn();?></td>
+                            <td><input type="number"/></td>
+                        </tr>
+                        <?php }?>
                     </tbody>
                 </table>
                 <input type="submit" class="btn btn-success btn-md" value="Submit"/>
