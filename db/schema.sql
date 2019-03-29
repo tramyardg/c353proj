@@ -85,6 +85,7 @@ CREATE TABLE IF NOT EXISTS `books_authors`
 );
 
 # one-to-one relationship with books
+# thus, you can use either book_id or book_inv_id
 CREATE TABLE IF NOT EXISTS `books_inventory`
 (
   `book_inv_id` INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,

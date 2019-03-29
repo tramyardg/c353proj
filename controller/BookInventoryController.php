@@ -15,26 +15,20 @@ class BookInventoryController
         return $stmt->fetchAll(PDO::FETCH_CLASS, "BookInventory");
     }
 
-    // update handles this
-    /*
-    public function addBookQtyByBookId($id, $qty)
+    public function update(BookInventory $bkInventory)
     {
-        $bkInventory = fetchBookInventoryByBookId($id);
-        $bkInventory->setQtyOnHand($qty + $bkInventory->getQtyOnHand());
-        update($bkInventory);
-    }
-    */
-
-    public function update(BookInventory $bkInventory){
-        $sql = "UPDATE `books_inventory` SET `qty_on_hand` = ? WHERE book_inv_id = ? AND `book_id` = ?;";
+        $sql = "UPDATE `books_inventory` SET `qty_on_hand` = ? WHERE `book_id` = ?;";
         $stmt = DB::getInstance()->prepare($sql);
-        $exec = $stmt->execute(
-            array( // order follows ? from $sql
-                $bkInventory->getQtyOnHand(),
-                $bkInventory->getBookInvId(),
-                $bkInventory->getBookId()
-            )
-        );
+        // order follows '?' from $sql
+        $exec = $stmt->execute([$bkInventory->getQtyOnHand(), $bkInventory->getBookId()]);
+        echo json_encode(array('result' => $exec));
+    }
+
+    public function updateByBookIdAndQtyReceived($bookId, $qtyReceived)
+    {
+        $sql = "UPDATE `books_inventory` SET `qty_on_hand` = ? WHERE `book_id` = ?;";
+        $stmt = DB::getInstance()->prepare($sql);
+        $exec = $stmt->execute([$qtyReceived, $bookId]);
         echo json_encode(array('result' => $exec));
     }
 
