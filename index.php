@@ -60,26 +60,33 @@ if (isset($_SESSION["customer"])) {
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 </head>
 <body>
+    <!-- TODO put customer id value here -->
+    <input type="hidden" id="customer-id" style="display:none" value="<?php echo "1"; ?>">
     <?php include './navbar.php' ?>
     <main class="container-fluid">
         <!-- Order Request Modal -->
         <div class="modal fade" id="orderRequestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Send Order Request</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Put form in here<br>
-                book name, book quantity
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Send Order</button>
-            </div>
+                <form onsubmit="orderSubmit()">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Send Order Request</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <?php if (!isset($_SESSION["customer"])) {?>
+                        <div id="order-body" class="modal-body">
+                            <!-- content populated from js file -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <input type="submit" class="btn btn-primary" value="Send Order">
+                        </div>
+                    <?php } else { ?>
+                        <div class="modal-body">You must login before submitting an order request</div>
+                    <?php } ?>
+                </form>
             </div>
         </div>
         </div>
@@ -91,11 +98,11 @@ if (isset($_SESSION["customer"])) {
                     <select id="category-filter" class="custom-select" onchange="rerenderBooks()">
                         <option value="-1" selected>All</option>
                         <option value="0"><?php echo BookCategory::toString(0); ?></option>
-                        <option value="1"><?php echo BookCategory::toString(1); ?></option>
-                        <option value="2"><?php echo BookCategory::toString(2); ?></option>
-                        <option value="3"><?php echo BookCategory::toString(3); ?></option>
-                        <option value="4"><?php echo BookCategory::toString(4); ?></option>
-                        <option value="5"><?php echo BookCategory::toString(5); ?></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">4</option>
                     </select>
                 </div>
 
@@ -133,7 +140,7 @@ if (isset($_SESSION["customer"])) {
         let books = <?php echo json_encode($bkController->fetchBooks()); ?>;
         console.log(books);
         initializeBooks(books);
-    })
+    });
 </script>
 </body>
 </html>

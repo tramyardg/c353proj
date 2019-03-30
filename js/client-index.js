@@ -2,6 +2,7 @@
 let allBooks = [];
 // these are the books to be displayed
 let books = [];
+let selectedBook = null;
 
 const initializeBooks = (data) => {
     allBooks = data;
@@ -82,11 +83,6 @@ const containsOrder = (bookId) => {
     return false;
 }
 
-const requestOrder = (bookId) => {
-    // alert("SEND REQUEST BOOK HERE");
-    console.log("open modal");
-}
-
 // apply filter changes on books
 const filterChange = () => {
     const selectedCategory = $("#category-filter").val();
@@ -126,7 +122,7 @@ const applyInventoryFilter = (selectedInventory) => {
                 filteredBooks.push(book);
             }
         });
-    console.log("FILTERED BOOKS: ", filteredBooks);
+
     return filteredBooks;
 }
 
@@ -137,4 +133,51 @@ const rerenderBooks = () => {
     books.forEach((book) => {
         renderBookCard(book);
     });
+}
+
+const requestOrder = (bookId) => {
+    // populate modal body with the data that is needed
+    $("#order-body").empty();
+    selectedBook = allBooks.filter((book) => book.book_id == bookId)[0]
+    console.log("order book: ", selectedBook);
+
+    $("#order-body").append(`
+        <div>${selectedBook.title}</div><br>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3">Quantity</span>
+            </div>
+            <input id="order-quantity" style="width: 60px" type="number" class="form-control" value="1">
+        </div>
+    `);
+    // data i need for order table
+    // [x] customer_id
+
+    // data i need for order_items
+    // order_id
+    // book_id
+    // quantity
+    // price
+}
+
+const orderSubmit = async () => {
+    let customerId = $("#customer-id").val();
+    let payload = {
+        customer_id: customerId,
+        book_id: selectedBook.book_id,
+        quantity: $("#order-quantity").val(),
+        price: selectedBook.price,
+    };
+
+    if (payload.quantity < 1) {
+        alert("Quantity must have at least 1");
+        return;
+    }
+
+    $.post("./api/order.php", payload, (response) => {
+        // TODO show indication that it was successful
+        console.log("RESPONSE: ", response);
+    })
+
+    selectedBook = null;
 }
