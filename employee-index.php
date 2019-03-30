@@ -1,13 +1,14 @@
 <?php
 $commonNameTitle = parse_ini_file("./common.ini");
 require 'db/DB.php';
-
+require 'model/Employee.php';
 require 'model/Enum.php';
 require 'model/Book.php';
 require 'model/Publisher.php';
 require 'model/BookInventory.php';
 require 'model/Shipment.php';
 
+require 'controller/EmployeeController.php';
 require 'controller/BookController.php';
 require 'controller/BookInventoryController.php';
 require 'controller/PublisherController.php';
@@ -15,17 +16,14 @@ require 'controller/ShipmentController.php';
 
 ob_start();
 session_start();
+
+$employee = new Employee();
 if (isset($_SESSION["employee"])) {
     $employee = $_SESSION["employee"];
-    // print_r($employee);
 
-}/* else {
+} else {
     header("Location: index.php");
-}*/
-// Once employee login implemented add this into if statement
-$bkController = new BookController();
-$books = $bkController->fetchBooks();
-$book = new Book();
+}
 ?>
 
 
@@ -45,8 +43,8 @@ $book = new Book();
 
 </head>
 <body>
-<?php //print_r(json_encode($aController->fetchAuthors())); ?>
 <div class="container">
+    <div class="d-none"><input type="hidden" id="employee-input" value="<?php echo $employee->getEmpId(); ?>"></div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
         <a class="navbar-brand" href="#"><?php echo $commonNameTitle['siteName']; ?></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09"
@@ -67,7 +65,7 @@ $book = new Book();
                 <li class="dropdown">
                     <?php if (isset($_SESSION["employee"])) { ?>
                         <a class="nav-link pl-0 dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">Hello, Employee</a>
+                           aria-haspopup="true" aria-expanded="false">Hello, <?php echo $employee->getEmpName(); ?></a>
                     <?php } else { ?>
                         <a class="nav-link pl-0 dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">Hello, Sign in</a>

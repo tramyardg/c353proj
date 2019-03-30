@@ -1,10 +1,9 @@
-// get selected shipment rows
-
+const employeeId = $('input[id=employee-input]').val();
 const getReceiveShipmentTable = () => {
     return $('#booksReceiveTable');
 };
 
-const getSelectedItems = function () {
+const getSelectedShipmentRows = () => {
     return $('#booksReceiveTable tr.selected');
 };
 
@@ -17,5 +16,27 @@ const actions = {
 };
 
 actions.receive().btn.click(function () {
-    console.log(getSelectedItems());
+    if (getSelectedShipmentRows().length === 0) {
+        alert('Please select a shipment to receive.');
+        return false;
+    }
+    receiveShipmentRequest(getShipmentIdFromSelectedItems());
 });
+
+const getShipmentIdFromSelectedItems = () => {
+    let shipmentIds = [];
+    getSelectedShipmentRows().each(function () {
+        shipmentIds.push($(this).find('td').attr('data-id'));
+    });
+    return shipmentIds;
+};
+
+const receiveShipmentRequest = (selectedItems) => {
+    let url = 'service/employee_index.php?employeeId=' + employeeId + '';
+    // $.post(url, selectedItems, function (response) {
+    //
+    // })
+    console.log(url);
+    console.log(selectedItems);
+
+};

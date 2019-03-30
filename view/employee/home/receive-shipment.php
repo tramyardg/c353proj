@@ -20,7 +20,7 @@ $shipments = $shController->fetchShipmentsToReceive();
         <tbody>
         <?php foreach ($shipments as $k) { ?>
             <tr>
-                <td class="d-none"><?php echo $k['shipment_id']; ?></td>
+                <td class="d-none" data-id="<?php echo $k['shipment_id']; ?>"></td>
                 <td><?php echo $k['book_id']; ?></td>
                 <td><?php echo $k['book_title']; ?></td>
                 <td><?php echo $k['isbn']; ?></td>
