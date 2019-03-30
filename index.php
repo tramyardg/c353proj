@@ -57,53 +57,10 @@ if (isset($_SESSION["customer"])) {
     <link href="css/vertical-tab.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.dataTables.min.css">
-
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
-        <a class="navbar-brand" href="#"><?php echo $commonNameTitle['siteName']; ?></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09"
-                aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarsExample09">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
-                </li>
-            </ul>
-            <ul class="nav my-2 my-md-0">
-                <li class="dropdown">
-                    <?php if (isset($_SESSION["customer"])) { ?>
-                    <a class="nav-link pl-0 dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">Hello, <?php echo $customer->getCustomerName(); ?></a>
-                    <?php } else { ?>
-                    <a class="nav-link pl-0 dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">Hello, Sign in</a>
-                    <?php } ?>
-                    <div class="dropdown-menu">
-                        <?php if (isset($_SESSION["customer"])) { ?>
-                        <a class="dropdown-item btn-success" href="#"><i class="mr-2" data-feather="user-check"></i>Your
-                            account</a>
-                        <?php } ?>
-                        <a class="dropdown-item" href="#"><i class="mr-2" data-feather="shopping-cart"></i>Cart</a>
-                        <?php if (!isset($_SESSION["customer"])) { ?>
-                        <a class="dropdown-item" href="login.php"><i class="mr-2" data-feather="log-in"></i>Log in</a>
-                        <?php } ?>
-                        <?php if (isset($_SESSION["customer"])) { ?>
-                        <a class="dropdown-item" href="logout.php"><i class="mr-2" data-feather="log-out"></i>Log
-                            out</a>
-                        <?php } ?>
-                        <?php if (!isset($_SESSION["customer"])) { ?>
-                        <a class="dropdown-item" href="create-account.php"><i class="mr-2" data-feather="user-plus"></i>Register</a>
-                        <?php } ?>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <?php include './navbar.php' ?>
     <main class="container-fluid">
         <!-- Order Request Modal -->
         <div class="modal fade" id="orderRequestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -169,9 +126,7 @@ if (isset($_SESSION["customer"])) {
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/select/1.2.5/js/dataTables.select.min.js"></script>
-<script src="js/vertical-tabs.js"></script>
+<!-- <script src="js/vertical-tabs.js"></script> -->
 <script src="js/client-index.js"></script>
 <script>
     $(document).ready(() => {
