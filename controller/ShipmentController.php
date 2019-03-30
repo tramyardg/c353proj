@@ -65,10 +65,7 @@ class ShipmentController
         $pbController = new PublisherController();
 
         foreach ($shipments as $k) {
-            $book = new Book();
             $book = $bkController->fetchBookById($k->getBookId())[0];
-
-            $publisher = new Publisher();
             $publisher = $pbController->fetchPublisherById($k->getPublisherId())[0];
 
             $item = [

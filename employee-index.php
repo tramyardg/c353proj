@@ -38,7 +38,6 @@ $book = new Book();
 
     <link href="css/bootstrap-flatly.css" rel="stylesheet">
     <link href="css/navbar.css" rel="stylesheet">
-    <link href="css/vertical-tab.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.dataTables.min.css">
 
@@ -104,9 +103,11 @@ $book = new Book();
         </div>
     </nav>
     <?php include 'view/employee/home-tab-list.php' ?>
-    <div class="tab-content pt-2" id="myTabContent">
+    <div class="tab-content pt-2" id="homeTabContent">
         <!-- Receive books tab -->
         <?php include 'view/employee/home/receive-shipment.php' ?>
+        <!-- Client orders tab -->
+        <?php include 'view/employee/home/client-orders.php' ?>
     </div>
     <script>
         feather.replace();
@@ -121,14 +122,16 @@ $book = new Book();
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/select/1.2.5/js/dataTables.select.min.js"></script>
+    <script src="js/employee-index.js"></script>
     <script>
         $(document).ready(function () {
             $('#booksReceiveTable').DataTable({
                 select: {style: 'multi'},
-                columnDefs: [{"width": "25%", "targets": 1}],
-                'pageLength': 5
+                columnDefs: [{"width": "25%", "targets": 2}],
+                'pageLength': 10
             });
         });
     </script>

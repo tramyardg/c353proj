@@ -30,7 +30,6 @@ $book = new Book();
 
     <link href="css/bootstrap-flatly.css" rel="stylesheet">
     <link href="css/navbar.css" rel="stylesheet">
-    <link href="css/vertical-tab.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.dataTables.min.css">
     <link rel="stylesheet" href="https:////cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
@@ -98,7 +97,7 @@ $book = new Book();
         </div>
     </nav>
     <?php include 'view/employee/book-tab-list.php' ?>
-    <div class="tab-content pt-2" id="myTabContent">
+    <div class="tab-content pt-2">
         <!-- Books Ordered -->
         <?php include 'view/employee/book/books-ordered.php' ?>
         <!-- Employee ordering books tab -->
@@ -121,6 +120,7 @@ $book = new Book();
             crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="js/employee-index.js"></script>
     <script>
         $(document).ready(function () {
             $('#booksOrderedTable').DataTable({
@@ -130,26 +130,25 @@ $book = new Book();
         (function () {
             $.get("service/fetch.php?authors=all", function (data) {
                 let authors = JSON.parse(data);
-                for (let i = 0; i < authors.length; i++) {
+                authors.map(function (k) {
                     let middleName = '';
-                    if (authors[i].middle_name !== null) {
-                        middleName = authors[i].middle_name
+                    if (k.middle_name !== null) {
+                        middleName = k.middle_name
                     }
-                    $('#authorsSelect').append('<option value="' + authors[i].author_id + '">' +
-                        authors[i].first_name + ' ' +
-                        middleName + ' ' +
-                        authors[i].last_name +
-                        '</option>');
-                }
+                    $('#authorsSelect').append($('<option>', {
+                        value: k.author_id,
+                        text : k.first_name + ' ' +  middleName + ' ' + k.last_name
+                    }))
+                })
             });
             $.get("service/fetch.php?publishers=all", function (data) {
                 let publishers = JSON.parse(data);
-                for (let i = 0; i < publishers.length; i++) {
-                    $('#publishersSelect').append('<option value="' + publishers[i].publisher_id + '">' +
-                        publishers[i].publisher_id + ' ' +
-                        publishers[i].company_name + ' ' +
-                        '</option>');
-                }
+                publishers.map(function (k) {
+                    $('#publishersSelect').append($('<option>', {
+                        value: k.publiser_id,
+                        text: k.publisher_id.concat(' ').concat(k.company_name)
+                    }))
+                });
             });
         })();
     </script>

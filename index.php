@@ -171,7 +171,6 @@ if (isset($_SESSION["customer"])) {
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/select/1.2.5/js/dataTables.select.min.js"></script>
-<script src="js/vertical-tabs.js"></script>
 <script src="js/client-index.js"></script>
 <script>
     $(document).ready(() => {
