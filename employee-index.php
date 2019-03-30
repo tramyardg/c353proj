@@ -1,9 +1,17 @@
 <?php
 $commonNameTitle = parse_ini_file("./common.ini");
 require 'db/DB.php';
+
 require 'model/Enum.php';
-require 'controller/BookController.php';
 require 'model/Book.php';
+require 'model/Publisher.php';
+require 'model/BookInventory.php';
+require 'model/Shipment.php';
+
+require 'controller/BookController.php';
+require 'controller/BookInventoryController.php';
+require 'controller/PublisherController.php';
+require 'controller/ShipmentController.php';
 
 ob_start();
 session_start();
@@ -33,7 +41,6 @@ $book = new Book();
     <link href="css/vertical-tab.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.dataTables.min.css">
-    <link rel="stylesheet" href="https:////cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 
@@ -114,13 +121,14 @@ $book = new Book();
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.2.5/js/dataTables.select.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#booksReceiveTable').DataTable({
-                'pageLength': 5,
-                columnDefs: [{"width": "10%", "targets": 1}]
+                select: {style: 'multi'},
+                columnDefs: [{"width": "25%", "targets": 1}],
+                'pageLength': 5
             });
         });
     </script>
