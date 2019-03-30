@@ -17,6 +17,7 @@ require '../controller/ShipmentController.php';
 $eController = new EmployeeController();
 $aController = new AuthorController();
 $pbController = new PublisherController();
+$shController = new ShipmentController();
 
 if(isset($_GET["employeeId"]) && count($eController->findByEmployeeId($_GET["employeeId"])))
 {
@@ -27,4 +28,25 @@ if(isset($_GET["employeeId"]) && count($eController->findByEmployeeId($_GET["emp
     if (isset($_GET["publishers"]) && $_GET["publishers"] == "all") {
         echo $pbController->fetchPublishers();
     }
+
+    // receive shipment
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST['shipmentItems'])) {
+            print_r($_POST['shipmentItems']);
+            $shipmentsToReceive = $_POST['shipmentItems'];
+            for($i = 0; $i < count($shipmentsToReceive); $i++) {
+
+                echo $shipmentsToReceive[$i];
+                $shipment = new Shipment();
+                $shipment->setShipmentId($shipmentsToReceive[$i]);
+
+                $sObj = new Shipment();
+                $sObj = $shController->fetchShipmentById($shipment)[0];
+
+                // todo: do not update if the status is received
+                $shController->update($sObj);
+            }
+        }
+    }
+
 }

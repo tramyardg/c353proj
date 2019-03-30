@@ -100,6 +100,10 @@ if (isset($_SESSION["employee"])) {
             </ul>
         </div>
     </nav>
+    <!-- Receive Shipment Success Alert -->
+    <div class="alert alert-success d-none" role="alert">
+        These books are now in the inventory. This page will reload in <span class="badge badge-light" id="receiveRefreshSeconds"></span> seconds.
+    </div>
     <?php include 'view/employee/home-tab-list.php' ?>
     <div class="tab-content pt-2" id="homeTabContent">
         <!-- Receive books tab -->
@@ -110,19 +114,15 @@ if (isset($_SESSION["employee"])) {
     <script>
         feather.replace();
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
+
+    <!-- Order: jQuery, popper, bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/select/1.2.5/js/dataTables.select.min.js"></script>
+    <script src="js/util.js"></script>
     <script src="js/employee-index.js"></script>
     <script>
         $(document).ready(function () {
@@ -131,6 +131,7 @@ if (isset($_SESSION["employee"])) {
                 columnDefs: [{"width": "25%", "targets": 2}],
                 'pageLength': 10
             });
+            confirmReceivingShipment();
         });
     </script>
 </body>
