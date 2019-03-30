@@ -1,23 +1,29 @@
 const employeeId = $('input[id=employee-input]').val();
 
 const getSelectedShipmentRows = () => {
-    return $('#booksReceiveTable tr.selected');
-};
-
-const getShipmentIdFromSelectedItems = () => {
     let shipmentIds = [];
-    getSelectedShipmentRows().each(function () {
+    $('#booksReceiveTable tr.selected').each(function () {
         shipmentIds.push($(this).find('td').attr('data-id'));
     });
     return shipmentIds;
 };
 
+const initializeBooksReceiveTable = () => {
+    $('#booksReceiveTable').DataTable({
+        select: {style: 'multi'},
+        columnDefs: [{"width": "25%", "targets": 2}],
+        'pageLength': 5
+    });
+};
+
 const receiveShipmentRequest = (selectedItems) => {
     let url = 'service/employee_index.php?employeeId=' + employeeId + '';
     $.post(url, {shipmentItems: selectedItems}, function (response) {
-        console.log(response);
-        actions.receive().modal.id.modal('hide');
-        displaySuccessMessage();
+        actions.receive().modalId.modal('hide');
+        if (response.length > 0) {
+            displaySuccessMessage();
+            actions.receive().btn.attr('disabled', true);
+        }
     });
 };
 
@@ -25,9 +31,7 @@ const actions = {
     receive: function () {
         return {
             btn: $('#add-to-inventory'),
-            modal: {
-                id: $('#receiveShipmentModal')
-            }
+            modalId: $('#receiveShipmentModal')
         };
     }
 };
@@ -35,12 +39,13 @@ const actions = {
 const confirmReceivingShipment = () => {
     actions.receive().btn.click(function () {
         if (getSelectedShipmentRows().length === 0) {
-            alert('Please select a shipment to receive.');
+            alert('Please select only the shipments that are NOT received.');
             return false;
         }
-        actions.receive().modal.id.modal('show');
-        actions.receive().modal.id.find('#receiveSaveChanges').click(function () {
-            receiveShipmentRequest(getShipmentIdFromSelectedItems())
+        actions.receive().modalId.modal('show');
+        actions.receive().modalId.find('#receiveSaveChanges').click(function () {
+            console.log('selected', getSelectedShipmentRows());
+            receiveShipmentRequest(getSelectedShipmentRows())
         });
     });
 };

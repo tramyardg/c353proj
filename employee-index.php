@@ -126,11 +126,7 @@ if (isset($_SESSION["employee"])) {
     <script src="js/employee-index.js"></script>
     <script>
         $(document).ready(function () {
-            $('#booksReceiveTable').DataTable({
-                select: {style: 'multi'},
-                columnDefs: [{"width": "25%", "targets": 2}],
-                'pageLength': 10
-            });
+            initializeBooksReceiveTable();
             confirmReceivingShipment();
         });
     </script>

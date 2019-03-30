@@ -18,18 +18,20 @@ $shipments = $shController->fetchShipmentsToReceive();
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($shipments as $k) { ?>
-            <tr>
-                <td class="d-none" data-id="<?php echo $k['shipment_id']; ?>"></td>
-                <td><?php echo $k['book_id']; ?></td>
-                <td><?php echo $k['book_title']; ?></td>
-                <td><?php echo $k['isbn']; ?></td>
-                <td><?php echo $k['qty_to_receive']; ?></td>
-                <td><?php echo $k['publisher_id'] . ' - ' . $k['company_name']; ?></td>
-                <td><?php echo $k['date_shipped']; ?></td>
-                <td><?php echo $k['is_received']; ?></td>
-            </tr>
-        <?php } ?>
+        <?php if (count($shipments)) {
+            foreach ($shipments as $k) { ?>
+                <tr>
+                    <td class="d-none" data-id=<?php echo $k['shipment_id']; ?>></td>
+                    <td><?php echo $k['book_id']; ?></td>
+                    <td><?php echo $k['book_title']; ?></td>
+                    <td><?php echo $k['isbn']; ?></td>
+                    <td><?php echo $k['qty_to_receive']; ?></td>
+                    <td><?php echo $k['publisher_id'] . ' - ' . $k['company_name']; ?></td>
+                    <td><?php echo $k['date_shipped']; ?></td>
+                    <td><?php echo $k['is_received'] == '0' ? 'TO BE ADDED' : 'RECEIVED'; ?></td>
+                </tr>
+            <?php }
+        } ?>
         </tbody>
         <tfoot>
         <tr>
