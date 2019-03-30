@@ -91,11 +91,11 @@ if (isset($_SESSION["customer"])) {
                     <select id="category-filter" class="custom-select" onchange="rerenderBooks()">
                         <option value="-1" selected>All</option>
                         <option value="0"><?php echo BookCategory::toString(0); ?></option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">4</option>
+                        <option value="1"><?php echo BookCategory::toString(1); ?></option>
+                        <option value="2"><?php echo BookCategory::toString(2); ?></option>
+                        <option value="3"><?php echo BookCategory::toString(3); ?></option>
+                        <option value="4"><?php echo BookCategory::toString(4); ?></option>
+                        <option value="5"><?php echo BookCategory::toString(5); ?></option>
                     </select>
                 </div>
 
