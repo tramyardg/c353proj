@@ -18,3 +18,12 @@ const refreshTimer = function (sec, id, func) {
 const disableInputSubmit = function (id) {
     id.attr("disabled", true)
 };
+const reloadPage = (pageUrl, sec, secContainer) => {
+    secContainer.parent().removeClass('d-none');
+    refreshTimer(sec, secContainer, function () {
+        let locHref = location.href;
+        let siteRoot = locHref.substring(0, locHref.lastIndexOf('/'));
+        let homePageLink = siteRoot + '/' + pageUrl;
+        window.location.replace(homePageLink);
+    });
+};

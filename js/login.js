@@ -15,13 +15,7 @@ const customerLoginFormSubmit = function () {
         $.post('service/customer_login.php', customerFormData.getVal(), function (data) {
             let res = JSON.parse(data);
             if (res.result) {
-                $('#successMessage').removeClass('d-none');
-                refreshTimer(3, $('#refreshSeconds'), function () {
-                    let locHref = location.href;
-                    let siteRoot = locHref.substring(0, locHref.lastIndexOf('/'));
-                    let homePageLink = siteRoot + '/index.php';
-                    window.location.replace(homePageLink);
-                });
+                reloadPage('index.php', 2, $('#refreshSeconds'));
             } else {
                 warnMessage.removeClass('d-none');
                 warnMessage.html(res.message);
@@ -44,13 +38,7 @@ const employeeLoginFormSubmit = function () {
         $.post('service/employee_login.php', employeeFormData.getVal(), function (data) {
             let res = JSON.parse(data);
             if (res.result) {
-                $('#successMessage').removeClass('d-none');
-                refreshTimer(3, $('#refreshSeconds'), function () {
-                    let locHref = location.href;
-                    let siteRoot = locHref.substring(0, locHref.lastIndexOf('/'));
-                    let homePageLink = siteRoot + '/employee-index.php';
-                    window.location.replace(homePageLink);
-                });
+                reloadPage('employee-index.php', 2, $('#refreshSeconds'));
             } else {
                 warnMessage.removeClass('d-none');
                 warnMessage.html(res.message);
