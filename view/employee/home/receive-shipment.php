@@ -20,10 +20,10 @@ $shipments = $shController->fetchShipmentsToReceive();
         <?php foreach ($shipments as $k) { ?>
             <tr>
                 <td class="d-none"><?php echo $k['shipment_id']; ?></td>
-                <td><?php echo $k['book_id'] . ' ' . $k['book_title']; ?></td>
+                <td><?php echo $k['book_id'] . ' - ' . $k['book_title']; ?></td>
                 <td><?php echo $k['isbn']; ?></td>
                 <td><?php echo $k['qty_to_receive']; ?></td>
-                <td><?php echo $k['publisher_id'] . ' ' . $k['company_name']; ?></td>
+                <td><?php echo $k['publisher_id'] . ' - ' . $k['company_name']; ?></td>
                 <td><?php echo $k['date_shipped']; ?></td>
                 <td><?php echo $k['is_received']; ?></td>
             </tr>
