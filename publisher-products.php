@@ -129,6 +129,7 @@ if (isset($_SESSION["publisher"])) {
 <script>
     $(document).ready(function () {
         getProductsByPublisherId();
+        generateAuthorOptions();
         postAddBookFormSubmit();
     });
 </script>
