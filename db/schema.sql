@@ -60,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `publishers`
   `company_name` VARCHAR(50)        NOT NULL,
   `phone_number` VARCHAR(20),
   `email`        VARCHAR(50),
+  `password`     VARCHAR(50)        NOT NULL,
   `address`      VARCHAR(255)
 );
 
@@ -72,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `books`
   `price`        DOUBLE(8, 2),
   `publisher_id` INT(4)             NOT NULL,
   `image`        BLOB                                DEFAULT NULL,
-  `category`     ENUM ('0', '1', '2', '3', '4', '5') DEFAULT '-1',
+  `category`     ENUM ('0', '1', '2', '3', '4', '5') DEFAULT NULL,
   FOREIGN KEY (`publisher_id`) REFERENCES `publishers` (`publisher_id`)
 );
 

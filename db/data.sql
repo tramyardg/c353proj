@@ -30,17 +30,17 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 SET FOREIGN_KEY_CHECKS = 0;
 # good publishers
-INSERT INTO publishers (company_name, phone_number, email, address) VALUES ('Hachette Book Group', '800-759-0190', 'hbg@support.com', '1290 6th Ave, New York, NY 10019, USA');
-INSERT INTO publishers (company_name, phone_number, email, address) VALUES ('McGill-Queen''s University Press', '(514) 398-3750', 'mqup@mcgill.ca', '1010 Sherbrooke West Suite 1720 Montreal, Quebec H3A 2R7 Canada');
-INSERT INTO publishers (company_name, phone_number, email, address) VALUES ('The Crown Publishing Group', '978-750-8400', 'customerservice@prh.com.', '222 Rosewood Drive, Danvers, MA 01923');
-insert into publishers (company_name, phone_number, email, address) values ('Rogahn, Stiedemann and Gulgowski', '365-245-1875', 'ctwiddle0@senate.gov', '53 Riverside Plaza, Montreal, QC');
-insert into publishers (company_name, phone_number, email, address) values ('Herzog LLC', '630-633-6512', 'fstockton1@altervista.org', '026 Dapin Center, Montreal, QC');
+INSERT INTO publishers (company_name, phone_number, email, password, address) VALUES ('Hachette Book Group', '800-759-0190', 'hbg@support.com', '5wtFjM3olg', '1290 6th Ave, New York, NY 10019, USA');
+INSERT INTO publishers (company_name, phone_number, email, password, address) VALUES ('McGill-Queen''s University Press', '(514) 398-3750', 'mqup@mcgill.ca', 'wIVpVIJ', '1010 Sherbrooke West Suite 1720 Montreal, Quebec H3A 2R7 Canada');
+INSERT INTO publishers (company_name, phone_number, email, password, address) VALUES ('The Crown Publishing Group', '978-750-8400', 'customerservice@prh.com', 'hqWGiwIqvGv', '222 Rosewood Drive, Danvers, MA 01923');
+insert into publishers (company_name, phone_number, email, password, address) values ('Rogahn, Stiedemann and Gulgowski', '365-245-1875', 'ctwiddle0@senate.gov', 'sYHdAB1tw9', '53 Riverside Plaza, Montreal, QC');
+insert into publishers (company_name, phone_number, email, password, address) values ('Herzog LLC', '630-633-6512', 'fstockton1@altervista.org', 'YQZIc7KFbsfP', '026 Dapin Center, Montreal, QC');
 SET FOREIGN_KEY_CHECKS = 1;
 
 SET FOREIGN_KEY_CHECKS = 0;
-INSERT INTO branches (publisher_id, branch_name, branch_manager, phone_number, email, address) VALUES (1, 'Grand Central Publishing', 'Sherrilyn Kenyon', '+1 212-364-1100', null, '1390 6th Ave, New York, NY 10104, USA');
-INSERT INTO branches (publisher_id, branch_name, branch_manager, phone_number, email, address) VALUES (1, 'Little, Brown and Company', 'Pete Hamill', '+1 617-227-0730', null, '53 State St, Boston, MA 02109, USA');
-INSERT INTO branches (publisher_id, branch_name, branch_manager, phone_number, email, address) VALUES (1, 'Hachette Canada Inc', 'Gail Carriger', '(514) 382-3034', null, '9001 Boulevard de l''Acadie, Montréal, QC H4N 3H5');
+INSERT INTO branches (publisher_id, branch_name, branch_manager, phone_number, email, address) VALUES (1, 'Grand Central Publishing', 'Sherrilyn Kenyon', '+1 212-364-1100', 'ndaniel0@ocn.ne.jp', '1390 6th Ave, New York, NY 10104, USA');
+INSERT INTO branches (publisher_id, branch_name, branch_manager, phone_number, email, address) VALUES (1, 'Little, Brown and Company', 'Pete Hamill', '+1 617-227-0730', 'lgouny1@vk.com', '53 State St, Boston, MA 02109, USA');
+INSERT INTO branches (publisher_id, branch_name, branch_manager, phone_number, email, address) VALUES (1, 'Hachette Canada Inc', 'Gail Carriger', '(514) 382-3034', 'ehubber2@berkeley.edu', '9001 Boulevard de l''Acadie, Montréal, QC H4N 3H5');
 INSERT INTO branches (publisher_id, branch_name, branch_manager, phone_number, email, address) VALUES (2, 'McGill-Queen''s University Press Kingston', 'Dale Carnegie', '(613) 533-2610', 'mqup@queensu.ca', 'McGill-Queen''s University Press Douglas Library Building 93 University Avenue Kingston, ON K7L 5C4 Canada');
 INSERT INTO branches (publisher_id, branch_name, branch_manager, phone_number, email, address) VALUES (2, 'UK Office MQUP', 'Richard Baggaley', '(+44) 1295 720025', 'richard.baggaley.mqup@mcgill.ca', null);
 SET FOREIGN_KEY_CHECKS = 1;
