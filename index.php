@@ -10,7 +10,6 @@ require 'model/BookCategory.php';
 
 
 $bkController = new BookController();
-$books = $bkController->fetchBooks();
 
 ob_start();
 session_start();
@@ -37,7 +36,7 @@ if (isset($_SESSION["customer"])) {
 </head>
 <body>
     <!-- TODO put customer id value here -->
-    <input type="hidden" id="customer-id" style="display:none" value="<?php echo "1"; ?>">
+    <input type="hidden" id="customer-id" style="display:none" value="<?php echo $customer->getCustomerId(); ?>">
     <?php include './navbar.php' ?>
     <main class="container-fluid">
         <!-- Order Request Modal -->
@@ -51,7 +50,7 @@ if (isset($_SESSION["customer"])) {
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <?php if (!isset($_SESSION["customer"])) {?>
+                    <?php if (isset($_SESSION["customer"])) {?>
                         <div id="order-body" class="modal-body">
                             <!-- content populated from js file -->
                         </div>

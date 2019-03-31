@@ -10,6 +10,14 @@
           <li class="nav-item active">
               <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
           </li>
+          <?php if (isset($_SESSION["customer"])) { ?>
+            <li class="nav-item active">
+              <a class="nav-link" href="cart.php">Cart<span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="orders.php">My Orders<span class="sr-only"></span></a>
+            </li>
+          <?php } ?>
       </ul>
       <ul class="nav my-2 my-md-0">
           <li class="dropdown">
