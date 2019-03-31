@@ -1,4 +1,3 @@
-// common variables and functions
 const warnMessage = $('#warningMessage');
 
 const customerLoginForm = $('#customerLoginForm');
@@ -47,6 +46,35 @@ const employeeLoginFormSubmit = function () {
     }
 };
 
+const publisherLoginForm = $('#publisherSignInForm');
+const publisherFormData = {
+    getVal: function () {
+        return {
+            companyEmail: $('input[id=inputCompanyEmail]').val(),
+            password: $('input[id=inputCompanyPassword]').val()
+        }
+    },
+    isValid: function () {
+        return this.getVal().companyEmail !== "" && this.getVal().password !== "";
+    }
+};
+const publisherLoginFormSubmit = function () {
+    if (publisherFormData.isValid()) {
+        $.post('service/publisher_login.php', publisherFormData.getVal(), function (data) {
+            let res = JSON.parse(data);
+            if (res.result) {
+                reloadPage('publisher-dashboard.php', 3, $('#refreshSeconds'));
+            } else {
+                warnMessage.removeClass('d-none');
+                warnMessage.html(res.message);
+            }
+        });
+    } else {
+        warnMessage.removeClass('d-none');
+        warnMessage.html('Please re-enter the company name and password.');
+    }
+};
+
 $(document).ready(function () {
     customerLoginForm.submit(function (e) {
         e.preventDefault();
@@ -57,6 +85,12 @@ $(document).ready(function () {
     employeeLoginForm.submit(function (e) {
         e.preventDefault();
         employeeLoginFormSubmit();
+        return false;
+    });
+
+    publisherLoginForm.submit(function (e) {
+        e.preventDefault();
+        publisherLoginFormSubmit();
         return false;
     });
 });
