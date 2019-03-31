@@ -9,42 +9,56 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form id="addBookForm">
+            <form id="addBookForm">
+                <div class="modal-body">
                     <div class="row mt-2">
+                        <div class="col">
+                            <label for="publisherIdInput">ISBN</label>
+                            <input type="hidden" class="form-control"
+                                   id="publisherIdInput" <?php echo $publisher->getCompanyName(); ?> required>
+                        </div>
                         <!-- isbn -->
                         <div class="col">
-                            <label for="isbn">ISBN</label>
-                            <input type="text" maxlength="11" class="form-control" id="isbn" required>
+                            <label for="bIsbn">ISBN</label>
+                            <input type="text" maxlength="11" class="form-control" id="bIsbn" required>
                         </div>
                         <!-- title -->
                         <div class="col">
-                            <label for="title">Title</label>
-                            <input type="text" class="form-control" id="title" required>
+                            <label for="bTitle">Title</label>
+                            <input type="text" class="form-control" id="bTitle" required>
                         </div>
                     </div>
                     <div class="row mt-2">
                         <!-- edition -->
                         <div class="col">
-                            <label for="edition">Edition</label>
-                            <input type="number" class="form-control" id="edition">
+                            <label for="bEdition">Edition</label>
+                            <input type="number" class="form-control" id="bEdition" min="1">
                         </div>
                         <!-- price -->
                         <div class="col">
-                            <label for="price">Price</label>
-                            <input type="number" class="form-control" id="price" step=any required>
+                            <label for="bPrice">Price</label>
+                            <input type="number" class="form-control" id="bPrice" step=any required>
+                        </div>
+                        <!-- quantity -->
+                        <div class="col">
+                            <label for="bQuantity">Price</label>
+                            <input type="number" class="form-control" id="bQuantity" min="1" required>
                         </div>
                     </div>
                     <div class="row mt-2">
                         <!-- publishers -->
                         <div class="col">
                             <label for="publishersSelect">Publisher</label>
-                            <select class="form-control" id="publishersSelect" required></select>
+                            <select class="form-control" id="publishersSelect" required readonly>
+                                <option value="<?php echo $publisher->getPublisherId(); ?>">
+                                    <?php echo $publisher->getCompanyName(); ?>
+                                </option>
+                            </select>
                         </div>
                         <!-- Book Category -->
                         <div class="col">
-                            <label for="bookCategory">Genre</label>
-                            <select class="form-control" id="bookCategory" required>
+                            <label for="bAuthorId">Genre</label>
+                            <select class="form-control" id="bAuthorId" required>
                                 <option value="-1">Select genre</option>
                                 <option value="0">Biography</option>
                                 <option value="1">Fiction</option>
@@ -62,21 +76,15 @@
                             <select multiple class="form-control" id="authorsSelect" required></select>
                         </div>
                         <div class="col mb-2">
-                            <label for="bookImageControl">Book Cover Image (optional)</label>
-                            <input type="file" class="form-control-file" id="bookImageControl">
+                            <label for="bookImage">Book Cover Image (optional)</label>
+                            <input type="file" class="form-control-file" id="bookImage">
                         </div>
                     </div>
-                    <div class="row mt-3">
-                        <div class="col">
-                            <input type="submit" class="btn btn-secondary" value="Add" id="addBookSubmit"/>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="receiveSaveChanges">Save changes</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="addBookSubmit">Submit</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

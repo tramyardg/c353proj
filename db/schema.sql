@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS `customers`;
 DROP TABLE IF EXISTS `orders`;
 DROP TABLE IF EXISTS `publishers`;
 DROP TABLE IF EXISTS `books`;
-DROP TABLE IF EXISTS `books_authors`;
+DROP TABLE IF EXISTS `book_authors`;
 DROP TABLE IF EXISTS `books_inventory`;
 DROP TABLE IF EXISTS `order_items`;
 DROP TABLE IF EXISTS `branches`;
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `books`
 );
 
 # a book can have many authors (one-to-many)
-CREATE TABLE IF NOT EXISTS `books_authors`
+CREATE TABLE IF NOT EXISTS `book_authors`
 (
   `book_authors_id` INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `book_id`         INT(4),
@@ -146,7 +146,7 @@ ALTER TABLE authors
   AUTO_INCREMENT = 1;
 ALTER TABLE books
   AUTO_INCREMENT = 1;
-ALTER TABLE books_authors
+ALTER TABLE book_authors
   AUTO_INCREMENT = 1;
 ALTER TABLE books_inventory
   AUTO_INCREMENT = 1;

@@ -4,8 +4,6 @@ const productsTable = $('#productsTable');
 const getProductsByPublisherId = () => {
     $.get("service/publisher_index.php?publishers=byId&publisherId=" + publisherId + "", function (data) {
         let products = JSON.parse(data);
-        console.log(products);
-
         let h = '';
         products.map(function (k, i) {
             h += '<tr>' +
@@ -24,3 +22,36 @@ const getProductsByPublisherId = () => {
 };
 
 // display orders by clients (bookstore)
+
+// add new book product
+const addBookForm = $('#addBookForm');
+const addBookFormData = {
+    getVal: function () {
+        return {
+            publisherId: $('#publisherIdInput').val(),
+            isbn: $('#bIsbn').val(),
+            title: $('#bTitle').val(),
+            edition: $('#bEdition').val(),
+            price: $('#bPrice').val(),
+            quantity: $('#bQuantity').val(),
+            category: $('#bCategory').val(),
+            authorsId: $('#bAuthorId').val(),
+            image: $('#bookImage').val()
+        }
+    }
+};
+
+const preAddBookFormSubmit = () => {
+    let url = 'service/publisher_index.php';
+    $.post(url, {addBookData: addBookFormData.getVal()}, function (response) {
+
+    });
+};
+
+const postAddBookFormSubmit = () => {
+    addBookForm.submit(function (event) {
+        event.preventDefault();
+
+        return false;
+    });
+};
