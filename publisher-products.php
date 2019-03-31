@@ -25,8 +25,8 @@ if (isset($_SESSION["publisher"])) {
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
     <link href="css/publisher-dashboard.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 </head>
 <body data-gr-c-s-loaded="true">
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -87,10 +87,39 @@ if (isset($_SESSION["publisher"])) {
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Products</h1>
             </div>
-            <code>Display publisher products here.</code>
+            <div id="productsDiv">
+                <table class="table table-sm" id="productsTable">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">ISBN</th>
+                        <th scope="col">Edition</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Category</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <div class="my-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <button type="button" id="add-new-book" class="btn btn-primary btn-sm"
+                                    data-toggle="modal" data-target="#addBookModal">
+                                <i class="mr-sm-1" style="width: 20px; height: 20px;" data-feather="plus"></i>Add new</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php include 'view/publisher/add-book-modal.php'; ?>
         </main>
     </div>
 </div>
+<script>
+    feather.replace();
+</script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

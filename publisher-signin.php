@@ -23,7 +23,7 @@
     <label for="inputCompanyEmail" class="sr-only">Company email</label>
     <input type="text" id="inputCompanyEmail" class="form-control" placeholder="Company email" required autofocus>
     <label for="inputCompanyPassword" class="sr-only">Password</label>
-    <input type="password" id="inputCompanyPassword" class="form-control" placeholder="Password" required>
+    <input type="password" id="inputCompanyPassword" class="form-control" placeholder="Password" value="5wtFjM3olg" required>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
 </form>

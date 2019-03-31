@@ -98,8 +98,6 @@ if (isset($_SESSION["employee"])) {
         <?php include 'view/employee/book/books-ordered.php' ?>
         <!-- Employee ordering books tab -->
         <?php include 'view/employee/book/order-book.php' ?>
-        <!-- Add books tab -->
-        <?php include 'view/employee/book/add-book.php' ?>
     </div>
     <script>
         feather.replace();

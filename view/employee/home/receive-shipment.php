@@ -4,7 +4,7 @@ $shController = new ShipmentController();
 $shipments = $shController->fetchShipmentsToReceive();
 ?>
 <div class="tab-pane fade show active" id="receive-shipment" role="tabpanel" aria-labelledby="receive-shipment-tab">
-    <table id="booksReceiveTable" class="table table-striped table-bordered table-hover" style="width:100%">
+    <table id="booksReceiveTable" class="table table-striped table-hover table-sm">
         <thead>
         <tr>
             <th class="d-none">Shipment Id</th>
