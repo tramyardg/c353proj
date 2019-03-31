@@ -64,4 +64,12 @@ class BookController
         );
         echo json_encode(array('result' => $exec));
     }
+
+    public function fetchBookByPublisherId($id)
+    {
+        $sql = 'SELECT * FROM books WHERE publisher_id = ?;';
+        $stmt = DB::getInstance()->prepare($sql);
+        $stmt->execute([$id]);
+        return $stmt->fetchAll(PDO::FETCH_CLASS, "Book");
+    }
 }

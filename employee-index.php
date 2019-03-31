@@ -20,7 +20,6 @@ session_start();
 $employee = new Employee();
 if (isset($_SESSION["employee"])) {
     $employee = $_SESSION["employee"];
-
 } else {
     header("Location: index.php");
 }
