@@ -1,5 +1,9 @@
 <?php
 require '../controller/OrderController.php';
+require '../controller/OrderItemController.php';
+require '../model/OrderItem.php';
+require '../model/Order.php';
+require '../db/DB.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST)) {
     $customerId = $_POST["customer_id"];
@@ -7,30 +11,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST)) {
     $quantity = $_POST["quantity"];
     $price = $_POST["price"];
     $status = "pending";
-    // var_dump($customerId);
-    // die();
+    $order = new Order();
+    $order->setCustomerId($customerId);
+    $order->setStatus($status);
+
+    $response = [
+        'status' => false,
+        'message' => 'There was a problem when trying to save order',
+        'data' => []
+    ];
 
     // this works, just that i am not getting the order ID back
     $orderController = new OrderController();
-    $jsonResponse = $orderController->save($customerId, $status);
-    $response = json_decode($jsonResponse);
-    $orderId = $response->result;
+    $orderData = $orderController->save($order);
+    $orderResponse = json_decode($orderData);
+    $orderId = $orderResponse->result;
     
-    if ($response->result) {
+    if ($orderResponse->result) {
         // insert into orderItem
+        $orderItem = new OrderItem();
+        $orderItem->setOrderId($orderId);
+        $orderItem->setBookId($bookId);
+        $orderItem->setQuantity($quantity);
+        $orderItem->setPrice($price);
 
-
-        // once inserted, return order id so user can keep track of his order.
-
-        // TODO ADD ORDER_ITEM
-
-        $response = [
-            'status' => true,
-            'message' => 'success',
-            'data' => [$orderId]
-        ];
-    } else {
-        echo "FAIL";
+        $orderItemController = new OrderItemController();
+        $orderItemData = $orderItemController->save($orderItem);
+        $orderItemResponse = json_decode($orderItemData);
+        if ($orderItemData) {
+            $response = [
+                'status' => true,
+                'message' => 'success',
+                'data' => [$orderId]
+            ];
+        }
     }
    
     echo json_encode($response);

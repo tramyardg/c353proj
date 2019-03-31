@@ -1,6 +1,5 @@
 <?php
 $commonNameTitle = parse_ini_file("./common.ini");
-require 'db/DB.php';
 require 'model/Customer.php';
 require 'model/Book.php';
 require 'controller/BookController.php';

@@ -8,33 +8,9 @@ require 'controller/BookController.php';
 require 'model/Enum.php';
 require 'model/BookCategory.php';
 
-require 'model/Author.php';
-require 'controller/AuthorController.php';
 
 $bkController = new BookController();
 $books = $bkController->fetchBooks();
-
-$biographies = $bkController->fetchBookByCategory(BookCategory::Biography);
-$biography = new Book();
-
-$fictions = $bkController->fetchBookByCategory(BookCategory::Fiction);
-$fiction = new Book();
-
-$histories = $bkController->fetchBookByCategory(BookCategory::History);
-$history = new Book();
-
-$mysteries = $bkController->fetchBookByCategory(BookCategory::Mystery);
-$mystery = new Book();
-
-$suspenseBooks = $bkController->fetchBookByCategory(BookCategory::Suspense);
-$suspense = new Book();
-
-$thrillers = $bkController->fetchBookByCategory(BookCategory::Thriller);
-$thriller = new Book();
-
-
-///////////////////////////////////
-$atController = new AuthorController();
 
 ob_start();
 session_start();
@@ -98,11 +74,11 @@ if (isset($_SESSION["customer"])) {
                     <select id="category-filter" class="custom-select" onchange="rerenderBooks()">
                         <option value="-1" selected>All</option>
                         <option value="0"><?php echo BookCategory::toString(0); ?></option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">4</option>
+                        <option value="1"><?php echo BookCategory::toString(1); ?></option>
+                        <option value="2"><?php echo BookCategory::toString(2); ?></option>
+                        <option value="3"><?php echo BookCategory::toString(3); ?></option>
+                        <option value="4"><?php echo BookCategory::toString(4); ?></option>
+                        <option value="5"><?php echo BookCategory::toString(5); ?></option>
                     </select>
                 </div>
 

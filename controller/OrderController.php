@@ -1,5 +1,4 @@
 <?php
-require '../db/DB.php';
 
 class OrderController
 {
@@ -7,14 +6,17 @@ class OrderController
     {
     }
 
-    public function save($customerId, $status)
+    /*
+     *  Save order and return the inserted row id
+     */
+    public function save(Order $order)
     {
         $sql = 'INSERT INTO `orders` (`customer_id`, `status`) VALUES (?, ?)';
         $stmt = DB::getInstance()->prepare($sql);
         $exec = $stmt->execute(
             array(
-                $customerId,
-                $status
+                $order->getCustomerId(),
+                $order->getStatus()
             )
         );
 

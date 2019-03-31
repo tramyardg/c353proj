@@ -176,7 +176,13 @@ const orderSubmit = async () => {
 
     $.post("./api/order.php", payload, (response) => {
         // TODO show indication that it was successful
-        console.log("RESPONSE: ", response);
+        response = JSON.parse(response);
+        if (response.status) {
+            const orderId = response.data[0];
+            alert(`Success, your order id is: ${orderId}`);
+        } else {
+            alert("Something went wrong");
+        }
     })
 
     selectedBook = null;

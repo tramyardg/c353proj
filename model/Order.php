@@ -21,7 +21,7 @@ class Order implements JsonSerializable
 
     public function getCustomerId()
     {
-        return $this->first_name;
+        return $this->customer_id;
     }
 
     public function setCustomerId($customer_id): void
