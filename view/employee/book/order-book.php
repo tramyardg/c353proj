@@ -1,34 +1,53 @@
-<div class="tab-pane fade" id="orderBooks" role="tabpanel" aria-labelledby="addBooks-tab">
-    <p><code>To full fill the function of employee: the Bookstore can order books from several publishers.</code></p>
-    <p><code>Ordering works one publisher at a time.</code></p>
-    <form id="employeeOrderBook">
-        <div class="form-group">
-            <h5>Step 1: Select a publisher to order from</h5>
-            <p><code>loop through the database and display the publishers to choose from</code></p>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="publishersGroupSelect">Publishers</label>
-                </div>
-                <select class="custom-select" id="publishersGroupSelect" required>
-                    <option selected>Choose...</option>
-                    <option value="1">Publisher 1</option>
-                    <option value="2">Publisher 1</option>
-                    <option value="3">Publisher 1</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <h5>Step 2: Select book(s) to order from this publisher</h5>
-            <p><code>loop through the database and get the books published from selected publisher in step 1</code></p>
-            <p><code>generate a dynamic select options and display them below</code></p>
-            <label for="booksToOrder">Books to Order</label>
-            <select multiple class="form-control" id="booksToOrder"></select>
-        </div>
-        <div class="form-group">
-            <h5>Step 3: Enter number of books needed</h5>
-            <label for="edition">Order Quantity</label>
-            <input type="number" class="form-control" id="edition" min="1" max="200" required>
-        </div>
-        <input type="submit" class="btn btn-secondary" value="Order"/>
-    </form>
+<?php
+$pController = new PublisherController();
+$bkPb = $pController->fetchBookJoinPublisher();
+?>
+<div class="tab-pane fade show active" id="orderBooks" role="tabpanel" aria-labelledby="addBooks-tab">
+    <div class="pt-3 pb-3">
+        <label for="selectBookToOrderTable">Step 1: Select a book to order</label>
+        <table id="selectBookToOrderTable" class="table table-sm" style="width:100%">
+            <thead>
+            <tr>
+                <th>Book ID</th>
+                <th>Publisher Name</th>
+                <th>Title</th>
+                <th>Edition</th>
+                <th>ISBN</th>
+                <th>Price</th>
+                <th>Category</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php for ($i = 0; $i < count($bkPb); $i++) { ?>
+            <tr>
+                <td><?php echo $bkPb[$i]['book_id'];?></td>
+                <td><?php echo $bkPb[$i]['company_name'];?></td>
+                <td><?php echo $bkPb[$i]['title'];?></td>
+                <td><?php echo $bkPb[$i]['edition'];?></td>
+                <td><?php echo $bkPb[$i]['isbn'];?></td>
+                <td><?php echo $bkPb[$i]['price'];?></td>
+                <td><?php echo $bkPb[$i]['category'];?></td>
+            </tr>
+            <?php } ?>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th>Book ID</th>
+                <th>Publisher Name</th>
+                <th>Title</th>
+                <th>Edition</th>
+                <th>ISBN</th>
+                <th>Price</th>
+                <th>Category</th>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="pt-3 pb-3">
+        <label for="quantityNeeded">Step 2: Enter number of books needed</label>
+        <input type="number" class="form-control" id="quantityNeeded" min="1" max="200" required>
+    </div>
+    <div class="pt-1">
+        <button type="button" id="order-book-button" class="btn btn-primary">Order</button>
+    </div>
 </div>

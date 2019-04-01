@@ -8,7 +8,7 @@ $shipments = $shController->fetchShipmentsToReceive();
         <thead>
         <tr>
             <th class="d-none">Shipment Id</th>
-            <th>ID</th>
+            <th>Book ID</th>
             <th>Title</th>
             <th>ISBN</th>
             <th>Quantity</th>

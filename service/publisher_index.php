@@ -5,6 +5,7 @@ require '../model/Book.php';
 require '../model/BookAuthors.php';
 require '../model/Publisher.php';
 require '../model/BookInventory.php';
+require '../model/PublisherBooksInventory.php';
 
 require '../controller/BookController.php';
 require '../controller/AuthorController.php';
@@ -17,7 +18,7 @@ $aController = new AuthorController();
 $pbController = new PublisherController();
 $bkController = new BookController();
 $baController = new BookAuthorsController();
-$biController = new BookInventoryController();
+$bIController = new BookInventoryController();
 $pbInvController = new PublisherBooksInventoryController();
 
 // minimum requirement -> publisher id to be able to do these functions
@@ -37,8 +38,8 @@ if (isset($_GET["publisherId"])) {
         $bkController->save($newBook);
         $bkId = DB::getInstance()->lastInsertId();
 
-        // get all the authors and insert it to book authors table
-        // one book can have many authors
+        // get all the authors and insert it to book_authors table
+        // since a book can have many authors
         $authorsId = $_POST["addBookData"]["authorsId"];
         for ($i = 0; $i < count($authorsId); $i++) {
             $bookAuthors = new BookAuthors();
@@ -47,17 +48,20 @@ if (isset($_GET["publisherId"])) {
             $baController->save($bookAuthors);
         }
 
-        // insert to publisher book inventory as well with quantity
-        $qtyOnHand = $_POST["addBookData"]["quantity"];
         $bookInventory = new BookInventory();
         $bookInventory->setBookId($bkId);
         // insert 0 quantity in bookstore inventory
         $bookInventory->setQtyOnHand(0);
         $bookInventory->setQtySold(0);
-        $biController->save($bookInventory);
+        $bIController->save($bookInventory);
 
-        // todo insert into publisher book inventory
-
+        // insert to publisher book inventory as well with quantity
+        $pbInventory = new PublisherBooksInventory();
+        $pbInventory->setBookId($bkId);
+        $pbInventory->setPublisherId($_POST["addBookData"]["publisherId"]);
+        $pbInventory->setQtyOnHand($_POST["addBookData"]["quantity"]);
+        $pbInventory->setQtySold(0);
+        $pbInvController->save($pbInventory);
     }
 
 }

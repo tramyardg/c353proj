@@ -2,7 +2,9 @@
 $commonNameTitle = parse_ini_file("./common.ini");
 require 'db/DB.php';
 require 'model/Employee.php';
+require 'model/Publisher.php';
 require 'controller/EmployeeController.php';
+require 'controller/PublisherController.php';
 
 ob_start();
 session_start();
@@ -22,7 +24,7 @@ if (isset($_SESSION["employee"])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Home</title>
+    <title>Order book</title>
 
     <link href="css/bootstrap-flatly.css" rel="stylesheet">
     <link href="css/navbar.css" rel="stylesheet">
@@ -53,43 +55,8 @@ if (isset($_SESSION["employee"])) {
                                 class="sr-only">(current)</span></a>
                 </li>
             </ul>
-            <ul class="nav my-2 my-md-0">
-                <li class="dropdown">
-                    <?php if (isset($_SESSION["employee"])) { ?>
-                        <a class="nav-link pl-0 dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">Hello, <?php echo $employee->getEmpName(); ?></a>
-                    <?php } else { ?>
-                        <a class="nav-link pl-0 dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">Hello, Sign in</a>
-                    <?php } ?>
-                    <div class="dropdown-menu">
-                        <?php if (isset($_SESSION["employee"])) { ?>
-                            <a class="dropdown-item btn-success" href="#">
-                                <i class="mr-2" data-feather="user-check"></i>
-                                Your account
-                            </a>
-                        <?php } ?>
-                        <?php if (!isset($_SESSION["employee"])) { ?>
-                            <a class="dropdown-item" href="login.php">
-                                <i class="mr-2" data-feather="log-in"></i>
-                                Log in
-                            </a>
-                        <?php } ?>
-                        <?php if (isset($_SESSION["employee"])) { ?>
-                            <a class="dropdown-item" href="logout.php">
-                                <i class="mr-2" data-feather="log-out"></i>
-                                Log out
-                            </a>
-                        <?php } ?>
-                        <?php if (!isset($_SESSION["employee"])) { ?>
-                            <a class="dropdown-item" href="create-account.php">
-                                <i class="mr-2" data-feather="user-plus"></i>
-                                Register
-                            </a>
-                        <?php } ?>
-                    </div>
-                </li>
-            </ul>
+            <!-- employee nav -->
+            <?php include 'view/employee/nav.php'; ?>
         </div>
     </nav>
     <?php include 'view/employee/book-tab-list.php' ?>
@@ -107,12 +74,28 @@ if (isset($_SESSION["employee"])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="js/employee-book-features.js"></script>
     <script>
         $(document).ready(function () {
-            initializeBooksOrderedTable();
-            generateAuthorOptions();
-            generatePublisherOptions();
+            $('#booksOrderedTable').DataTable({
+                'pageLength': 5
+            });
+
+            let selectBookToOrderTable = $('#selectBookToOrderTable').DataTable({
+                'pageLength': 5
+            });
+            $('#selectBookToOrderTable tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                } else {
+                    selectBookToOrderTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+
+            $('#order-book-button').click(function () {
+                console.log(selectBookToOrderTable.row('.selected').data());
+            });
+
         });
     </script>
 </body>
