@@ -5,12 +5,14 @@ require 'model/Book.php';
 require 'model/BookAuthors.php';
 require 'model/Publisher.php';
 require 'model/BookInventory.php';
+require 'model/PublisherBooksInventory.php';
 
 require 'controller/BookController.php';
 require 'controller/AuthorController.php';
 require 'controller/PublisherController.php';
 require 'controller/BookAuthorsController.php';
 require 'controller/BookInventoryController.php';
+require 'controller/PublisherBooksInventoryController.php';
 
 ob_start();
 session_start();
@@ -18,10 +20,9 @@ session_start();
 $publisher = new Publisher();
 if (isset($_SESSION["publisher"])) {
     $publisher = $_SESSION["publisher"];
-    $aController = new AuthorController();
-    $bkController = new BookController();
-    $booksByPublisher = $bkController->fetchBookByPublisherId($publisher->getPublisherId());
-    $book = new Book();
+
+    $pbInvController = new PublisherBooksInventoryController();
+    $booksByPublisher = $pbInvController->fetchBooksWithQtyOfPublisher($publisher->getPublisherId());
 } else {
     header("Location: publisher-signin.php");
 }
@@ -105,24 +106,28 @@ if (isset($_SESSION["publisher"])) {
                     <thead class="thead-light">
                     <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Book ID</th>
                         <th scope="col">Title</th>
                         <th scope="col">ISBN</th>
                         <th scope="col">Edition</th>
                         <th scope="col">Price</th>
                         <th scope="col">Image</th>
                         <th scope="col">Category</th>
+                        <th scope="col">Quantity</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($booksByPublisher as $k => $v) { $book = $v ?>
+                    <?php foreach ($booksByPublisher as $k => $v) { ?>
                     <tr>
-                        <th scope="row"><? echo $k; ?></th>
-                        <td><?php echo $book->getTitle(); ?></td>
-                        <td><?php echo $book->getIsbn(); ?></td>
-                        <td><?php echo $book->getEdition(); ?></td>
-                        <td><?php echo $book->getPrice(); ?></td>
-                        <td><?php echo $book->getImage(); ?></td>
-                        <td><?php echo $book->getCategory(); ?></td>
+                        <th scope="row"><?php echo($k + 1); ?></th>
+                        <td><?php echo $v['book_id']; ?></td>
+                        <td><?php echo $v['title']; ?></td>
+                        <td><?php echo $v['isbn']; ?></td>
+                        <td><?php echo $v['edition']; ?></td>
+                        <td><?php echo $v['price']; ?></td>
+                        <td><?php echo $v['image']; ?></td>
+                        <td><?php echo $v['category']; ?></td>
+                        <td><?php echo $v['qty_on_hand']; ?></td>
                     </tr>
                     <?php } ?>
                     </tbody>

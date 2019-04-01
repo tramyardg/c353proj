@@ -11,12 +11,14 @@ require '../controller/AuthorController.php';
 require '../controller/PublisherController.php';
 require '../controller/BookAuthorsController.php';
 require '../controller/BookInventoryController.php';
+require '../controller/PublisherBooksInventoryController.php';
 
 $aController = new AuthorController();
 $pbController = new PublisherController();
 $bkController = new BookController();
 $baController = new BookAuthorsController();
 $biController = new BookInventoryController();
+$pbInvController = new PublisherBooksInventoryController();
 
 // minimum requirement -> publisher id to be able to do these functions
 if (isset($_GET["publisherId"])) {
@@ -55,6 +57,7 @@ if (isset($_GET["publisherId"])) {
         $biController->save($bookInventory);
 
         // todo insert into publisher book inventory
+
     }
 
 }

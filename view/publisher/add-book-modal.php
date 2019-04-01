@@ -1,5 +1,5 @@
 <?php
-
+$aController = new AuthorController();
 $authors = $aController->fetchAuthors();
 $author = new Author();
 ?>

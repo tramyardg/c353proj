@@ -21,6 +21,7 @@ DROP TABLE IF EXISTS `books_inventory`;
 DROP TABLE IF EXISTS `order_items`;
 DROP TABLE IF EXISTS `branches`;
 DROP TABLE IF EXISTS `shipments`;
+DROP TABLE IF EXISTS `publisher_books_inventory`;
 SET FOREIGN_KEY_CHECKS = 1;
 
 CREATE TABLE IF NOT EXISTS `employees`
@@ -174,4 +175,6 @@ ALTER TABLE orders
 ALTER TABLE publishers
   AUTO_INCREMENT = 1;
 ALTER TABLE shipments
+  AUTO_INCREMENT = 1;
+ALTER TABLE publisher_books_inventory
   AUTO_INCREMENT = 1;

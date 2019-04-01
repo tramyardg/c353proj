@@ -151,3 +151,25 @@ INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_re
 INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped) VALUES (19, 8, 1, 89, '0', '2018-07-26');
 INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped) VALUES (20, 7, 1, 103, '0', '2018-04-26');
 SET FOREIGN_KEY_CHECKS = 1;
+
+## publishers have their own inventory/count of books
+## this is different from qty_on_hand of bookstore
+SET FOREIGN_KEY_CHECKS = 0;
+INSERT INTO `publisher_books_inventory` (`pb_book_inv_id`, `book_id`, `publisher_id`, `qty_on_hand`, `qty_sold`) VALUES
+(1, 5, 1, 121, 0),
+(2, 7, 1, 12, 0),
+(3, 8, 1, 45, 0),
+(4, 16, 1, 13, 0),
+(8, 1, 2, 123, 0),
+(9, 6, 2, 65, 0),
+(10, 10, 2, 76, 0),
+(11, 3, 3, 19, 0),
+(12, 4, 3, 21, 0),
+(13, 9, 3, 17, 0),
+(14, 12, 4, 11, 0),
+(15, 13, 4, 132, 0),
+(16, 15, 4, 60, 0),
+(17, 2, 5, 53, 0),
+(18, 11, 5, 203, 0),
+(19, 14, 5, 103, 0);
+SET FOREIGN_KEY_CHECKS = 1;
