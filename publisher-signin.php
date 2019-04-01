@@ -21,7 +21,7 @@
     <div class="alert alert-warning d-none" id="warningMessage" role="alert"></div>
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <label for="inputCompanyEmail" class="sr-only">Company email</label>
-    <input type="text" id="inputCompanyEmail" class="form-control" placeholder="Company email" required autofocus>
+    <input type="text" id="inputCompanyEmail" class="form-control" placeholder="Company email" value="hbg@support.com" required autofocus>
     <label for="inputCompanyPassword" class="sr-only">Password</label>
     <input type="password" id="inputCompanyPassword" class="form-control" placeholder="Password" value="5wtFjM3olg" required>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>

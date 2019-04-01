@@ -1,7 +1,16 @@
 <?php
 require 'db/DB.php';
+require 'model/Author.php';
+require 'model/Book.php';
+require 'model/BookAuthors.php';
 require 'model/Publisher.php';
+require 'model/BookInventory.php';
+
+require 'controller/BookController.php';
+require 'controller/AuthorController.php';
 require 'controller/PublisherController.php';
+require 'controller/BookAuthorsController.php';
+require 'controller/BookInventoryController.php';
 
 ob_start();
 session_start();
@@ -9,6 +18,10 @@ session_start();
 $publisher = new Publisher();
 if (isset($_SESSION["publisher"])) {
     $publisher = $_SESSION["publisher"];
+    $aController = new AuthorController();
+    $bkController = new BookController();
+    $booksByPublisher = $bkController->fetchBookByPublisherId($publisher->getPublisherId());
+    $book = new Book();
 } else {
     header("Location: publisher-signin.php");
 }
@@ -101,6 +114,17 @@ if (isset($_SESSION["publisher"])) {
                     </tr>
                     </thead>
                     <tbody>
+                    <?php foreach ($booksByPublisher as $k => $v) { $book = $v ?>
+                    <tr>
+                        <th scope="row"><? echo $k; ?></th>
+                        <td><?php echo $book->getTitle(); ?></td>
+                        <td><?php echo $book->getIsbn(); ?></td>
+                        <td><?php echo $book->getEdition(); ?></td>
+                        <td><?php echo $book->getPrice(); ?></td>
+                        <td><?php echo $book->getImage(); ?></td>
+                        <td><?php echo $book->getCategory(); ?></td>
+                    </tr>
+                    <?php } ?>
                     </tbody>
                 </table>
                 <div class="my-3">
@@ -128,8 +152,6 @@ if (isset($_SESSION["publisher"])) {
 <script src="js/publisher-index.js"></script>
 <script>
     $(document).ready(function () {
-        getProductsByPublisherId();
-        generateAuthorOptions();
         postAddBookFormSubmit();
     });
 </script>

@@ -1,3 +1,8 @@
+<?php
+
+$authors = $aController->fetchAuthors();
+$author = new Author();
+?>
 <!-- Add Book Modal -->
 <div class="modal fade" id="addBookModal" tabindex="-1" role="dialog"
      aria-hidden="true">
@@ -53,7 +58,15 @@
                         <!-- Authors -->
                         <div class="col">
                             <label for="authorsSelect">Authors</label>
-                            <select multiple class="form-control" id="authorsSelect" required></select>
+                            <select multiple class="form-control" id="authorsSelect" required>
+                                <?php foreach ($authors as $k => $v)  { $author = $v; ?>
+                                    <option value="<?php echo $author->getAuthorId() ?>">
+                                        <?php echo $author->getFirstName() . " "; ?>
+                                        <?php echo $author->getMiddleName() != "" ? $author->getMiddleName() : " "; ?>
+                                        <?php echo $author->getLastName(); ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
                         </div>
                         <!-- Book Category -->
                         <div class="col">

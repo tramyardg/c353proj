@@ -1,26 +1,25 @@
 const publisherId = $('a#company-name-id').attr('data-id');
 const productsTable = $('#productsTable');
+const addBookModal = $('#addBookModal');
 // display products
-const getProductsByPublisherId = () => {
-    $.get("service/publisher_index.php?publishers=byId&publisherId=" + publisherId + "", function (data) {
-        let products = JSON.parse(data);
-        if (products.length <= 0) {
-            return;
-        }
-        let h = '';
-        products.map(function (k, i) {
-            h += '<tr>' +
-                '      <th scope="row">' + i + '</th>' +
-                '      <td>' + k.title + '</td>' +
-                '      <td>' + k.isbn + '</td>' +
-                '      <td>' + k.edition + '</td>' +
-                '      <td>' + k.price + '</td>' +
-                '      <td>' + k.image + '</td>' +
-                '      <td>' + k.category + '</td>' +
-                '    </tr>';
-        });
-        productsTable.find('tbody').append(h);
+const getProductsByPublisherId = (data) => {
+    let products = data;
+    if (products.length <= 0) {
+        return;
+    }
+    let h = '';
+    products.map(function (k, i) {
+        h += '<tr>' +
+            '      <th scope="row">' + i + '</th>' +
+            '      <td>' + k.title + '</td>' +
+            '      <td>' + k.isbn + '</td>' +
+            '      <td>' + k.edition + '</td>' +
+            '      <td>' + k.price + '</td>' +
+            '      <td>' + k.image + '</td>' +
+            '      <td>' + k.category + '</td>' +
+            '    </tr>';
     });
+    productsTable.find('tbody').append(h);
 };
 
 // display orders by clients (bookstore)
@@ -60,18 +59,15 @@ const postAddBookFormSubmit = () => {
     });
 };
 
-const generateAuthorOptions = () => {
-    $.get("service/publisher_index.php?authors=all&publisherId=" + publisherId + "", function (data) {
-        let authors = JSON.parse(data);
-        authors.map(function (k) {
-            let middleName = '';
-            if (k.middle_name !== null) {
-                middleName = k.middle_name
-            }
-            $('#authorsSelect').append($('<option>', {
-                value: k.author_id,
-                text: k.first_name + ' ' + middleName + ' ' + k.last_name
-            }))
-        })
-    });
+const generateAuthorOptions = (data) => {
+    data.map(function (k) {
+        let middleName = '';
+        if (k.middle_name !== null) {
+            middleName = k.middle_name
+        }
+        $('#authorsSelect').append($('<option>', {
+            value: k.author_id,
+            text: k.first_name + ' ' + middleName + ' ' + k.last_name
+        }))
+    })
 };

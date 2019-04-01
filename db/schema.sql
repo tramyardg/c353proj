@@ -96,6 +96,17 @@ CREATE TABLE IF NOT EXISTS `books_inventory`
   FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`)
 );
 
+CREATE TABLE IF NOT EXISTS `publisher_books_inventory`
+(
+    `pb_book_inv_id` INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    `book_id`        INT(4)             NOT NULL,
+    `publisher_id`   INT(4),
+    `qty_on_hand`    INT,
+    `qty_sold`       INT,
+    FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`),
+    FOREIGN KEY (`publisher_id`) REFERENCES `books` (`publisher_id`)
+);
+
 CREATE TABLE IF NOT EXISTS `orders`
 (
   `order_id`     INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,

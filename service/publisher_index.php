@@ -21,14 +21,6 @@ $biController = new BookInventoryController();
 // minimum requirement -> publisher id to be able to do these functions
 if (isset($_GET["publisherId"])) {
 
-    if (isset($_GET["authors"]) && $_GET["authors"] == "all") {
-        echo $aController->fetchAuthors();
-    }
-
-    if (isset($_GET['publishers']) && $_GET['publishers'] == "byId") {
-        echo json_encode($bkController->fetchBookByPublisherId($_GET["publisherId"]), JSON_PRETTY_PRINT);
-    }
-
     // add new book
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["addBookData"])) {
         $newBook = new Book();
@@ -39,8 +31,6 @@ if (isset($_GET["publisherId"])) {
         $newBook->setCategory($_POST["addBookData"]["category"]);
         $newBook->setPublisherId($_POST["addBookData"]["publisherId"]);
         $newBook->setImage($_POST["addBookData"]['image']);
-        echo '<pre>';
-        print_r($newBook);
 
         $bkController->save($newBook);
         $bkId = DB::getInstance()->lastInsertId();
@@ -59,9 +49,12 @@ if (isset($_GET["publisherId"])) {
         $qtyOnHand = $_POST["addBookData"]["quantity"];
         $bookInventory = new BookInventory();
         $bookInventory->setBookId($bkId);
-        $bookInventory->setQtyOnHand($qtyOnHand);
+        // insert 0 quantity in bookstore inventory
+        $bookInventory->setQtyOnHand(0);
         $bookInventory->setQtySold(0);
         $biController->save($bookInventory);
+
+        // todo insert into publisher book inventory
     }
 
 }
