@@ -3,6 +3,7 @@
 
 class ShipmentController
 {
+    // good
     public function fetchShipments()
     {
         $sql = "SELECT * FROM shipments;";
@@ -11,6 +12,7 @@ class ShipmentController
         return $stmt->fetchAll(PDO::FETCH_CLASS, "Shipment");
     }
 
+    // good
     public function fetchShipmentById(Shipment $shipment)
     {
         $sql = "SELECT * FROM shipments WHERE shipment_id = ?;";
@@ -19,6 +21,7 @@ class ShipmentController
         return $stmt->fetchAll(PDO::FETCH_CLASS, "Shipment");
     }
 
+    // for publisher, not supposed to be here
     public function save(Shipment $shipment)
     {
         $sql = 'INSERT INTO `shipments` (`book_id`, `publisher_id`, `qty_to_receive`, `is_received`, `date_shipped`, `date_received`) VALUES (?, ?, ?, ?, ?, ?)';
@@ -41,6 +44,7 @@ class ShipmentController
         echo json_encode(array('result' => $exec));
     }
 
+    // for publisher not supposed to be here
     public function update(Shipment $shipment)
     {
         // update shipment is_received status and date received
@@ -56,9 +60,10 @@ class ShipmentController
         echo json_encode(array('result' => $exec));
     }
 
+    // to be updated
     public function fetchShipmentsToReceive()
     {
-        $shipments = $this->fetchShipments(); // raw
+        $shipments = $this->fetchShipments();
         $out = null;
 
         $bkController = new BookController();
