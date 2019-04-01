@@ -1,6 +1,0 @@
-<a class="dropdown-item btn-success" href="login.php"><i class="mr-2" data-feather="user-check"></i>Your account</a>
-<a class="dropdown-item btn-success" href="account.php"><i class="mr-2" data-feather="user-check"></i>Your account</a>
-<a class="dropdown-item" href="#"><i class="mr-2" data-feather="shopping-cart"></i>Cart</a>
-<a class="dropdown-item" href="login.php"><i class="mr-2" data-feather="log-in"></i>Log in</a>
-<a class="dropdown-item" href="logout.php"><i class="mr-2" data-feather="log-out"></i>Log out</a>
-<a class="dropdown-item" href="create-account.php"><i class="mr-2" data-feather="user-plus"></i>Register</a>

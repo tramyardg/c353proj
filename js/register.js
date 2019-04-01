@@ -70,8 +70,7 @@ const registerFormSubmit = function () {
                 $('#successMessage').removeClass('d-none');
                 scrollTop();
                 disableInputSubmit($('input[id=inputRegister]'));
-                refreshTimer(3, $('#refreshSeconds'), function () {
-                });
+                refreshTimer(3, $('#refreshSeconds'), function () {});
             } else {
                 alert('There is already an account associated with this email.');
             }

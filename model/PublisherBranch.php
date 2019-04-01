@@ -1,32 +1,53 @@
 <?php
 
-class Publisher implements JsonSerializable
+class PublisherBranch implements JsonSerializable
 {
+    private $branch_id;
+    private $branch_name;
     private $publisher_id;
-    private $company_name;
+    private $branch_manager;
     private $phone_number;
     private $email;
-    private $password;
     private $address;
+
+    public function getBranchId()
+    {
+        return $this->branch_id;
+    }
+
+    public function setBranchId($branch_id): void
+    {
+        $this->branch_id = $branch_id;
+    }
+
+    public function getBranchName()
+    {
+        return $this->branch_name;
+    }
+
+    public function setBranchName($branch_name): void
+    {
+        $this->branch_name = $branch_name;
+    }
 
     public function getPublisherId()
     {
         return $this->publisher_id;
     }
 
-    public function setPublisherId($publisher_id)
+    public function setPublisherId($publisher_id): void
     {
         $this->publisher_id = $publisher_id;
     }
 
-    public function getCompanyName()
+    public function getBranchManager()
     {
-        return $this->company_name;
+        return $this->branch_manager;
     }
 
-    public function setCompanyName($company_name)
+    public function setBranchManager($branch_manager): void
     {
-        $this->company_name = $company_name;
+        $this->branch_manager = $branch_manager;
     }
 
     public function getPhoneNumber()
@@ -34,7 +55,7 @@ class Publisher implements JsonSerializable
         return $this->phone_number;
     }
 
-    public function setPhoneNumber($phone_number)
+    public function setPhoneNumber($phone_number): void
     {
         $this->phone_number = $phone_number;
     }
@@ -44,19 +65,9 @@ class Publisher implements JsonSerializable
         return $this->email;
     }
 
-    public function setEmail($email)
+    public function setEmail($email): void
     {
         $this->email = $email;
-    }
-
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    public function setPassword($password): void
-    {
-        $this->password = $password;
     }
 
     public function getAddress()
@@ -64,14 +75,15 @@ class Publisher implements JsonSerializable
         return $this->address;
     }
 
-    public function setAddress($address)
+    public function setAddress($address): void
     {
         $this->address = $address;
     }
 
+
     /**
      * Specify data which should be serialized to JSON
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
      * @return mixed data which can be serialized by <b>json_encode</b>,
      * which is a value of any type other than a resource.
      * @since 5.4.0

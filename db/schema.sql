@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS `customers`;
 DROP TABLE IF EXISTS `orders`;
 DROP TABLE IF EXISTS `publishers`;
 DROP TABLE IF EXISTS `books`;
-DROP TABLE IF EXISTS `books_authors`;
+DROP TABLE IF EXISTS `book_authors`;
 DROP TABLE IF EXISTS `books_inventory`;
 DROP TABLE IF EXISTS `order_items`;
 DROP TABLE IF EXISTS `branches`;
@@ -60,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `publishers`
   `company_name` VARCHAR(50)        NOT NULL,
   `phone_number` VARCHAR(20),
   `email`        VARCHAR(50),
+  `password`     VARCHAR(50)        NOT NULL,
   `address`      VARCHAR(255)
 );
 
@@ -72,12 +73,12 @@ CREATE TABLE IF NOT EXISTS `books`
   `price`        DOUBLE(8, 2),
   `publisher_id` INT(4)             NOT NULL,
   `image`        BLOB                                DEFAULT NULL,
-  `category`     ENUM ('0', '1', '2', '3', '4', '5') DEFAULT '-1',
+  `category`     ENUM ('0', '1', '2', '3', '4', '5') DEFAULT NULL,
   FOREIGN KEY (`publisher_id`) REFERENCES `publishers` (`publisher_id`)
 );
 
 # a book can have many authors (one-to-many)
-CREATE TABLE IF NOT EXISTS `books_authors`
+CREATE TABLE IF NOT EXISTS `book_authors`
 (
   `book_authors_id` INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `book_id`         INT(4),
@@ -93,6 +94,17 @@ CREATE TABLE IF NOT EXISTS `books_inventory`
   `qty_on_hand` INT,
   `qty_sold`    INT,
   FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`)
+);
+
+CREATE TABLE IF NOT EXISTS `publisher_books_inventory`
+(
+    `pb_book_inv_id` INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    `book_id`        INT(4)             NOT NULL,
+    `publisher_id`   INT(4),
+    `qty_on_hand`    INT,
+    `qty_sold`       INT,
+    FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`),
+    FOREIGN KEY (`publisher_id`) REFERENCES `books` (`publisher_id`)
 );
 
 CREATE TABLE IF NOT EXISTS `orders`
@@ -145,7 +157,7 @@ ALTER TABLE authors
   AUTO_INCREMENT = 1;
 ALTER TABLE books
   AUTO_INCREMENT = 1;
-ALTER TABLE books_authors
+ALTER TABLE book_authors
   AUTO_INCREMENT = 1;
 ALTER TABLE books_inventory
   AUTO_INCREMENT = 1;

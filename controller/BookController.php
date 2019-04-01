@@ -11,10 +11,10 @@ class BookController
     {
         $sql = "SELECT * 
                 FROM `books` 
-                LEFT JOIN `books_authors` 
-                    ON books.book_id = books_authors.book_id
+                LEFT JOIN `book_authors` 
+                    ON books.book_id = book_authors.book_id
                 LEFT JOIN `authors` 
-                    ON books_authors.author_id = authors.author_id
+                    ON book_authors.author_id = authors.author_id
                 LEFT JOIN `books_inventory`
                     ON books.book_id = books_inventory.book_id
                 GROUP BY books.book_id";
@@ -63,5 +63,13 @@ class BookController
             )
         );
         echo json_encode(array('result' => $exec));
+    }
+
+    public function fetchBookByPublisherId($id)
+    {
+        $sql = 'SELECT * FROM books WHERE publisher_id = ?;';
+        $stmt = DB::getInstance()->prepare($sql);
+        $stmt->execute([$id]);
+        return $stmt->fetchAll(PDO::FETCH_CLASS, "Book");
     }
 }

@@ -21,4 +21,13 @@ class PublisherController
         $stmt->execute([$id]);
         return $stmt->fetchAll(PDO::FETCH_CLASS, "Publisher");
     }
+
+    public function fetchPublisherByEmail($email)
+    {
+        $sql = "SELECT * FROM publishers WHERE email = ?;";
+        $stmt = DB::getInstance()->prepare($sql);
+        $stmt->execute([$email]);
+        return $stmt->fetchAll(PDO::FETCH_CLASS, "Publisher");
+    }
+
 }

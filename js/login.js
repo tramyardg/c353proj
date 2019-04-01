@@ -1,4 +1,3 @@
-// common variables and functions
 const warnMessage = $('#warningMessage');
 
 const customerLoginForm = $('#customerLoginForm');
@@ -15,13 +14,7 @@ const customerLoginFormSubmit = function () {
         $.post('service/customer_login.php', customerFormData.getVal(), function (data) {
             let res = JSON.parse(data);
             if (res.result) {
-                $('#successMessage').removeClass('d-none');
-                refreshTimer(3, $('#refreshSeconds'), function () {
-                    let locHref = location.href;
-                    let siteRoot = locHref.substring(0, locHref.lastIndexOf('/'));
-                    let homePageLink = siteRoot + '/index.php';
-                    window.location.replace(homePageLink);
-                });
+                reloadPage('index.php', 2, $('#refreshSeconds'));
             } else {
                 warnMessage.removeClass('d-none');
                 warnMessage.html(res.message);
@@ -44,18 +37,41 @@ const employeeLoginFormSubmit = function () {
         $.post('service/employee_login.php', employeeFormData.getVal(), function (data) {
             let res = JSON.parse(data);
             if (res.result) {
-                $('#successMessage').removeClass('d-none');
-                refreshTimer(3, $('#refreshSeconds'), function () {
-                    let locHref = location.href;
-                    let siteRoot = locHref.substring(0, locHref.lastIndexOf('/'));
-                    let homePageLink = siteRoot + '/employee-index.php';
-                    window.location.replace(homePageLink);
-                });
+                reloadPage('employee-index.php', 2, $('#refreshSeconds'));
             } else {
                 warnMessage.removeClass('d-none');
                 warnMessage.html(res.message);
             }
         });
+    }
+};
+
+const publisherLoginForm = $('#publisherSignInForm');
+const publisherFormData = {
+    getVal: function () {
+        return {
+            companyEmail: $('input[id=inputCompanyEmail]').val(),
+            password: $('input[id=inputCompanyPassword]').val()
+        }
+    },
+    isValid: function () {
+        return this.getVal().companyEmail !== "" && this.getVal().password !== "";
+    }
+};
+const publisherLoginFormSubmit = function () {
+    if (publisherFormData.isValid()) {
+        $.post('service/publisher_login.php', publisherFormData.getVal(), function (data) {
+            let res = JSON.parse(data);
+            if (res.result) {
+                reloadPage('publisher-dashboard.php', 3, $('#refreshSeconds'));
+            } else {
+                warnMessage.removeClass('d-none');
+                warnMessage.html(res.message);
+            }
+        });
+    } else {
+        warnMessage.removeClass('d-none');
+        warnMessage.html('Please re-enter the company name and password.');
     }
 };
 
@@ -69,6 +85,12 @@ $(document).ready(function () {
     employeeLoginForm.submit(function (e) {
         e.preventDefault();
         employeeLoginFormSubmit();
+        return false;
+    });
+
+    publisherLoginForm.submit(function (e) {
+        e.preventDefault();
+        publisherLoginFormSubmit();
         return false;
     });
 });

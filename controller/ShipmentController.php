@@ -65,25 +65,24 @@ class ShipmentController
         $pbController = new PublisherController();
 
         foreach ($shipments as $k) {
-            $book = new Book();
             $book = $bkController->fetchBookById($k->getBookId())[0];
-
-            $publisher = new Publisher();
             $publisher = $pbController->fetchPublisherById($k->getPublisherId())[0];
-
-            $item = [
-                'shipment_id' => $k->getShipmentId(),
-                'book_id' => $k->getBookId(),
-                'book_title' => $book->getTitle(),
-                'isbn' => $book->getIsbn(),
-                'qty_to_receive' => $k->getQtyToReceive(),
-                'publisher_id' => $k->getPublisherId(),
-                'company_name' => $publisher->getCompanyName(),
-                'date_shipped' => $k->getDateShipped(),
-                'date_received' => $k->getDateReceived(),
-                'is_received' => $k->getIsReceived()
-            ];
-            $out[] = $item;
+            // only displays 'to be added' shipment in the table
+            if ($k->getIsReceived() == "0") {
+                $item = [
+                    'shipment_id' => $k->getShipmentId(),
+                    'book_id' => $k->getBookId(),
+                    'book_title' => $book->getTitle(),
+                    'isbn' => $book->getIsbn(),
+                    'qty_to_receive' => $k->getQtyToReceive(),
+                    'publisher_id' => $k->getPublisherId(),
+                    'company_name' => $publisher->getCompanyName(),
+                    'date_shipped' => $k->getDateShipped(),
+                    'date_received' => $k->getDateReceived(),
+                    'is_received' => $k->getIsReceived()
+                ];
+                $out[] = $item;
+            }
         }
         return $out;
     }

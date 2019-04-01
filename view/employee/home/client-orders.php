@@ -1,7 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Raymart
- * Date: 2019-03-29
- * Time: 3:16 AM
- */
+?>
+<div class="tab-pane fade" id="client-orders" role="tabpanel" aria-labelledby="client-orders-tab">
+<p><code>to do</code></p>
+</div>

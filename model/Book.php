@@ -3,9 +3,6 @@
 
 class Book implements JsonSerializable
 {
-    // https://stackoverflow.com/questions/13353231/how-write-down-to-database-multiple-authors-in-simple-books-table
-    // https://fmhelp.filemaker.com/help/17/fmp/en/index.html#page/FMP_Help/one-to-many-relationships.html
-
     private $book_id;
     private $isbn;
     private $title;
@@ -13,7 +10,6 @@ class Book implements JsonSerializable
     private $price;
     private $image;
     private $category;
-    // a book is published by exactly one publisher
     private $publisher_id;
 
     public function getBookId()
