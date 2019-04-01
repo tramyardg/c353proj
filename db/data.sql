@@ -130,26 +130,27 @@ INSERT INTO employees (emp_id, emp_name, ssn, phone_number, email, password, add
 SET FOREIGN_KEY_CHECKS = 1;
 
 SET FOREIGN_KEY_CHECKS = 0;
-INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped) VALUES (1, 2, 5, 73, '0', '2018-04-26');
-INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped) VALUES (2, 6, 2, 84, '0', '2018-06-28');
-INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped) VALUES (3, 5, 1, 20, '0', '2018-10-05');
-INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped) VALUES (4, 8, 1, 146, '0', '2018-05-29');
-INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped) VALUES (5, 10, 2, 31, '0', '2018-07-14');
-INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped) VALUES (6, 5, 1, 70, '0', '2018-04-29');
-INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped) VALUES (7, 1, 2, 106, '0', '2019-03-07');
-INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped) VALUES (8, 3, 3, 42, '0', '2018-08-16');
-INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped) VALUES (9, 2, 5, 40, '0', '2018-05-05');
-INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped) VALUES (10, 10, 2, 37, '0', '2018-12-07');
-INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped) VALUES (11, 10, 2, 194, '0', '2019-02-19');
-INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped) VALUES (12, 2, 5, 129, '0', '2018-10-15');
-INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped) VALUES (13, 5, 1, 105, '0', '2018-05-10');
-INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped) VALUES (14, 2, 5, 11, '0', '2019-02-16');
-INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped) VALUES (15, 4, 3, 108, '0', '2018-07-05');
-INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped) VALUES (16, 9, 3, 3, '0', '2018-07-09');
-INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped) VALUES (17, 7, 1, 59, '0', '2018-05-05');
-INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped) VALUES (18, 7, 1, 30, '0', '2018-11-23');
-INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped) VALUES (19, 8, 1, 89, '0', '2018-07-26');
-INSERT INTO shipments (shipment_id, book_id, publisher_id, qty_to_receive, is_received, date_shipped) VALUES (20, 7, 1, 103, '0', '2018-04-26');
+INSERT INTO shipments (book_id, publisher_id, qty_ordered, date_requested)
+VALUES (2, 5, 73, '2018-04-07'),
+       (6, 2, 84, '2018-06-10'),
+       (5, 1, 20, '2018-09-20'),
+       (8, 1, 146, '2018-05-20'),
+       (10, 2, 31, '2018-07-01'),
+       (5, 1, 70, '2018-04-13'),
+       (1, 2, 106, '2018-02-20'),
+       (3, 3, 42, '2018-08-01'),
+       (2, 5, 40, '2018-04-18'),
+       (10, 2, 37, '2018-11-25'),
+       (10, 2, 194, '2019-02-02'),
+       (2, 5, 129, '2018-10-01'),
+       (5, 1, 105, '2018-04-26'),
+       (2, 5, 11, '2019-02-02'),
+       (4, 3, 108, '2018-06-26'),
+       (9, 3, 3, '2018-07-01'),
+       (7, 1, 59, '2018-05-01'),
+       (7, 1, 30, '2018-11-11'),
+       (8, 1, 89, '2018-07-12'),
+       (7, 1, 103, '2018-07-13');
 SET FOREIGN_KEY_CHECKS = 1;
 
 ## publishers have their own inventory/count of books
@@ -172,4 +173,28 @@ INSERT INTO `publisher_books_inventory` (`pb_book_inv_id`, `book_id`, `publisher
 (17, 2, 5, 53, 0),
 (18, 11, 5, 203, 0),
 (19, 14, 5, 103, 0);
+SET FOREIGN_KEY_CHECKS = 1;
+
+SET FOREIGN_KEY_CHECKS = 0;
+INSERT INTO `publisher_orders` (`publisher_order_id`, `publisher_id`, `book_id`, `qty_ordered`, `date_shipped`, `date_received`, `status`) VALUES
+(1, 1, 5, 20, '0000-00-00', '2018-09-20', 'PROCESSING'),
+(2, 1, 8, 146, '0000-00-00', '2018-05-20', 'PROCESSING'),
+(3, 1, 5, 70, '0000-00-00', '2018-04-13', 'PROCESSING'),
+(4, 1, 5, 105, '0000-00-00', '2018-04-26', 'PROCESSING'),
+(5, 1, 7, 59, '0000-00-00', '2018-05-01', 'PROCESSING'),
+(6, 1, 7, 30, '0000-00-00', '2018-11-11', 'PROCESSING'),
+(7, 1, 8, 89, '0000-00-00', '2018-07-12', 'PROCESSING'),
+(8, 1, 7, 103, '0000-00-00', '2018-07-13', 'PROCESSING'),
+(16, 2, 6, 84, '0000-00-00', '2018-06-10', 'PROCESSING'),
+(17, 2, 10, 31, '0000-00-00', '2018-07-01', 'PROCESSING'),
+(18, 2, 1, 106, '0000-00-00', '2018-02-20', 'PROCESSING'),
+(19, 2, 10, 37, '0000-00-00', '2018-11-25', 'PROCESSING'),
+(20, 2, 10, 194, '0000-00-00', '2019-02-02', 'PROCESSING'),
+(23, 3, 3, 42, '0000-00-00', '2018-08-01', 'PROCESSING'),
+(24, 3, 4, 108, '0000-00-00', '2018-06-26', 'PROCESSING'),
+(25, 3, 9, 3, '0000-00-00', '2018-07-01', 'PROCESSING'),
+(26, 5, 2, 73, '0000-00-00', '2018-04-07', 'PROCESSING'),
+(27, 5, 2, 40, '0000-00-00', '2018-04-18', 'PROCESSING'),
+(28, 5, 2, 129, '0000-00-00', '2018-10-01', 'PROCESSING'),
+(29, 5, 2, 11, '0000-00-00', '2019-02-02', 'PROCESSING');
 SET FOREIGN_KEY_CHECKS = 1;
