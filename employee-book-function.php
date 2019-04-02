@@ -61,10 +61,8 @@ if (isset($_SESSION["employee"])) {
     </nav>
     <?php include 'view/employee/book-tab-list.php' ?>
     <div class="tab-content pt-2">
-        <!-- Books Ordered -->
-        <?php include 'view/employee/book/books-ordered.php' ?>
-        <!-- Employee ordering books tab -->
         <?php include 'view/employee/book/order-book.php' ?>
+        <?php include 'view/employee/book/client-orders.php' ?>
     </div>
     <script>
         feather.replace();
@@ -81,7 +79,7 @@ if (isset($_SESSION["employee"])) {
             });
 
             let selectBookToOrderTable = $('#selectBookToOrderTable').DataTable({
-                'pageLength': 5
+                'pageLength': 10
             });
             $('#selectBookToOrderTable tbody').on('click', 'tr', function () {
                 if ($(this).hasClass('selected')) {

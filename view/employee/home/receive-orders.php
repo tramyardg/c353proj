@@ -7,7 +7,7 @@ $shipments = $shController->fetchShipmentsToReceive();
     <table id="booksReceiveTable" class="table table-striped table-hover table-sm">
         <thead>
         <tr>
-            <th class="d-none">Shipment Id</th>
+            <th class="d-none">Order ID</th>
             <th>Book ID</th>
             <th>Title</th>
             <th>ISBN</th>
@@ -18,25 +18,25 @@ $shipments = $shController->fetchShipmentsToReceive();
         </tr>
         </thead>
         <tbody>
-        <?php if (count($shipments)) {
-            foreach ($shipments as $k) { ?>
+        <?php // if (count($shipments)) {
+            //foreach ($shipments as $k) { ?>
                 <tr>
-                    <td class="d-none" data-id=<?php echo $k['shipment_id']; ?>></td>
-                    <td><?php echo $k['book_id']; ?></td>
-                    <td><?php echo $k['book_title']; ?></td>
-                    <td><?php echo $k['isbn']; ?></td>
-                    <td><?php echo $k['qty_to_receive']; ?></td>
-                    <td><?php echo $k['publisher_id'] . ' - ' . $k['company_name']; ?></td>
-                    <td><?php echo $k['date_shipped']; ?></td>
-                    <td><?php echo $k['is_received'] == '0' ? 'TO BE ADDED' : 'RECEIVED'; ?></td>
+                    <td class="d-none" data-id=<?php //echo $k['shipment_id']; ?>></td>
+                    <td><?php //echo $k['book_id']; ?></td>
+                    <td><?php //echo $k['book_title']; ?></td>
+                    <td><?php //echo $k['isbn']; ?></td>
+                    <td><?php //echo $k['qty_to_receive']; ?></td>
+                    <td><?php //echo $k['publisher_id'] . ' - ' . $k['company_name']; ?></td>
+                    <td><?php //echo $k['date_shipped']; ?></td>
+                    <td><?php //echo $k['is_received'] == '0' ? 'TO BE ADDED' : 'RECEIVED'; ?></td>
                 </tr>
-            <?php }
-        } ?>
+            <?php // }
+        //} ?>
         </tbody>
         <tfoot>
         <tr>
-            <th class="d-none">Shipment Id</th>
-            <th>ID</th>
+            <th class="d-none">Order ID</th>
+            <th>Book ID</th>
             <th>Title</th>
             <th>ISBN</th>
             <th>Quantity</th>
@@ -53,13 +53,13 @@ $shipments = $shController->fetchShipmentsToReceive();
             </div>
         </div>
     </div>
-    <!-- Receive Shipment Modal -->
+    <!-- Receive Orders Modal -->
     <div class="modal fade" id="receiveShipmentModal" tabindex="-1" role="dialog"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Receive Shipment</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Receive Orders</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

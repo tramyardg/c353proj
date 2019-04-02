@@ -68,10 +68,8 @@ if (isset($_SESSION["employee"])) {
     </div>
     <?php include 'view/employee/home-tab-list.php' ?>
     <div class="tab-content pt-2" id="homeTabContent">
-        <!-- Receive books tab -->
-        <?php include 'view/employee/home/receive-shipment.php' ?>
-        <!-- Client orders tab -->
-        <?php include 'view/employee/home/client-orders.php' ?>
+        <?php include 'view/employee/home/receive-orders.php' ?>
+        <?php include 'view/employee/home/books-ordered.php' ?>
     </div>
     <script>
         feather.replace();

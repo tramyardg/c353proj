@@ -4,7 +4,8 @@
            aria-selected="false">Order Books</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="booksOrdered-tab" data-toggle="tab" href="#booksOrdered" role="tab"
-           aria-controls="booksOrdered" aria-selected="true">Books Ordered</a>
+        <a class="nav-link" id="client-orders-tab" data-toggle="tab" href="#client-orders" role="tab"
+           aria-controls="client-orders"
+           aria-selected="false">Client Orders</a>
     </li>
 </ul>

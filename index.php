@@ -37,7 +37,7 @@ if (isset($_SESSION["customer"])) {
 <body>
     <!-- TODO put customer id value here -->
     <input type="hidden" id="customer-id" style="display:none" value="<?php echo $customer->getCustomerId(); ?>">
-    <?php include './navbar.php' ?>
+    <?php include 'view/customer/navbar.php' ?>
     <main class="container-fluid">
         <!-- Order Request Modal -->
         <div class="modal fade" id="orderRequestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
