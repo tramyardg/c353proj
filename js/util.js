@@ -27,3 +27,11 @@ const reloadPage = (pageUrl, sec, secContainer) => {
         window.location.replace(homePageLink);
     });
 };
+const bookCategory = {
+    "0": "Biography",
+    "1": "Fiction",
+    "2": "History",
+    "3": "Mystery",
+    "4": "Suspense",
+    "5": "Thriller"
+};

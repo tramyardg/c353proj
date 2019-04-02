@@ -21,7 +21,7 @@ const renderBookCard = (book) => {
                 <div class="card-body">
                     <div class="cart-title text-uppercase">
                         <span>${book.title}</span><br>
-                        <span class="badge badge-primary">${book.category}</span>
+                        <span class="badge badge-primary">${bookCategory[book.category]}</span>
                     </div>
                     <div class="card-author" style="font-size: 0.75rem; margin: 0.5rem 0 1rem 0">by <b>${book.first_name} ${book.last_name}</b></div>
                     <div class="inventory" style="font-size: 0.75rem">

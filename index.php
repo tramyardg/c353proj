@@ -108,7 +108,7 @@ if (isset($_SESSION["customer"])) {
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<!-- <script src="js/vertical-tabs.js"></script> -->
+ <script src="js/util.js"></script>
 <script src="js/client-index.js"></script>
 <script>
     $(document).ready(() => {

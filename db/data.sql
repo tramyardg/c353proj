@@ -1,17 +1,4 @@
 SET FOREIGN_KEY_CHECKS = 0;
-TRUNCATE TABLE `authors`;
-TRUNCATE TABLE `employees`;
-TRUNCATE TABLE `customers`;
-TRUNCATE TABLE `orders`;
-TRUNCATE TABLE `publishers`;
-TRUNCATE TABLE `books`;
-TRUNCATE TABLE `book_authors`;
-TRUNCATE TABLE `books_inventory`;
-TRUNCATE TABLE `order_items`;
-TRUNCATE TABLE `branches`;
-TRUNCATE TABLE `bookstore_orders`;
-
-SET FOREIGN_KEY_CHECKS = 0;
 INSERT INTO authors (first_name, middle_name, last_name, bio) VALUES ('Walter', null, 'Isaacson', 'Journalist and historian Walter Isaacson is best known in literary circles as the writer of magisterial biographies, scholarly and meticulously researched, yet immensely entertaining.');
 INSERT INTO authors (first_name, middle_name, last_name, bio) VALUES ('J.R.R.', null, 'Tolkein', 'J.R.R. Tolkien (b. January 3rd, 1892 in Bloemfontain, South Africa--d. September 2nd, 1973) was an English author and poet most famous for the Lord of the Rings trilogy. He is also the author of The Hobbit and a literary criticism of Beowulf entitled Beowulf: The Monsters and the Critics as well as several children''s books. Tolkien had a keen interest in linguistics, which he studied in university, and his passion for language comes through in many of his works, particularly the invented language of Elvish in the Lord of the Rings triology. He was ranked by Forbes as the 5th highest-earning dead celebrity in 2009.');
 INSERT INTO authors (first_name, middle_name, last_name, bio) VALUES ('Stephen', null, 'King', 'Stephen King (b. September 21, 1947) is the bestselling American author of 50 horror, suspsense, and science fiction/fantasy novels. He has also written nearly two hundred short stories and published a series of comics called The Gunslinger Born, based on his The Dark Tower series. King has won numerous awards throughout his career, including the World Fantasy Award for Life Achievement and the Canadian Booksellers Association Lifetime Achievement Award.');
@@ -81,6 +68,7 @@ INSERT INTO book_authors (book_authors_id, book_id, author_id) VALUES (12, 13, 9
 INSERT INTO book_authors (book_authors_id, book_id, author_id) VALUES (13, 14, 4);
 INSERT INTO book_authors (book_authors_id, book_id, author_id) VALUES (14, 14, 5);
 INSERT INTO book_authors (book_authors_id, book_id, author_id) VALUES (15, 15, 6);
+INSERT INTO book_authors (book_authors_id, book_id, author_id) VALUES (16, 1, 6);
 SET FOREIGN_KEY_CHECKS = 1;
 
 SET FOREIGN_KEY_CHECKS = 0;

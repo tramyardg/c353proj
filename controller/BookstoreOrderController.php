@@ -23,16 +23,9 @@ class BookstoreOrderController
     public function fetchBookstoreOrdersWithQtyOnHand($id)
     {
         $sql = 'SELECT
-                    bo.bookstore_order_id,
-                    bo.book_id,
-                    bo.publisher_id,
-                    bo.qty_ordered,
-                    bo.status,
-                    bo.date_requested,
-                    bo.date_shipped,
-                    b.title,
-                    b.isbn,
-                    p.qty_on_hand
+                    bo.*,
+                    b.*,
+                    p.*
                 FROM
                     bookstore_orders bo,
                     books b,

@@ -131,6 +131,12 @@ CREATE TABLE IF NOT EXISTS `bookstore_orders`
   FOREIGN KEY (`publisher_id`) REFERENCES `publishers` (`publisher_id`)
 );
 
+ALTER TABLE book_authors ADD CONSTRAINT book_authors_book_id_foreign_k
+  FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`);
+
+ALTER TABLE book_authors ADD CONSTRAINT book_authors_author_id_foreign_k
+  FOREIGN KEY (`author_id`) REFERENCES `authors` (`author_id`);
+
 ALTER TABLE authors
   AUTO_INCREMENT = 1;
 ALTER TABLE books
