@@ -53,22 +53,23 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 SET FOREIGN_KEY_CHECKS = 0;
 # e.g. book with book id 1 is written by author with author id 1 and 2
-INSERT INTO book_authors (book_authors_id, book_id, author_id) VALUES (1, 1, 1);
-INSERT INTO book_authors (book_authors_id, book_id, author_id) VALUES (2, 2, 12);
-INSERT INTO book_authors (book_authors_id, book_id, author_id) VALUES (3, 3, 13);
-INSERT INTO book_authors (book_authors_id, book_id, author_id) VALUES (4, 4, 12);
-INSERT INTO book_authors (book_authors_id, book_id, author_id) VALUES (5, 5, 1);
-INSERT INTO book_authors (book_authors_id, book_id, author_id) VALUES (6, 6, 2);
-INSERT INTO book_authors (book_authors_id, book_id, author_id) VALUES (7, 7, 3);
-INSERT INTO book_authors (book_authors_id, book_id, author_id) VALUES (8, 8, 3);
-INSERT INTO book_authors (book_authors_id, book_id, author_id) VALUES (9, 9, 8);
-INSERT INTO book_authors (book_authors_id, book_id, author_id) VALUES (10, 10, 12);
-INSERT INTO book_authors (book_authors_id, book_id, author_id) VALUES (11, 12, 7);
-INSERT INTO book_authors (book_authors_id, book_id, author_id) VALUES (12, 13, 9);
-INSERT INTO book_authors (book_authors_id, book_id, author_id) VALUES (13, 14, 4);
-INSERT INTO book_authors (book_authors_id, book_id, author_id) VALUES (14, 14, 5);
-INSERT INTO book_authors (book_authors_id, book_id, author_id) VALUES (15, 15, 6);
-INSERT INTO book_authors (book_authors_id, book_id, author_id) VALUES (16, 1, 6);
+INSERT INTO book_authors (book_authors_id, book_id, author_id)
+VALUES (1, 1, 1),
+       (2, 2, 12),
+       (3, 3, 13),
+       (4, 4, 12),
+       (5, 5, 1),
+       (6, 6, 2),
+       (7, 7, 3),
+       (8, 8, 3),
+       (9, 9, 8),
+       (10, 10, 12),
+       (11, 11, 7),
+       (12, 12, 9),
+       (13, 13, 4),
+       (14, 14, 5),
+       (15, 15, 6),
+       (16, 1, 6);
 SET FOREIGN_KEY_CHECKS = 1;
 
 SET FOREIGN_KEY_CHECKS = 0;

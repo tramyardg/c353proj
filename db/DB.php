@@ -22,7 +22,7 @@ class DB
                 "port" => '3306',
                 "user" => 'root',
                 "pass" => '',
-                "name" => 'bookstore353',
+                "name" => 'bookstore',
                 "charset" => 'UTF-8'
             );
             try {
