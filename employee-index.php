@@ -6,13 +6,13 @@ require 'model/Enum.php';
 require 'model/Book.php';
 require 'model/Publisher.php';
 require 'model/BookInventory.php';
-require 'model/Shipment.php';
+require 'model/BookstoreOrder.php';
 
 require 'controller/EmployeeController.php';
 require 'controller/BookController.php';
 require 'controller/BookInventoryController.php';
 require 'controller/PublisherController.php';
-require 'controller/ShipmentController.php';
+require 'controller/BookstoreOrderController.php';
 
 ob_start();
 session_start();
@@ -37,9 +37,7 @@ if (isset($_SESSION["employee"])) {
     <link href="css/navbar.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.dataTables.min.css">
-
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-
 </head>
 <body>
 <div class="container">

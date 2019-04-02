@@ -1,6 +1,6 @@
 <?php
 
-$shController = new ShipmentController();
+$shController = new BookstoreOrderController();
 $shipments = $shController->fetchShipmentsToReceive();
 ?>
 <div class="tab-pane fade show active" id="receive-shipment" role="tabpanel" aria-labelledby="receive-shipment-tab">

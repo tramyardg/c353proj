@@ -1,7 +1,11 @@
 <?php
 require 'db/DB.php';
 require 'model/Publisher.php';
+require 'model/BookstoreOrder.php';
+
 require 'controller/PublisherController.php';
+require 'controller/BookstoreOrderController.php';
+
 
 ob_start();
 session_start();
@@ -9,6 +13,8 @@ session_start();
 $publisher = new Publisher();
 if (isset($_SESSION["publisher"])) {
     $publisher = $_SESSION["publisher"];
+    $bOController = new BookstoreOrderController();
+    $orders = $bOController->fetchBookstoreOrdersWithQtyOnHand($publisher->getPublisherId());
 } else {
     header("Location: publisher-signin.php");
 }
@@ -23,10 +29,15 @@ if (isset($_SESSION["publisher"])) {
     <meta name="generator" content="Jekyll v3.8.5">
     <title>Publisher Dashboard</title>
 
-    <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
     <link href="css/publisher-dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <style>
+        .tr-alert-bg-color {
+            background-color: #f8d7da !important;
+        }
+    </style>
 </head>
 <body data-gr-c-s-loaded="true">
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -86,14 +97,93 @@ if (isset($_SESSION["publisher"])) {
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Client Orders</h1>
             </div>
-            <code>Display publisher products here.</code>
+            <div>
+                <table class="table table-sm" id="bookstoreOrdersTable">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Book ID</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">ISBN</th>
+                        <th scope="col">Quantity Ordered</th>
+                        <th scope="col">Quantity On Hand</th>
+                        <th scope="col">Date requested</th>
+                        <th scope="col">Date Shipped</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($orders as $k => $v) { ?>
+                        <?php $sStatus =  $v['date_shipped']; ?>
+                        <tr class="<?php //echo intval($v['qty_ordered']) > $v['qty_on_hand'] ? 'alert alert-warning' : '' ?>">
+                            <th scope="row"><?php echo $v['bookstore_order_id']; ?></th>
+                            <td><?php echo $v['book_id']; ?></td>
+                            <td><?php echo $v['title']; ?></td>
+                            <td><?php echo $v['isbn']; ?></td>
+                            <td><?php echo $v['qty_ordered']; ?></td>
+                            <td><?php echo $v['qty_on_hand']; ?></td>
+                            <td><?php echo $v['date_requested']; ?></td>
+                            <td><?php echo $sStatus == '0000-00-00' ? 'AWAITING SHIPMENT' : $sStatus; ?></td>
+                            <td><?php echo $v['status']; ?></td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                    <tfoot class="thead-light">
+                    <tr>
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Book ID</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">ISBN</th>
+                        <th scope="col">Quantity Ordered</th>
+                        <th scope="col">Quantity On Hand</th>
+                        <th scope="col">Date requested</th>
+                        <th scope="col">Date Shipped</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                    </tfoot>
+                </table>
+                <div class="my-2">
+                    <div class="row">
+                        <div class="col-6">
+                            <button type="button" id="update-bookstore-order" class="btn btn-primary btn-sm"
+                                    data-toggle="modal" data-target="#addBookModal"><i class="mr-sm-1" style="height: 18px;"
+                                                                                       data-feather="edit"></i>Update
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <?php include 'view/publisher/update-order-modal.php'; ?>
+            </div>
         </main>
     </div>
 </div>
+<script>
+    feather.replace();
+</script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="js/util.js"></script>
+<script src="js/publisher-index.js"></script>
+<script>
+    $(document).ready(function () {
+        let selectBookToOrderTable = $('#bookstoreOrdersTable').DataTable({
+            'pageLength': 10
+        });
+        // https://datatables.net/examples/api/select_single_row.html
+        $('#bookstoreOrdersTable tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            } else {
+                selectBookToOrderTable.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+        updateSelectedBookOrder(selectBookToOrderTable);
+    });
+</script>
 </body>
 </html>

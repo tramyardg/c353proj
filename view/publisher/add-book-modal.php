@@ -90,7 +90,7 @@ $author = new Author();
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" id="addBookSubmit">Submit</button>
+                    <button type="submit" class="btn btn-primary btn-sm" id="addBookSubmit">Submit</button>
                 </div>
             </form>
         </div>

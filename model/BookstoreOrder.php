@@ -1,36 +1,29 @@
 <?php
 
-/*
- * An employee can receive a shipment of books from the publisher.
- * In addition to the employee and the publisher's information, each
- * shipment includes the date of the shipment, the books received and
- * the quantity of each book received.
- */
-
-class Shipment implements JsonSerializable
+class BookstoreOrder implements JsonSerializable
 {
-    private $shipment_id;
+    private $bookstore_order_id;
     private $book_id;
     private $publisher_id;
     private $qty_ordered;
     private $status;
     private $date_requested;
-    private $date_received;
+    private $date_shipped;
 
     /**
      * @return mixed
      */
-    public function getShipmentId()
+    public function getBookstoreOrderId()
     {
-        return $this->shipment_id;
+        return $this->bookstore_order_id;
     }
 
     /**
-     * @param mixed $shipment_id
+     * @param mixed $bookstore_order_id
      */
-    public function setShipmentId($shipment_id): void
+    public function setBookstoreOrderId($bookstore_order_id): void
     {
-        $this->shipment_id = $shipment_id;
+        $this->bookstore_order_id = $bookstore_order_id;
     }
 
     /**
@@ -116,17 +109,17 @@ class Shipment implements JsonSerializable
     /**
      * @return mixed
      */
-    public function getDateReceived()
+    public function getDateShipped()
     {
-        return $this->date_received;
+        return $this->date_shipped;
     }
 
     /**
-     * @param mixed $date_received
+     * @param mixed $date_shipped
      */
-    public function setDateReceived($date_received): void
+    public function setDateShipped($date_shipped): void
     {
-        $this->date_received = $date_received;
+        $this->date_shipped = $date_shipped;
     }
 
     /**

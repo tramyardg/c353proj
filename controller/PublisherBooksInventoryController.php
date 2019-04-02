@@ -4,7 +4,7 @@ class PublisherBooksInventoryController
 {
     public function save(PublisherBooksInventory $inventory)
     {
-        $sql = 'INSERT INTO `publisher_books_inventory` (`pb_book_inv_id`, `book_id`, `publisher_id`, `qty_on_hand`, `qty_sold`) VALUES (?, ?, ?, ?, ?);';
+        $sql = 'INSERT INTO `pb_books_inventory` (`pb_book_inv_id`, `book_id`, `publisher_id`, `qty_on_hand`, `qty_sold`) VALUES (?, ?, ?, ?, ?);';
         $stmt = DB::getInstance()->prepare($sql);
         $exec = $stmt->execute([
             $inventory->getPbBookInvId(),
@@ -18,7 +18,7 @@ class PublisherBooksInventoryController
 
     public function fetchPublisherBooksInv($id)
     {
-        $sql = "SELECT * FROM publisher_books_inventory WHERE publisher_id = ?;";
+        $sql = "SELECT * FROM pb_books_inventory WHERE publisher_id = ?;";
         $stmt = DB::getInstance()->prepare($sql);
         $stmt->execute([$id]);
         return $stmt->fetchAll(PDO::FETCH_CLASS, "PublisherBooksInventory");

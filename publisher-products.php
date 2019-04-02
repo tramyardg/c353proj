@@ -37,9 +37,9 @@ if (isset($_SESSION["publisher"])) {
     <meta name="generator" content="Jekyll v3.8.5">
     <title>Publisher Dashboard</title>
 
-    <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="css/publisher-dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 </head>
 <body data-gr-c-s-loaded="true">
@@ -101,11 +101,13 @@ if (isset($_SESSION["publisher"])) {
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Products</h1>
             </div>
+            <div class="alert alert-dark d-none" role="alert">
+                This book is now in the inventory. Reloading in <span class="badge badge-primary" id="addNewProductAlert"></span> seconds.
+            </div>
             <div id="productsDiv">
                 <table class="table table-sm" id="productsTable">
                     <thead class="thead-light">
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Book ID</th>
                         <th scope="col">Title</th>
                         <th scope="col">ISBN</th>
@@ -113,13 +115,12 @@ if (isset($_SESSION["publisher"])) {
                         <th scope="col">Price</th>
                         <th scope="col">Image</th>
                         <th scope="col">Category</th>
-                        <th scope="col">Quantity</th>
+                        <th scope="col">Quantity On Hand</th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php foreach ($booksByPublisher as $k => $v) { ?>
                     <tr>
-                        <th scope="row"><?php echo($k + 1); ?></th>
                         <td><?php echo $v['book_id']; ?></td>
                         <td><?php echo $v['title']; ?></td>
                         <td><?php echo $v['isbn']; ?></td>
@@ -131,14 +132,30 @@ if (isset($_SESSION["publisher"])) {
                     </tr>
                     <?php } ?>
                     </tbody>
+                    <tfoot class="thead-light">
+                    <tr>
+                        <th scope="col">Book ID</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">ISBN</th>
+                        <th scope="col">Edition</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Quantity On Hand</th>
+                    </tr>
+                    </tfoot>
                 </table>
                 <div class="my-3">
                     <div class="row">
-                        <div class="col-6">
-                            <button type="button" id="add-new-book" class="btn btn-primary btn-sm"
-                                    data-toggle="modal" data-target="#addBookModal">
-                                <i class="mr-sm-1" style="width: 20px; height: 20px;" data-feather="plus"></i>Add new</button>
-                        </div>
+                        <button type="button" id="add-new-book" class="btn btn-primary btn-sm mr-2"
+                                data-toggle="modal" data-target="#addBookModal">
+                            <i class="mr-sm-1" style="width: 20px; height: 20px;" data-feather="plus"></i>Add new
+                        </button>
+                        <button type="button" id="updated-selected-book" class="btn btn-primary btn-sm"
+                                data-toggle="modal" data-target="#updateSelectedProductModal">
+                            <i class="mr-sm-1" style="width: 20px; height: 20px;" data-feather="plus"></i>Update
+                            Selected
+                        </button>
                     </div>
                 </div>
             </div>
@@ -153,11 +170,23 @@ if (isset($_SESSION["publisher"])) {
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="js/util.js"></script>
 <script src="js/publisher-index.js"></script>
 <script>
     $(document).ready(function () {
         postAddBookFormSubmit();
+        let selectBookToOrderTable = $('#productsTable').DataTable({
+            'pageLength': 10
+        });
+        $('#productsTable tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            } else {
+                selectBookToOrderTable.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
     });
 </script>
 </body>
