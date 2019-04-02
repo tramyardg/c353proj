@@ -9,7 +9,7 @@ TRUNCATE TABLE `book_authors`;
 TRUNCATE TABLE `books_inventory`;
 TRUNCATE TABLE `order_items`;
 TRUNCATE TABLE `branches`;
-TRUNCATE TABLE `shipments`;
+TRUNCATE TABLE `bookstore_orders`;
 
 SET FOREIGN_KEY_CHECKS = 0;
 INSERT INTO authors (first_name, middle_name, last_name, bio) VALUES ('Walter', null, 'Isaacson', 'Journalist and historian Walter Isaacson is best known in literary circles as the writer of magisterial biographies, scholarly and meticulously researched, yet immensely entertaining.');
@@ -130,7 +130,7 @@ INSERT INTO employees (emp_id, emp_name, ssn, phone_number, email, password, add
 SET FOREIGN_KEY_CHECKS = 1;
 
 SET FOREIGN_KEY_CHECKS = 0;
-INSERT INTO shipments (book_id, publisher_id, qty_ordered, date_requested)
+INSERT INTO bookstore_orders (book_id, publisher_id, qty_ordered, date_requested)
 VALUES (2, 5, 73, '2018-04-07'),
        (6, 2, 84, '2018-06-10'),
        (5, 1, 20, '2018-09-20'),
@@ -156,45 +156,20 @@ SET FOREIGN_KEY_CHECKS = 1;
 ## publishers have their own inventory/count of books
 ## this is different from qty_on_hand of bookstore
 SET FOREIGN_KEY_CHECKS = 0;
-INSERT INTO `publisher_books_inventory` (`pb_book_inv_id`, `book_id`, `publisher_id`, `qty_on_hand`, `qty_sold`) VALUES
-(1, 5, 1, 121, 0),
-(2, 7, 1, 12, 0),
-(3, 8, 1, 45, 0),
-(4, 16, 1, 13, 0),
-(8, 1, 2, 123, 0),
-(9, 6, 2, 65, 0),
-(10, 10, 2, 76, 0),
-(11, 3, 3, 19, 0),
-(12, 4, 3, 21, 0),
-(13, 9, 3, 17, 0),
-(14, 12, 4, 11, 0),
-(15, 13, 4, 132, 0),
-(16, 15, 4, 60, 0),
-(17, 2, 5, 53, 0),
-(18, 11, 5, 203, 0),
-(19, 14, 5, 103, 0);
-SET FOREIGN_KEY_CHECKS = 1;
-
-SET FOREIGN_KEY_CHECKS = 0;
-INSERT INTO `publisher_orders` (`publisher_order_id`, `publisher_id`, `book_id`, `qty_ordered`, `date_shipped`, `date_received`, `status`) VALUES
-(1, 1, 5, 20, '0000-00-00', '2018-09-20', 'PROCESSING'),
-(2, 1, 8, 146, '0000-00-00', '2018-05-20', 'PROCESSING'),
-(3, 1, 5, 70, '0000-00-00', '2018-04-13', 'PROCESSING'),
-(4, 1, 5, 105, '0000-00-00', '2018-04-26', 'PROCESSING'),
-(5, 1, 7, 59, '0000-00-00', '2018-05-01', 'PROCESSING'),
-(6, 1, 7, 30, '0000-00-00', '2018-11-11', 'PROCESSING'),
-(7, 1, 8, 89, '0000-00-00', '2018-07-12', 'PROCESSING'),
-(8, 1, 7, 103, '0000-00-00', '2018-07-13', 'PROCESSING'),
-(16, 2, 6, 84, '0000-00-00', '2018-06-10', 'PROCESSING'),
-(17, 2, 10, 31, '0000-00-00', '2018-07-01', 'PROCESSING'),
-(18, 2, 1, 106, '0000-00-00', '2018-02-20', 'PROCESSING'),
-(19, 2, 10, 37, '0000-00-00', '2018-11-25', 'PROCESSING'),
-(20, 2, 10, 194, '0000-00-00', '2019-02-02', 'PROCESSING'),
-(23, 3, 3, 42, '0000-00-00', '2018-08-01', 'PROCESSING'),
-(24, 3, 4, 108, '0000-00-00', '2018-06-26', 'PROCESSING'),
-(25, 3, 9, 3, '0000-00-00', '2018-07-01', 'PROCESSING'),
-(26, 5, 2, 73, '0000-00-00', '2018-04-07', 'PROCESSING'),
-(27, 5, 2, 40, '0000-00-00', '2018-04-18', 'PROCESSING'),
-(28, 5, 2, 129, '0000-00-00', '2018-10-01', 'PROCESSING'),
-(29, 5, 2, 11, '0000-00-00', '2019-02-02', 'PROCESSING');
+INSERT INTO `pb_books_inventory` (`book_id`, `publisher_id`, `qty_on_hand`, `qty_sold`) VALUES
+(5, 1, 121, 0),
+(7, 1, 12, 0),
+(8, 1, 45, 0),
+(1, 2, 123, 0),
+(6, 2, 65, 0),
+(10, 2, 76, 0),
+(3, 3, 19, 0),
+(4, 3, 21, 0),
+(9, 3, 17, 0),
+(12, 4, 11, 0),
+(13, 4, 132, 0),
+(15, 4, 60, 0),
+(2, 5, 53, 0),
+(11, 5, 203, 0),
+(14, 5, 103, 0);
 SET FOREIGN_KEY_CHECKS = 1;

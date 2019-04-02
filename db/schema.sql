@@ -1,30 +1,3 @@
-/*
-CREATE DATABASE IF NOT EXISTS bookstore353;
-ALTER
-  DATABASE bookstore353
-  DEFAULT CHARACTER SET utf8
-  DEFAULT COLLATE utf8_general_ci;
-
-USE bookstore353;
-*/
-
-# copy from here if database already exists
-SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE IF EXISTS `authors`;
-DROP TABLE IF EXISTS `employees`;
-DROP TABLE IF EXISTS `customers`;
-DROP TABLE IF EXISTS `orders`;
-DROP TABLE IF EXISTS `publishers`;
-DROP TABLE IF EXISTS `books`;
-DROP TABLE IF EXISTS `book_authors`;
-DROP TABLE IF EXISTS `books_inventory`;
-DROP TABLE IF EXISTS `order_items`;
-DROP TABLE IF EXISTS `branches`;
-DROP TABLE IF EXISTS `shipments`;
-DROP TABLE IF EXISTS `publisher_books_inventory`;
-DROP TABLE IF EXISTS `publisher_orders`;
-SET FOREIGN_KEY_CHECKS = 1;
-
 CREATE TABLE IF NOT EXISTS `employees`
 (
   `emp_id`       INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -34,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `employees`
   `email`        VARCHAR(50)        NOT NULL,
   `password`     VARCHAR(50)        NOT NULL,
   `address`      VARCHAR(100),
-  `is_admin`     BOOL DEFAULT FALSE
+  `is_admin`     CHAR(1)            DEFAULT '0'
 );
 
 CREATE TABLE IF NOT EXISTS `customers`
@@ -98,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `books_inventory`
   FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`)
 );
 
-CREATE TABLE IF NOT EXISTS `publisher_books_inventory`
+CREATE TABLE IF NOT EXISTS pb_books_inventory
 (
   `pb_book_inv_id` INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `book_id`        INT(4)             NOT NULL,
@@ -142,32 +115,18 @@ CREATE TABLE IF NOT EXISTS `branches`
   FOREIGN KEY (`publisher_id`) REFERENCES `publishers` (`publisher_id`)
 );
 
+## a copy of what employee/bookstore ordered
 ## employee can only receive a shipment when a publisher set the status to `SHIPPED`
 ## changed is_received to (processing, shipped) status to reflect the same status of publisher_orders
-CREATE TABLE IF NOT EXISTS `shipments`
+CREATE TABLE IF NOT EXISTS `bookstore_orders`
 (
-  `shipment_id`    INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `book_id`        INT(4)             NOT NULL,
-  `publisher_id`   INT(4)             NOT NULL,
-  `qty_ordered`    INT                NOT NULL,
-  `status`         ENUM ('PROCESSING','SHIPPED') DEFAULT 'PROCESSING', ## will be set to SHIPPED when publisher set the status to SHIPPED from publisher_orders
-  `date_requested` DATE,                                               ## the date when employee/bookstore requested the order
-  `date_received`  DATE                          DEFAULT '0000-00-00', ## the date when employee/bookstore accepted the order
-  FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`),
-  FOREIGN KEY (`publisher_id`) REFERENCES `publishers` (`publisher_id`)
-);
-
-## table use for fulfilling employee/bookstore orders
-## receive order means updating the status to shipped (nothing more than that)
-CREATE TABLE IF NOT EXISTS `publisher_orders`
-(
-  `publisher_order_id` INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `publisher_id`       INT(4)             NOT NULL,
+  `bookstore_order_id` INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `book_id`            INT(4)             NOT NULL,
-  `qty_ordered`        INT                NOT NULL,                        ## quantity ordered by employee/bookstore
-  `date_shipped`       DATE                          DEFAULT '0000-00-00', ## will be updated when publisher updates the status to SHIPPED
-  `date_received`      DATE,                                               ## the date when the employee/bookstore made a request
-  `status`             ENUM ('PROCESSING','SHIPPED') DEFAULT 'PROCESSING', ## publisher will update the status
+  `publisher_id`       INT(4)             NOT NULL,
+  `qty_ordered`        INT                NOT NULL,
+  `status`             ENUM ('PROCESSING','SHIPPED') DEFAULT 'PROCESSING', ## will be set to SHIPPED when publisher set the status to SHIPPED from publisher_orders
+  `date_requested`     DATE,                                               ## the date when employee/bookstore requested the order
+  `date_shipped`       DATE                          DEFAULT '0000-00-00', ## the date when employee/bookstore accepted the order
   FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`),
   FOREIGN KEY (`publisher_id`) REFERENCES `publishers` (`publisher_id`)
 );
@@ -192,9 +151,7 @@ ALTER TABLE orders
   AUTO_INCREMENT = 1;
 ALTER TABLE publishers
   AUTO_INCREMENT = 1;
-ALTER TABLE shipments
+ALTER TABLE bookstore_orders
   AUTO_INCREMENT = 1;
-ALTER TABLE publisher_books_inventory
+ALTER TABLE pb_books_inventory
   AUTO_INCREMENT = 1;
-alter table publisher_orders
-  auto_increment = 1;
