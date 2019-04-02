@@ -23,7 +23,7 @@ const renderBookCard = (book) => {
                         <span>${book.title}</span><br>
                         <span class="badge badge-primary">${bookCategory[book.category]}</span>
                     </div>
-                    <div class="card-author" style="font-size: 0.75rem; margin: 0.5rem 0 1rem 0">by <b>${book.first_name} ${book.last_name}</b></div>
+                    <div class="card-author" style="font-size: 0.75rem; margin: 0.5rem 0 1rem 0">by <b>${book.authorNames}</b></div>
                     <div class="inventory" style="font-size: 0.75rem">
                         ${(book.qty_on_hand > 0) ? "In Stock" : "<b class='text-danger'>Out of Stock</b>"}
                     </div>

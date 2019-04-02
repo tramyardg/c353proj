@@ -3,13 +3,16 @@ $commonNameTitle = parse_ini_file("./common.ini");
 require 'db/DB.php';
 require 'model/Customer.php';
 require 'model/Book.php';
+require 'model/Author.php';
 require 'controller/BookController.php';
+require 'controller/AuthorController.php';
 
 require 'model/Enum.php';
 require 'model/BookCategory.php';
 
 
 $bkController = new BookController();
+$aController = new AuthorController();
 
 ob_start();
 session_start();
@@ -113,8 +116,15 @@ if (isset($_SESSION["customer"])) {
 <script>
     $(document).ready(() => {
         let books = <?php echo json_encode($bkController->fetchBooks()); ?>;
-        console.log(books);
+        let authorNames = <?php echo json_encode($aController->getBookAuthors()); ?>;
+        for (let i = 0; i < authorNames.length; i++) {
+            if (parseInt(authorNames[i].book_id) === parseInt(books[i].book_id)) {
+                // add all authors of this book id in the key authorNames
+                books[i]['authorNames'] = authorNames[i].names;
+            }
+        }
         initializeBooks(books);
+        console.log(books);
     });
 </script>
 </body>
