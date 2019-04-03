@@ -3,63 +3,40 @@ $aController = new AuthorController();
 $authors = $aController->fetchAuthors();
 $author = new Author();
 ?>
-<!-- Add Book Modal -->
-<div class="modal fade" id="addBookModal" tabindex="-1" role="dialog"
+<div class="modal fade" id="modifyExistingProductModal" tabindex="-1" role="dialog"
      aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add new book</h5>
+                <h5 class="modal-title">Modify this book</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="addBookForm">
-                <div class="modal-body">
+            <form id="modifyExistingProductForm">
+                <div class="modal-body" id="modifyExistingProductModalBody">
                     <div class="row mt-2">
                         <div class="col">
                             <label for="bTitle">Title</label>
-                            <input type="text" class="form-control" id="bTitle" required value="test">
+                            <input type="text" class="form-control" id="mEpTitle" required>
                         </div>
                         <div class="col">
                             <label for="bIsbn">ISBN</label>
-                            <input type="text" maxlength="11" class="form-control" id="bIsbn" required value="test">
+                            <input type="text" maxlength="11" class="form-control" id="mEpIsbn" required>
                         </div>
                         <div class="col">
                             <label for="bEdition">Edition</label>
-                            <input type="number" class="form-control" id="bEdition" min="1" value="1">
+                            <input type="number" class="form-control" id="mEpEdition" min="1" required>
                         </div>
                     </div>
                     <div class="row mt-2">
                         <div class="col">
                             <label for="bPrice">Price</label>
-                            <input type="number" class="form-control" id="bPrice" step=any required value="1.0">
+                            <input type="number" class="form-control" id="mEpPrice" step=any required>
                         </div>
                         <div class="col">
                             <label for="bQuantity">Quantity</label>
-                            <input type="number" class="form-control" id="bQuantity" min="1" required value="1">
-                        </div>
-                        <div class="col">
-                            <label for="publishersSelect">Publisher</label>
-                            <select class="form-control" id="publishersSelect" required readonly>
-                                <option value="<?php echo $publisher->getPublisherId(); ?>">
-                                    <?php echo $publisher->getCompanyName(); ?>
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col">
-                            <label for="authorsSelect">Authors</label>
-                            <select multiple class="form-control" id="authorsSelect" required>
-                                <?php foreach ($authors as $k => $v)  { $author = $v; ?>
-                                    <option value="<?php echo $author->getAuthorId() ?>">
-                                        <?php echo $author->getFirstName() . " "; ?>
-                                        <?php echo $author->getMiddleName() != "" ? $author->getMiddleName() : " "; ?>
-                                        <?php echo $author->getLastName(); ?>
-                                    </option>
-                                <?php } ?>
-                            </select>
+                            <input type="number" class="form-control" id="mEpQuantity" min="1" required>
                         </div>
                         <div class="col">
                             <label for="bAuthorId">Genre</label>
@@ -75,14 +52,26 @@ $author = new Author();
                         </div>
                     </div>
                     <div class="row mt-2">
-                        <div class="col mb-2">
-                            <label for="bookImage">Book Cover Image (optional)</label>
-                            <input type="file" class="form-control-file" id="bookImage">
+                        <div class="col">
+                            <label for="authorsSelect">Authors</label>
+                            <select multiple class="form-control" id="mEpAuthorsSelect" required>
+                                <?php foreach ($authors as $k => $v)  { $author = $v; ?>
+                                    <option value="<?php echo $author->getAuthorId() ?>">
+                                        <?php echo $author->getFirstName() . " "; ?>
+                                        <?php echo $author->getMiddleName() != "" ? $author->getMiddleName() : " "; ?>
+                                        <?php echo $author->getLastName(); ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="mEpBookImage">Book Cover Image (optional)</label>
+                            <input type="file" class="form-control-file" id="mEpBookImage">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary btn-sm" id="addBookSubmit">Submit</button>
+                    <button type="submit" class="btn btn-primary btn-sm" id="modifyExistingProductSubmit">Submit</button>
                 </div>
             </form>
         </div>

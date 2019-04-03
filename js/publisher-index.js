@@ -34,26 +34,17 @@ const postAddBookFormSubmit = () => {
     });
 };
 
-Date.prototype.toDateInputValue = (function() {
-    var local = new Date(this);
-    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-    return local.toJSON().slice(0,10);
-});
-
 // update bookstore order(s) - start
 const updateOrder = {
     sel: function () {
         return {
-            table: $('#bookstoreOrdersTable'),
             dialog: $('#updateOrderModal'),
             dialogBody: $('#updateOrderModalBody'),
-            form: $('#updateOrderForm'),
             submitBtn: $('#updateOrderFormSubmit'),
             updateBtn: $('#update-bookstore-order')
         }
     }
 };
-
 updateSelectedBookOrder = (table) => {
     updateOrder.sel().updateBtn.click(function () {
 
@@ -118,5 +109,28 @@ updateSelectedBookOrder = (table) => {
         });
 
         console.log(selRowData);
+    });
+};
+
+// modify existing product(book)
+const existingOrderElements = {
+    ele: function () {
+        return {
+            dialog: $('#modifyExistingProductModal'),
+            dialogBody: $('#modifyExistingProductModalBody'),
+            submitBtn: $('#modifyExistingProductSubmit'),
+            modifySelProduct: $('#updated-selected-book')
+        }
+    }
+};
+modifyExistingProduct = (table) => {
+    existingOrderElements.ele().modifySelProduct.click(function () {
+        let selRow = table.row('.selected').data();
+        if (!table.row('.selected').data()) {
+            alert('Please select a product first.');
+            return;
+        }
+        console.log(selRow);
+        existingOrderElements.ele().dialog.modal('show');
     });
 };

@@ -160,6 +160,7 @@ if (isset($_SESSION["publisher"])) {
                 </div>
             </div>
             <?php include 'view/publisher/add-book-modal.php'; ?>
+            <?php include 'view/publisher/modify-existing-product.php'; ?>
         </main>
     </div>
 </div>
@@ -176,17 +177,18 @@ if (isset($_SESSION["publisher"])) {
 <script>
     $(document).ready(function () {
         postAddBookFormSubmit();
-        let selectBookToOrderTable = $('#productsTable').DataTable({
+        let productsTable = $('#productsTable').DataTable({
             'pageLength': 10
         });
         $('#productsTable tbody').on('click', 'tr', function () {
             if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
             } else {
-                selectBookToOrderTable.$('tr.selected').removeClass('selected');
+                productsTable.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
             }
         });
+        modifyExistingProduct(productsTable);
     });
 </script>
 </body>
