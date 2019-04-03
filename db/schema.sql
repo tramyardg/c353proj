@@ -84,23 +84,23 @@ CREATE TABLE IF NOT EXISTS pb_books_inventory
 
 CREATE TABLE IF NOT EXISTS `orders`
 (
-  `order_id`     INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `customer_id`  INT(4)             NOT NULL,
-  `order_date`   TIMESTAMP          NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `payment_date` TIMESTAMP,
-  `status`       VARCHAR(20),
-  FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`)
+    `order_id`      INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    `customer_id`   INT(4)             NOT NULL,
+    `order_date`    DATE               NOT NULL,                        ## assumed the customer orders and pays at the same day
+    `payment_date`  DATE                          DEFAULT '0000-00-00', ## updated with the customer finalized the order after clicking purchase
+    `date_received` DATE                          DEFAULT '0000-00-00', ## updated with the date when employee sends the order
+    `status`        ENUM ('PROCESSING','SHIPPED') DEFAULT 'PROCESSING', ## updated when employee sends the order
+    FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`)
 );
 
 CREATE TABLE IF NOT EXISTS `order_items`
 (
-  `order_item_id` INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `order_id`      INT(4)             NOT NULL,
-  `book_id`       INT(4)             NOT NULL,
-  `quantity`      INT,
-  `price`         DOUBLE(8, 2),
-  FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
-  FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`)
+    `order_item_id` INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    `order_id`      INT(4)             NOT NULL,
+    `book_id`       INT(4)             NOT NULL,
+    `quantity`      INT                NOT NULL,
+    FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
+    FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`)
 );
 
 CREATE TABLE IF NOT EXISTS `branches`

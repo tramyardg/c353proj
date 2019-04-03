@@ -168,3 +168,31 @@ INSERT INTO `pb_books_inventory` (`book_id`, `publisher_id`, `qty_on_hand`, `qty
 (11, 5, 203, 0),
 (14, 5, 103, 0);
 SET FOREIGN_KEY_CHECKS = 1;
+
+SET FOREIGN_KEY_CHECKS = 0;
+insert into orders (order_id, customer_id, order_date, payment_date, status) values
+(1, 1, '2018-07-07', '2018-07-07', 'PROCESSING'),
+(2, 7, '2018-04-21', '2018-04-22', 'PROCESSING'),
+(3, 9, '2018-11-05', '2018-11-05', 'PROCESSING'),
+(4, 3, '2018-12-25', '2018-12-25', 'PROCESSING'),
+(5, 1, '2018-09-04', '2018-09-05', 'PROCESSING'),
+(6, 1, '2019-01-19', '2019-01-19', 'PROCESSING'),
+(7, 3, '2018-12-05', '2018-12-06', 'PROCESSING'),
+(8, 5, '2019-01-20', '2019-01-20', 'PROCESSING'),
+(9, 1, '2019-01-17', '2019-01-18', 'PROCESSING'),
+(10, 10, '2018-07-29', '2018-07-29', 'PROCESSING');
+SET FOREIGN_KEY_CHECKS = 1;
+
+SET FOREIGN_KEY_CHECKS = 0;
+insert into order_items (order_item_id, order_id, book_id, quantity) values
+(1, 1, 8, 3),
+(2, 2, 7, 1),
+(3, 3, 8, 2),
+(4, 4, 12, 4),
+(5, 5, 15, 3),
+(6, 6, 4, 1),
+(7, 7, 10, 1),
+(8, 8, 6, 3),
+(9, 9, 1, 2),
+(10, 10, 7, 1);
+SET FOREIGN_KEY_CHECKS = 1;
