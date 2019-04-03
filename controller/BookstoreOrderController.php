@@ -47,18 +47,20 @@ class BookstoreOrderController
                     `book_id`,
                     `publisher_id`,
                     `qty_ordered`,
-                    `date_requested`
+                    `date_requested`,
+                    `period_specified`
                 ) VALUES(?, ?, ?, ?);';
-        // status: default to PROCESSING, no need to add here
-        // date_received: default to 0000-00-00, no need to add here
-        // date_requested: current date
+        $dateRequested = date('Y-m-d');
+        $dateRequestedPlus2Weeks = strtotime("+14 day", strtotime($dateRequested));
+        $periodSpecified = date('Y-m-d', $dateRequestedPlus2Weeks);
         $stmt = DB::getInstance()->prepare($sql);
         $bookstoreOrder->setDateRequested(date('Y-m-d'));
         $exec = $stmt->execute([
             $bookstoreOrder->getBookId(),
             $bookstoreOrder->getPublisherId(),
             $bookstoreOrder->getQtyOrdered(),
-            $bookstoreOrder->getDateRequested()
+            $dateRequested,
+            $periodSpecified
         ]);
         echo json_encode(['result' => $exec]);
     }

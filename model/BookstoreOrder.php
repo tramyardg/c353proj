@@ -9,6 +9,23 @@ class BookstoreOrder implements JsonSerializable
     private $status;
     private $date_requested;
     private $date_shipped;
+    private $period_specified;
+
+    /**
+     * @return mixed
+     */
+    public function getPeriodSpecified()
+    {
+        return $this->period_specified;
+    }
+
+    /**
+     * @param mixed $period_specified
+     */
+    public function setPeriodSpecified($period_specified)
+    {
+        $this->period_specified = $period_specified;
+    }
 
     /**
      * @return mixed

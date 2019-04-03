@@ -12,13 +12,36 @@ const addBookFormData = {
             price: $('#bPrice').val(),
             quantity: $('#bQuantity').val(),
             category: $('#bCategory').val(),
-            authorsId: $('#authorsSelect').val(),
-            image: $('#bookImage').val()
+            authorsId: $('#authorsSelect').val()
         }
     }
 };
+
+function handleFileSelect() {
+    let bImage = document.getElementById("bookImage");
+    for (let i = 0; i < bImage.files.length; i++) {
+        let file = bImage.files[i];
+        if (!file.type.match('image.*')) {
+            continue;
+        }
+        let reader = new FileReader();
+        reader.onload = (function (theFile) {
+            return function (e) {
+                let span = document.createElement('span');
+                span.innerHTML = ['<img class="thumb" id="product-image-' + i + '" src="', e.target.result,
+                    '" title="', theFile.name, '"/>'].join('');
+                $('#bookImagePreview').empty();
+                document.getElementById('bookImagePreview').insertBefore(span, null);
+            };
+        })(file);
+        reader.readAsDataURL(file);
+    }
+}
+
 const preAddBookFormSubmit = () => {
     let url = 'service/publisher_index.php?publisherId=' + publisherId;
+    let productImage = $('#product-image-0').attr('src');
+    console.log(productImage);
     $.post(url, {addBookData: addBookFormData.getVal()}, function (response) {
         addBookModal.modal('hide');
         if (response.includes('{"result":true}{"result":true}')) {

@@ -14,7 +14,7 @@ $author = new Author();
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="addBookForm">
+            <form id="addBookForm" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="row mt-2">
                         <div class="col">
@@ -65,7 +65,7 @@ $author = new Author();
                             <label for="bAuthorId">Genre</label>
                             <select class="form-control" id="bCategory" required>
                                 <option value="">Select genre</option>
-                                <option value="0">Biography</option>
+                                <option value="0" selected>Biography</option>
                                 <option value="1">Fiction</option>
                                 <option value="2">History</option>
                                 <option value="3">Mystery</option>
@@ -77,8 +77,10 @@ $author = new Author();
                     <div class="row mt-2">
                         <div class="col mb-2">
                             <label for="bookImage">Book Cover Image (optional)</label>
-                            <input type="file" class="form-control-file" id="bookImage">
+                            <input type="file" class="form-control-file" id="bookImage" onchange="handleFileSelect()"
+                                   accept="image/x-png,image/gif,image/jpeg">
                         </div>
+                        <div class="col d-none" id="bookImagePreview"></div>
                     </div>
                 </div>
                 <div class="modal-footer">
