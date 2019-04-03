@@ -120,15 +120,16 @@ CREATE TABLE IF NOT EXISTS `branches`
 ## changed is_received to (processing, shipped) status to reflect the same status of publisher_orders
 CREATE TABLE IF NOT EXISTS `bookstore_orders`
 (
-  `bookstore_order_id` INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `book_id`            INT(4)             NOT NULL,
-  `publisher_id`       INT(4)             NOT NULL,
-  `qty_ordered`        INT                NOT NULL,
-  `status`             ENUM ('PROCESSING','SHIPPED') DEFAULT 'PROCESSING', ## will be set to SHIPPED when publisher set the status to SHIPPED from publisher_orders
-  `date_requested`     DATE,                                               ## the date when employee/bookstore requested the order
-  `date_shipped`       DATE                          DEFAULT '0000-00-00', ## the date when employee/bookstore accepted the order
-  FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`),
-  FOREIGN KEY (`publisher_id`) REFERENCES `publishers` (`publisher_id`)
+    `bookstore_order_id` INT(4) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    `book_id`            INT(4)             NOT NULL,
+    `publisher_id`       INT(4)             NOT NULL,
+    `qty_ordered`        INT                NOT NULL,
+    `status`             ENUM ('PROCESSING','SHIPPED') DEFAULT 'PROCESSING',
+    `date_requested`     DATE,
+    `period_specified`   DATE, ## date_requested + 2 weeks
+    `date_shipped`       DATE                          DEFAULT '0000-00-00',
+    FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`),
+    FOREIGN KEY (`publisher_id`) REFERENCES `publishers` (`publisher_id`)
 );
 
 ALTER TABLE book_authors ADD CONSTRAINT book_authors_book_id_foreign_k
