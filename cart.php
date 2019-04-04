@@ -29,15 +29,18 @@ if (isset($_SESSION["customer"])) {
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 </head>
 <body>
-    <?php include './navbar.php' ?>
+    <?php include 'view/customer/navbar.php' ?>
     <main class="container">
         <div class="row">
             <div class="col">
                 <h3>My Cart</h3>
                 <form id="cart-form">
-
                     <hr>
-                    <button type="submit" class="btn btn-success">Purchase</button>
+                    <div class="row cart-row-header">
+                        <div class="col-6 font-weight-bold">Book Title</div>
+                        <div class="col-3 font-weight-bold">Price</div>
+                        <div class="col-3 font-weight-bold">Quantity</div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -47,18 +50,34 @@ if (isset($_SESSION["customer"])) {
         $(document).ready(() => {
             const cartItems = JSON.parse(localStorage.getItem("customer-cart")) || [];
 
+            let priceTotal = [];
             cartItems.forEach((item) => {
-                $("#cart-form").prepend(`
-                    <hr>
+                priceTotal.push(parseFloat(item.price));
+                $("#cart-form").append(`<hr>
                     <div class="row cart-item-row">
                         <div class="col-6">${item.title}</div>
-                        <div class="col-3">$${item.price}</div>
-                        <div class="col-3">${item.order_count}</div>
+                        <div class="col-3 unit-price">$${item.price}</div>
+                        <div class="col-3">
+                            <input type="number" class="form-control" max="10" min="1"
+                                value="${item.order_count}"
+                                onchange="updateOrderPrice(this, ${item.price})"/>
+                        </div>
                     </div>
                 `);
-
             });
+            $("#cart-form").append(`
+                    <hr>
+                    <div class="row">
+                        <div class="col-6 font-weight-bold">Total</div>
+                        <div class="col-3 font-weight-bold" id="total-price">$${arrSum(priceTotal)}</div>
+                        <div class="col-3 font-weight-bold"></div>
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-success">Purchase</button>
+            `);
         });
     </script>
+    <script src="js/util.js"></script>
+    <script src="js/client-index.js"></script>
 </body>
 </html>

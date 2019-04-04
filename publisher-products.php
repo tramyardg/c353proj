@@ -153,7 +153,7 @@ if (isset($_SESSION["publisher"])) {
                         </button>
                         <button type="button" id="updated-selected-book" class="btn btn-primary btn-sm"
                                 data-toggle="modal" data-target="#updateSelectedProductModal">
-                            <i class="mr-sm-1" style="width: 20px; height: 20px;" data-feather="plus"></i>Update
+                            <i class="mr-sm-1" style="height: 18px;" data-feather="edit"></i>Update
                             Selected
                         </button>
                     </div>

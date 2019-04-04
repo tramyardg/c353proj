@@ -7,7 +7,7 @@ class OrderItem implements JsonSerializable
     private $order_id;
     private $book_id;
     private $quantity;
-    private $price;
+    private $total_amount;
 
     public function getOrderItemId()
     {
@@ -49,16 +49,15 @@ class OrderItem implements JsonSerializable
         $this->quantity = $quantity;
     }
 
-    public function getPrice()
+    public function getTotalAmount()
     {
-        return $this->price;
+        return $this->total_amount;
     }
 
-    public function setPrice($price): void
+    public function setTotalAmount($total_amount): void
     {
-        $this->price = $price;
+        $this->total_amount = $total_amount;
     }
-
 
     /**
      * Specify data which should be serialized to JSON

@@ -43,30 +43,31 @@ if (isset($_SESSION["customer"])) {
     <?php include 'view/customer/navbar.php' ?>
     <main class="container-fluid">
         <!-- Order Request Modal -->
-        <div class="modal fade" id="orderRequestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form onsubmit="orderSubmit()">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Send Order Request</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php if (isset($_SESSION["customer"])) {?>
-                        <div id="order-body" class="modal-body">
-                            <!-- content populated from js file -->
+        <div class="modal fade" id="orderRequestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form id="backOrderForm">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Send Order Request</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <input type="submit" class="btn btn-primary" value="Send Order">
-                        </div>
-                    <?php } else { ?>
-                        <div class="modal-body">You must login before submitting an order request</div>
-                    <?php } ?>
-                </form>
+                        <?php if (isset($_SESSION["customer"])) { ?>
+                            <div id="order-body" class="modal-body">
+                                <!-- content populated from js file -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <input type="submit" class="btn btn-primary" value="Send Order">
+                            </div>
+                        <?php } else { ?>
+                            <div class="modal-body">You must login before submitting an order request</div>
+                        <?php } ?>
+                    </form>
+                </div>
             </div>
-        </div>
         </div>
         <div class="row">
             <!-- All the filters are in here -->
@@ -125,6 +126,11 @@ if (isset($_SESSION["customer"])) {
         }
         initializeBooks(books);
         console.log(books);
+        $('#backOrderForm').submit(function (e) {
+            e.preventDefault();
+            orderSubmit();
+            return false;
+        });
     });
 </script>
 </body>

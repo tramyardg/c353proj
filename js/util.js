@@ -36,7 +36,11 @@ const bookCategory = {
     "5": "Thriller"
 };
 Date.prototype.toDateInputValue = (function() {
-    var local = new Date(this);
+    let local = new Date(this);
     local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
     return local.toJSON().slice(0,10);
 });
+const arrSum = arr => arr.reduce((a,b) => a + b, 0);
+const round2Dec = (num) => {
+    return (Math.round(num * 100) / 100);
+};

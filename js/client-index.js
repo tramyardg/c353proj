@@ -58,7 +58,7 @@ const addOrder = (bookId) => {
     // by deffault, order count is 1
     orderBook.order_count = 1;
     let customerOrders = JSON.parse(localStorage.getItem("customer-cart")) || [];
-    
+
     if (!containsOrder(bookId)) customerOrders.push(orderBook);
     localStorage.setItem("customer-cart", JSON.stringify(customerOrders));
     rerenderBooks();
@@ -70,7 +70,7 @@ const removeOrder = (bookId) => {
     let newCustomerOrders = customerOrders.filter(book => book.book_id != bookId);
     localStorage.setItem("customer-cart", JSON.stringify(newCustomerOrders));
     rerenderBooks();
-}
+};
 
 // helper method to check if bookId is contained in localstorage
 const containsOrder = (bookId) => {
@@ -81,7 +81,7 @@ const containsOrder = (bookId) => {
     }
 
     return false;
-}
+};
 
 // apply filter changes on books
 const filterChange = () => {
@@ -91,13 +91,13 @@ const filterChange = () => {
     books = allBooks;
     books = applyCategoryFilter(selectedCategory);
     books = applyInventoryFilter(inventoryFilter);
-}
+};
 
 // apply specific category filter on books
 const applyCategoryFilter = (selectedCategory) => {
     let filteredBooks = [];
 
-    (selectedCategory == -1) ? 
+    (selectedCategory == -1) ?
         filteredBooks = books :
         books.forEach((book) => {
             if (book.category == selectedCategory)
@@ -105,26 +105,26 @@ const applyCategoryFilter = (selectedCategory) => {
         });
 
     return filteredBooks;
-}
+};
 
 // apply specific inventory filter on books
 const applyInventoryFilter = (selectedInventory) => {
     let filteredBooks = [];
 
     (selectedInventory == -1) ?
-        filteredBooks = books:
+        filteredBooks = books :
         books.forEach((book) => {
             // books with available inventory
             if (selectedInventory == 1 && book.qty_on_hand > 0) {
                 filteredBooks.push(book);
-            // books with no inventory
-            } else if (selectedInventory == 0 && book.qty_on_hand == 0)  {
+                // books with no inventory
+            } else if (selectedInventory == 0 && book.qty_on_hand == 0) {
                 filteredBooks.push(book);
             }
         });
 
     return filteredBooks;
-}
+};
 
 // empties container and rerenders new books
 const rerenderBooks = () => {
@@ -133,13 +133,14 @@ const rerenderBooks = () => {
     books.forEach((book) => {
         renderBookCard(book);
     });
-}
+};
 
+// insert into back_orders
 const requestOrder = (bookId) => {
     // populate modal body with the data that is needed
     $("#order-body").empty();
-    selectedBook = allBooks.filter((book) => book.book_id == bookId)[0]
-    console.log("order book: ", selectedBook);
+    selectedBook = allBooks.filter((book) => book.book_id == bookId)[0];
+    console.log("back order book request: ", selectedBook);
 
     $("#order-body").append(`
         <div>${selectedBook.title}</div><br>
@@ -158,15 +159,16 @@ const requestOrder = (bookId) => {
     // book_id
     // quantity
     // price
-}
+};
 
-const orderSubmit = async () => {
+const orderSubmit = () => {
     let customerId = $("#customer-id").val();
+    let orderQty = $("#order-quantity");
     let payload = {
         customer_id: customerId,
+        order_date: new Date().toDateInputValue(),
         book_id: selectedBook.book_id,
-        quantity: $("#order-quantity").val(),
-        price: selectedBook.price,
+        quantity: orderQty.val()
     };
 
     if (payload.quantity < 1) {
@@ -174,16 +176,32 @@ const orderSubmit = async () => {
         return;
     }
 
-    $.post("./api/order.php", payload, (response) => {
-        // TODO show indication that it was successful
+    console.log(payload);
+
+    $.post("api/backOrder.php", payload, (response) => {
         response = JSON.parse(response);
         if (response.status) {
-            const orderId = response.data[0];
-            alert(`Success, your order id is: ${orderId}`);
+            alert(response.message);
         } else {
             alert("Something went wrong");
         }
-    })
+    });
+};
 
-    selectedBook = null;
-}
+const updateOrderPrice = (ele, startingPrice) => {
+    let updatedQty = $(ele).val();
+    console.log(startingPrice);
+    let endingPrice = round2Dec(startingPrice * updatedQty);
+    $(ele).parent().prev().text('$' + endingPrice);
+    let totalPrice = $('#total-price');
+    totalPrice.text('$' + getTotalPrice());
+};
+const getTotalPrice = () => {
+    let unitPrice = $('.unit-price');
+    let total = 0;
+    unitPrice.each(function (i, v) {
+        let num = $(v).text().substr(1);
+        total += parseFloat(num);
+    });
+    return round2Dec(total);
+};

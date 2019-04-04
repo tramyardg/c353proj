@@ -2,11 +2,10 @@
 
 class Order implements JsonSerializable
 {
-
     private $order_id;
     private $customer_id;
     private $order_date;
-    private $payment_date;
+    private $date_received;
     private $status;
 
     public function getOrderId()
@@ -39,14 +38,14 @@ class Order implements JsonSerializable
         $this->order_date = $order_date;
     }
 
-    public function getPaymentDate()
+    public function getDateReceived()
     {
-        return $this->payment_date;
+        return $this->date_received;
     }
 
-    public function setPaymentDate($payment_date): void
+    public function setDateReceived($date_received): void
     {
-        $this->payment_date = $payment_date;
+        $this->date_received = $date_received;
     }
 
     public function getStatus()

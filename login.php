@@ -39,7 +39,7 @@ if (isset($_SESSION["customer"]))
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                     <form class="needs-validation form-signin" id="customerLoginForm" novalidate>
                         <div class="form-label-group">
-                            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required>
+                            <input type="email" id="inputEmail" value="bpicken0@shutterfly.com" class="form-control" placeholder="Email address" required>
                             <label for="inputEmail"><i class="mr-1" style="width: 20px; height: 20px;" data-feather="mail"></i>Email
                                 address</label>
                             <div class="invalid-feedback">
@@ -47,7 +47,7 @@ if (isset($_SESSION["customer"]))
                             </div>
                         </div>
                         <div class="form-label-group">
-                            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                            <input type="password" id="inputPassword" value="V0FBCPCVmC" class="form-control" placeholder="Password" required>
                             <label for="inputPassword"><i class="mr-1" style="width: 20px; height: 20px;"
                                                           data-feather="key"></i>Password</label>
                             <div class="invalid-feedback">
