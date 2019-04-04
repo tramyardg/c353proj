@@ -1,9 +1,9 @@
 <?php
 $commonNameTitle = parse_ini_file("./common.ini");
+require 'db/DB.php';
 require 'model/Customer.php';
 require 'model/Order.php';
 require 'controller/OrderController.php';
-require 'db/DB.php';
 
 ob_start();
 session_start();
@@ -35,33 +35,63 @@ $orders = $orderController->fetchByCustomerId($customer->getCustomerId());
     <main class="container">
         <div class="row">
             <div class="col">
-                <h3>My Orders</h3>
-                  <?php if (sizeof($orders) == 0) { ?>
+                <h3>My Order History</h3>
+                <?php if (sizeof($orders) == 0) { ?>
                     You do not have any orders currently
-                  <?php } else { ?>
+                <?php } else { ?>
                     <table class="table">
-                      <thead class="thead-light">
+                        <thead class="thead-light">
                         <tr>
-                          <th scope="col">Order Id</th>
-                          <th scope="col">Status</th>
-                          <th scope="col">Book Title</th>
-                          <th scope="col">Quantity</th>
+                            <th scope="col">Order Id</th>
+                            <th scope="col">Book Title</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Order Date</th>
+                            <th scope="col">Date Received</th>
                         </tr>
-                      </thead>
-                      <tbody>
-                        <?php  foreach($orders as $key=>$value): ?>
-                          <tr>
-                            <th scope="row"><?php echo $orders[$key]["order_id"]; ?></th>
-                            <td><?php echo $orders[$key]["status"]; ?></td>
-                            <td><?php echo $orders[$key]["title"]; ?></td>
-                            <td><?php echo $orders[$key]["quantity"]; ?></td>
-                          </tr>
-                        <?php endforeach; ?>
-                      </tbody>
+                        </thead>
+                        <tbody>
+                        <?php // foreach($orders as $key=>$value): ?>
+                        <tr>
+                            <th scope="row"><?php // echo $orders[$key]["order_id"]; ?></th>
+                            <td><?php // echo $orders[$key]["status"]; ?></td>
+                            <td><?php // echo $orders[$key]["status"]; ?></td>
+                            <td><?php // echo $orders[$key]["status"]; ?></td>
+                            <td><?php // echo $orders[$key]["title"]; ?></td>
+                            <td><?php // echo $orders[$key]["quantity"]; ?></td>
+                        </tr>
+                        <?php // endforeach; ?>
+                        </tbody>
                     </table>
-                    
-                  <?php } ?>
-                </form>
+                <?php } ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h3>Requested Orders</h3>
+                <table class="table">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Order Id</th>
+                        <th scope="col">Book Title</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Availability</th>
+                        <th scope="col">Request Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php // foreach($orders as $key=>$value): ?>
+                    <tr>
+                        <th scope="row"><?php // echo $orders[$key]["order_id"]; ?></th>
+                        <td><?php // echo $orders[$key]["status"]; ?></td>
+                        <td><?php // echo $orders[$key]["status"]; ?></td>
+                        <td><?php // echo $orders[$key]["status"]; ?></td>
+                        <td><?php // echo $orders[$key]["title"]; ?></td>
+                        <td><?php // echo $orders[$key]["quantity"]; ?></td>
+                    </tr>
+                    <?php // endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </main>
