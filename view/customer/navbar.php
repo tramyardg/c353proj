@@ -7,15 +7,15 @@
 
   <div class="collapse navbar-collapse" id="navbarsExample09">
       <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-              <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+          <li class="nav-item <?php echo strlen($_GET['indexActive']) > 0 ? 'active' : ''; ?>">
+              <a class="nav-link" href="index.php?indexActive=true">Home <span class="sr-only">(current)</span></a>
           </li>
           <?php if (isset($_SESSION["customer"])) { ?>
-            <li class="nav-item active">
-              <a class="nav-link" href="cart.php">Cart<span class="sr-only"></span></a>
+            <li class="nav-item <?php echo strlen($_GET['cartActive']) > 0 ? 'active' : ''; ?>">
+              <a class="nav-link" href="cart.php?cartActive=true">Cart<span class="sr-only"></span></a>
             </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="orders.php">My Orders<span class="sr-only"></span></a>
+            <li class="nav-item <?php echo strlen($_GET['ordersActive']) > 0 ? 'active' : ''; ?>">
+              <a class="nav-link" href="orders.php?ordersActive=true">My Orders<span class="sr-only"></span></a>
             </li>
           <?php } ?>
       </ul>
@@ -30,18 +30,11 @@
               <?php } ?>
               <div class="dropdown-menu">
                   <?php if (isset($_SESSION["customer"])) { ?>
-                  <a class="dropdown-item btn-success" href="#"><i class="mr-2" data-feather="user-check"></i>Your
-                      account</a>
-                  <?php } ?>
                   <a class="dropdown-item" href="#"><i class="mr-2" data-feather="shopping-cart"></i>Cart</a>
+                  <a class="dropdown-item" href="logout.php"><i class="mr-2" data-feather="log-out"></i>Log out</a>
+                  <?php } ?>
                   <?php if (!isset($_SESSION["customer"])) { ?>
                   <a class="dropdown-item" href="login.php"><i class="mr-2" data-feather="log-in"></i>Log in</a>
-                  <?php } ?>
-                  <?php if (isset($_SESSION["customer"])) { ?>
-                  <a class="dropdown-item" href="logout.php"><i class="mr-2" data-feather="log-out"></i>Log
-                      out</a>
-                  <?php } ?>
-                  <?php if (!isset($_SESSION["customer"])) { ?>
                   <a class="dropdown-item" href="create-account.php"><i class="mr-2" data-feather="user-plus"></i>Register</a>
                   <?php } ?>
               </div>

@@ -38,8 +38,7 @@ if (isset($_SESSION["customer"])) {
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 </head>
 <body>
-    <!-- TODO put customer id value here -->
-    <input type="hidden" id="customer-id" style="display:none" value="<?php echo $customer->getCustomerId(); ?>">
+    <input type="hidden" id="customer-id" class="d-none" value="<?php echo $customer->getCustomerId(); ?>">
     <?php include 'view/customer/navbar.php' ?>
     <main class="container-fluid">
         <!-- Order Request Modal -->
@@ -118,15 +117,16 @@ if (isset($_SESSION["customer"])) {
     $(document).ready(() => {
         let books = <?php echo json_encode($bkController->fetchBooks()); ?>;
         let authorNames = <?php echo json_encode($aController->getBookAuthors()); ?>;
-        for (let i = 0; i < authorNames.length; i++) {
-            if (parseInt(authorNames[i].book_id) === parseInt(books[i].book_id)) {
-                // add all authors of this book id in the key authorNames
-                books[i]['authorNames'] = authorNames[i].names;
-            }
-        }
+        authorNames.map((k, i) => {
+           if (parseInt(books[i].book_id) === parseInt(authorNames[i].book_id)) {
+               books[i]['authorNames'] = authorNames[i].names;
+           }
+        });
+
         initializeBooks(books);
-        console.log(books);
-        $('#backOrderForm').submit(function (e) {
+        // console.log(books);
+
+        $('#backOrderForm').submit((e) => {
             e.preventDefault();
             orderSubmit();
             return false;

@@ -190,16 +190,13 @@ const orderSubmit = () => {
 
 const updateOrderPrice = (ele, startingPrice) => {
     let updatedQty = $(ele).val();
-    console.log(startingPrice);
     let endingPrice = round2Dec(startingPrice * updatedQty);
     $(ele).parent().prev().text('$' + endingPrice);
-    let totalPrice = $('#total-price');
-    totalPrice.text('$' + getTotalPrice());
+    $('#total-price').text('$' + getTotalPrice());
 };
 const getTotalPrice = () => {
-    let unitPrice = $('.unit-price');
     let total = 0;
-    unitPrice.each(function (i, v) {
+    $('.row-price').map((i, v) => {
         let num = $(v).text().substr(1);
         total += parseFloat(num);
     });

@@ -53,7 +53,7 @@ if (isset($_SESSION["employee"]))
         <div class="alert alert-success d-none" id="successMessage" role="alert">
             Registration successful. You can now log in.
             <hr/>
-            Refreshing the page in <span class="badge badge-light" id="refreshSeconds"></span> seconds.
+            Refreshing the page in <span class="badge badge-dark" id="refreshSeconds"></span> seconds.
         </div>
         <div class="jumbotron">
             <h3 class="text-center">Employee Registration</h3>

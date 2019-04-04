@@ -9,8 +9,7 @@ session_start();
 if (isset($_SESSION["customer"])) {
     $customer = $_SESSION["customer"];
 } else {
-    // redirect to home
-    header('Location: ./index.php');
+    header('Location: index.php?indexActive=true');
 }
 ?>
 <!doctype html>
@@ -23,12 +22,12 @@ if (isset($_SESSION["customer"])) {
     <link href="css/bootstrap-flatly.css" rel="stylesheet">
     <link href="css/index.css" rel="stylesheet">
     <link href="css/navbar.css" rel="stylesheet">
-    <link href="css/vertical-tab.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.dataTables.min.css">
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 </head>
 <body>
+    <input type="hidden" id="customer-id" class="d-none" value="<?php echo $customer->getCustomerId(); ?>">
     <?php include 'view/customer/navbar.php' ?>
     <main class="container">
         <div class="row">
@@ -45,19 +44,26 @@ if (isset($_SESSION["customer"])) {
             </div>
         </div>
     </main>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script>
+        feather.replace();
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(() => {
+            let cartForm = $('#cart-form');
             const cartItems = JSON.parse(localStorage.getItem("customer-cart")) || [];
-
+            console.log(cartItems);
             let priceTotal = [];
             cartItems.forEach((item) => {
                 priceTotal.push(parseFloat(item.price));
-                $("#cart-form").append(`<hr>
-                    <div class="row cart-item-row">
-                        <div class="col-6">${item.title}</div>
-                        <div class="col-3 unit-price">$${item.price}</div>
-                        <div class="col-3">
+                cartForm.append(`<hr>
+                    <div class="row cart-item-row" data-id="${item.book_id}">
+                        <div class="col-6 row-title">${item.title}</div>
+                        <div class="col-3 row-price">$${item.price}</div>
+                        <div class="col-3 row-qty">
                             <input type="number" class="form-control" max="10" min="1"
                                 value="${item.order_count}"
                                 onchange="updateOrderPrice(this, ${item.price})"/>
@@ -65,7 +71,8 @@ if (isset($_SESSION["customer"])) {
                     </div>
                 `);
             });
-            $("#cart-form").append(`
+
+            cartForm.append(`
                     <hr>
                     <div class="row">
                         <div class="col-6 font-weight-bold">Total</div>
@@ -73,8 +80,48 @@ if (isset($_SESSION["customer"])) {
                         <div class="col-3 font-weight-bold"></div>
                     </div>
                     <hr>
-                    <button type="submit" class="btn btn-success">Purchase</button>
+                    <div id="cart-purchase-back-btn"><button type="submit" class="btn btn-success" id=purchase-btn>Purchase</button></div>
             `);
+
+            const submitCartForm = () => {
+                console.log(cartItems);
+                if (cartItems.length <= 0) {
+                    alert('Your cart is empty.');
+                    return;
+                }
+                let customerId = $("#customer-id").val();
+                let orderItems = [];
+                $('.cart-item-row').map((i, v) => {
+                    orderItems.push({
+                        customer_id: customerId,
+                        order_date: new Date().toDateInputValue(),
+                        book_id: $(v).attr('data-id'),
+                        quantity: $(v).children('.row-qty').children().val(),
+                        totalAmount: $(v).children('.row-price').text().substr(1)
+                    })
+                });
+                console.log(orderItems);
+
+                $.post("api/purchaseOrder.php", {payload: orderItems}, (response) => {
+                    // response = JSON.parse(response);
+                    // if (response.status) {
+                    //     alert(response.message);
+                    // } else {
+                    //     alert("Something went wrong");
+                    // }
+                    localStorage.clear();
+                    console.log((response));
+                    $('#cart-purchase-back-btn').empty().prepend(`
+                        <a href="index.php?indexActive=true" class="btn btn-success" >Home</a>`
+                    );
+                });
+            };
+
+            cartForm.submit((e) => {
+                e.preventDefault();
+                submitCartForm();
+                return false;
+            });
         });
     </script>
     <script src="js/util.js"></script>

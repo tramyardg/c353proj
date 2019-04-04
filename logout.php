@@ -29,7 +29,7 @@
             if (data) {
                 let locHref = location.href;
                 let siteRoot = locHref.substring(0, locHref.lastIndexOf('/'));
-                let homePageLink = siteRoot + '/index.php';
+                let homePageLink = siteRoot + '/index.php?indexActive=true';
                 window.location.replace(homePageLink);
             }
         });

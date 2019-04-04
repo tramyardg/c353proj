@@ -10,8 +10,7 @@ session_start();
 if (isset($_SESSION["customer"])) {
     $customer = $_SESSION["customer"];
 } else {
-    // redirect to home
-    header('Location: ./index.php');
+    header('Location: index.php?indexActive=true');
 }
 
 $orderController = new OrderController();

@@ -14,7 +14,7 @@ const customerLoginFormSubmit = function () {
         $.post('service/customer_login.php', customerFormData.getVal(), function (data) {
             let res = JSON.parse(data);
             if (res.result) {
-                reloadPage('index.php', 2, $('#refreshSeconds'));
+                reloadPage('index.php?indexActive=true', 2, $('#refreshSeconds'));
             } else {
                 warnMessage.removeClass('d-none');
                 warnMessage.html(res.message);

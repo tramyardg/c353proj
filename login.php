@@ -27,7 +27,7 @@ if (isset($_SESSION["customer"]))
     <div class="alert alert-success d-none" style="width: 60%;margin: 0 auto 1rem;" id="successMessage" role="alert">
         Log in successful.
         <hr/>
-        You are being redirected to the home page in <span class="badge badge-light" id="refreshSeconds"></span> seconds.
+        You are being redirected to the home page in <span class="badge badge-dark" id="refreshSeconds"></span> seconds.
     </div>
     <div class="alert alert-warning d-none" style="width: 60%;margin: 0 auto 1rem;" id="warningMessage" role="alert"></div>
     <div class="jumbotron" style="width: 60%;margin: 0 auto;">
