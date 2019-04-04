@@ -17,7 +17,7 @@ if (isset($_SESSION["customer"]))
     <meta name="generator" content="Jekyll v3.8.5">
     <title>Login</title>
 
-    <link href="css/bootstrap-flatly.css" rel="stylesheet">
+    <link href="css/bootstrap-pulse.css" rel="stylesheet">
     <link href="css/floating-labels.css" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>

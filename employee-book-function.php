@@ -3,6 +3,8 @@ $commonNameTitle = parse_ini_file("./common.ini");
 require 'db/DB.php';
 require 'model/Employee.php';
 require 'model/Publisher.php';
+require 'model/Enum.php';
+require 'model/BookCategory.php';
 require 'controller/EmployeeController.php';
 require 'controller/PublisherController.php';
 
@@ -26,7 +28,7 @@ if (isset($_SESSION["employee"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Order book</title>
 
-    <link href="css/bootstrap-flatly.css" rel="stylesheet">
+    <link href="css/bootstrap-pulse.css" rel="stylesheet">
     <link href="css/navbar.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.dataTables.min.css">
@@ -80,6 +82,9 @@ if (isset($_SESSION["employee"])) {
 
             let selectBookToOrderTable = $('#selectBookToOrderTable').DataTable({
                 'pageLength': 10
+                // "columns": [
+                //     {"width": "2%"}, null, {"width": "80%"}, null, null, null, null
+                // ]
             });
             $('#selectBookToOrderTable tbody').on('click', 'tr', function () {
                 if ($(this).hasClass('selected')) {

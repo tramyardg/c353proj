@@ -14,7 +14,7 @@ if (isset($_SESSION["customer"]))
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href="css/bootstrap-flatly.css" rel="stylesheet">
+    <link href="css/bootstrap-pulse.css" rel="stylesheet">
     <link href="css/navbar.css" rel="stylesheet">
     <title>Create New Account</title>
 

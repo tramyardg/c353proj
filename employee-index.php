@@ -33,7 +33,7 @@ if (isset($_SESSION["employee"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Home</title>
 
-    <link href="css/bootstrap-flatly.css" rel="stylesheet">
+    <link href="css/bootstrap-pulse.css" rel="stylesheet">
     <link href="css/navbar.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.dataTables.min.css">
