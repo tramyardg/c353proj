@@ -30,9 +30,13 @@ $bkPb = $pController->fetchBookPublisherInventory();
             </tbody>
         </table>
     </div>
-    <div class="pt-3 pb-3">
+    <div class="pb-3">
         <h3 for="quantityNeeded">How many do you need?</h3>
-        <input type="number" class="form-control" id="quantity-needed" min="1" max="50" value="1" required>
+        <div class="row">
+            <div class="col">
+                <input type="number" class="form-control" id="quantity-needed" min="1" max="50" value="1">
+            </div>
+        </div>
     </div>
     <div class="pt-1">
         <button type="button" id="order-book-submit" class="btn btn-primary">Submit</button>

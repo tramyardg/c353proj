@@ -47,25 +47,22 @@ class BookstoreOrderController
                     `book_id`,
                     `publisher_id`,
                     `qty_ordered`,
+                    `status`,
                     `date_requested`,
-                    `period_specified`
-                ) VALUES(?, ?, ?, ?);';
-
-        $dateRequested = date('Y-m-d'); // current date
-        $bookstoreOrder->setDateRequested($dateRequested);
-
-        $dateRequestedPlus2Weeks = strtotime("+14 day", strtotime($dateRequested));
-        $periodSpecified = date('Y-m-d', $dateRequestedPlus2Weeks);
-
+                    `period_specified`,
+                    `date_shipped`
+                ) VALUES(?, ?, ?, ?, ?, ?, ?);';
         $stmt = DB::getInstance()->prepare($sql);
         $exec = $stmt->execute([
             $bookstoreOrder->getBookId(),
             $bookstoreOrder->getPublisherId(),
             $bookstoreOrder->getQtyOrdered(),
-            $dateRequested,
-            $periodSpecified
+            $bookstoreOrder->getStatus(),
+            $bookstoreOrder->getDateRequested(),
+            $bookstoreOrder->getPeriodSpecified(),
+            $bookstoreOrder->getDateShipped()
         ]);
-        echo json_encode(['result' => $exec]);
+        return ['result' => $exec];
     }
 
     // for publisher not supposed to be here?

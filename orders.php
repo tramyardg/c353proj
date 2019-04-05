@@ -71,7 +71,7 @@ $biController = new BookInventoryController();
                             <td>
                                 <?php $orderItems = $orderController->fetchOrderDetails($k["order_id"]); ?>
                                 <button type="button" class="btn btn-outline-success" data-toggle="modal"
-                                        data-target=".bd-modal-<?php echo $k['order_id']; ?>">More details
+                                        data-target=".bd-modal-<?php echo $k['order_id']; ?>">View details
                                 </button>
                                 <div class="modal fade bd-modal-<?php echo $k['order_id']; ?> show" tabindex="-1" role="dialog"
                                      aria-labelledby="mySmallModalLabel" aria-hidden="true">

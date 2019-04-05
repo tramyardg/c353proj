@@ -82,8 +82,18 @@ if (isset($_SESSION["employee"])) {
             });
 
             let selectBookToOrderTable = $('#selectBookToOrderTable').DataTable({
-                'pageLength': 10
+                'pageLength': 5,
+                'bLengthChange': false,
+                'columnDefs': [
+                    {"width": "10%", "targets": 0},
+                    {"width": "10%", "targets": 4}],
+                "order": [[4, "asc"]]
             });
+            $('#selectBookToOrderTable_filter').css({
+                'float': 'left',
+                'text-align': 'left'
+            });
+
             $('#selectBookToOrderTable tbody').on('click', 'tr', function () {
                 if ($(this).hasClass('selected')) {
                     $(this).removeClass('selected');
@@ -93,9 +103,9 @@ if (isset($_SESSION["employee"])) {
                 }
             });
 
+            let qtyNeededInput = $('#quantity-needed');
             $('#order-book-submit').click(function () {
                 let selectedBookRow = selectBookToOrderTable.row('.selected').data() || [];
-                let qtyNeeded = $('#quantity-needed').val();
                 if (selectedBookRow.length === 0) {
                     alert('Please select a book first.');
                     return;
@@ -104,22 +114,21 @@ if (isset($_SESSION["employee"])) {
                 let bookOrdered = {
                     bookId: selectedBookRow[0],
                     publisherId: selectedBookRow[1],
-                    qtyOrdered: qtyNeeded
+                    qtyOrdered: qtyNeededInput.val()
                 };
-                console.log(bookOrdered);
+                // console.log(bookOrdered);
                 submitAddBookReq(bookOrdered)
             });
 
             const submitAddBookReq = (data) => {
+                console.log(data);
                 $.post("service/employee_index.php?employeeId=" + employeeId, {orderBookPayload: data}, (response) => {
-                    // if(JSON.parse(response).length === 0) {
-                    //     alert('Something went wrong!');
-                    // } else {
-                    //     console.log(JSON.parse(response));
-                    //     localStorage.clear();
-                    //     alert('Thank you for purchasing with us.');
-                    // }
-                    console.log(response);
+                    if(JSON.parse(response).result) {
+                        console.log(JSON.parse(response));
+                        alert('Your order is submitted to this publisher successfully.');
+                    } else {
+                        alert('Something went wrong!');
+                    }
                 });
             }
         });
