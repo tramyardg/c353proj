@@ -147,7 +147,7 @@ if (isset($_SESSION["publisher"])) {
                         <div class="col-6">
                             <button type="button" id="update-bookstore-order" class="btn btn-primary btn-sm"
                                     data-toggle="modal" data-target="#addBookModal"><i class="mr-sm-1" style="height: 18px;"
-                                                                                       data-feather="edit"></i>Update
+                                                                                       data-feather="edit"></i>Fulfill
                             </button>
                         </div>
                     </div>
@@ -182,7 +182,8 @@ if (isset($_SESSION["publisher"])) {
             }
         });
 
-        updateSelectedBookOrder(selectBookToOrderTable);
+        fulfillSelectedOrder(selectBookToOrderTable);
+        fulfillOrderRequest();
     });
 </script>
 </body>

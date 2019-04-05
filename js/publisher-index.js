@@ -50,6 +50,7 @@ const preAddBookFormSubmit = () => {
     });
     return false;
 };
+
 const postAddBookFormSubmit = () => {
     addBookForm.submit(function (event) {
         event.preventDefault();
@@ -57,95 +58,124 @@ const postAddBookFormSubmit = () => {
     });
 };
 
-// update bookstore order(s) - start
-const updateOrder = {
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// fulfill bookstore order(s) - start
+//////////////////////////////////////
+const fulfillOrder = {
     sel: function () {
         return {
             dialog: $('#updateOrderModal'),
             dialogBody: $('#updateOrderModalBody'),
-            submitBtn: $('#updateOrderFormSubmit'),
+            fulfillSubmitBtn: $('#fulfillOrderFormSubmit'),
             updateBtn: $('#update-bookstore-order')
         }
     }
 };
-updateSelectedBookOrder = (table) => {
-    updateOrder.sel().updateBtn.click(function () {
 
+fulfillSelectedOrder = (table) => {
+    fulfillOrder.sel().updateBtn.click(function () {
         // selRowDat is an array, follows order of the table header
         let selRowData = table.row('.selected').data();
         if (!table.row('.selected').data()) {
-            alert('Please select an order to update.');
+            alert('Please select an order to fulfill.');
             return;
         }
-        updateOrder.sel().dialog.modal('show');
-
+        if (parseInt(selRowData[4]) > parseInt(selRowData[5])) {
+            alert("You don't have enough in the inventory to fulfill this order.");
+            return;
+        }
         let rowObj = {
             orderId: selRowData[0],
+            bookId: selRowData[1],
             qtyOrdered: selRowData[4],
             qtyOnHand: selRowData[5],
             dateShipped: selRowData[6],
             status: selRowData[selRowData.length - 1]
         };
+        fulfillOrder.sel().dialogBody.empty().append(`
+        <input name="bookstore-order-id" type="hidden" class="d-none" value="${rowObj.orderId}">
+        <input name="book-id" type="hidden" class="d-none" value="${rowObj.bookId}">
+        <div class="row mt-2">
+            <div class="col">
+                <label for="dateShipped">Date Shipped</label>
+                <input class="form-control" type="date" value="${new Date().toDateInputValue()}" name="dateShipped"
+                id="dateShipped" 
+                min="${new Date().toDateInputValue()}">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <label for="qtyOrderedByClient">Qty Ordered</label>
+                <input class="form-control" type="number" value="${parseInt(rowObj.qtyOrdered)}" name="qtyOrderedByClient"
+                id="qtyOrderedByClient">
+            </div>
+            <div class="col">
+                <label for="qtyOnHandByPublisher">Qty On Hand</label>
+                <input class="form-control" type="number" value="${parseInt(rowObj.qtyOnHand)}" name="qtyOnHandByPublisher"
+                id="qtyOnHandByPublisher">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Status</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelectShippedStatus">
+                        <option value="PROCESSING" ${(rowObj.status === 'PROCESSING') ? 'selected' : ''}>PROCESSING</option>
+                        <option value="SHIPPED"  ${(rowObj.status === 'SHIPPED') ? 'selected' : ''}>SHIPPED</option>
+                    </select>
+                </div>
+            </div>
+        </div>`);
 
-        updateOrder.sel().dialog.on('shown.bs.modal', function () {
-            if (parseInt(rowObj.qtyOrdered) > parseInt(rowObj.qtyOnHand)) {
-                updateOrder.sel().dialogBody.empty().append("<p class='text-danger'>You don't have enough books to fulfill this order.</p>");
-            } else {
-                updateOrder.sel().dialogBody.empty().append('<div class="row mt-2 d-none">\n' +
-                    '                                <div class="col">\n' +
-                    '                                    <input name="shipmentId" type="hidden" value="' + rowObj.shipmentId + '">\n' +
-                    '                                </div>\n' +
-                    '                            </div>\n' +
-                    '                            <div class="row mt-2">\n' +
-                    '                                <div class="col">\n' +
-                    '                                    <label for="datetimeShipped">Date Shipped</label>\n' +
-                    '                                    <input class="form-control" type="date" value="' + new Date().toDateInputValue() + '" \n' +
-                    '                                           id="datetimeShipped" min="' + new Date().toDateInputValue() + '">\n' +
-                    '                                </div>\n' +
-                    '                            </div>\n' +
-                    '                            <div class="row mt-2">\n' +
-                    '                                <div class="col">\n' +
-                    '                                    <label for="qtyOrderedByClient">Qty Ordered</label>\n' +
-                    '                                    <input class="form-control" readonly type="number" value="' + parseInt(rowObj.qtyOrdered) + '" id="qtyOrderedByClient" >\n' +
-                    '                                </div>\n'+
-                    '                                <div class="col">\n' +
-                    '                                    <label for="qtyOnHandByPublisher">Qty On Hand</label>\n' +
-                    '                                    <input class="form-control" readonly type="number" value="' + parseInt(rowObj.qtyOnHand) + '" id="qtyOnHandByPublisher" >\n' +
-                    '                                </div>\n' +
-                    '                            </div><div class="row mt-3">\n' +
-                    '                                <div class="col">\n' +
-                    '                                    <div class="input-group mb-3">\n' +
-                    '                                        <div class="input-group-prepend">\n' +
-                    '                                            <label class="input-group-text" for="inputGroupSelect01">Status</label>\n' +
-                    '                                        </div>\n' +
-                    '                                        <select class="custom-select" id="inputGroupSelectShippedStatus">\n' +
-                    '                                            <option value="PROCESSING" selected>PROCESSING</option>\n' +
-                    '                                            <option value="SHIPPED">SHIPPED</option>\n' +
-                    '                                        </select>\n' +
-                    '                                    </div>\n' +
-                    '                                </div>\n' +
-                    '                            </div>');
-            }
+        fulfillOrder.sel().dialog.modal('show');
+        fulfillOrder.sel().dialog.on('hidden.bs.modal', function () {
+            fulfillOrder.sel().dialogBody.empty();
         });
-        updateOrder.sel().dialog.on('hidden.bs.modal', function (e) {
-            updateOrder.sel().dialogBody.empty();
-        });
+
+        // book_id
+        // publisher_id
+        // date shipped
+        // status
+        // quantity ordered (bookstore employee)
+        // quantity on hand (publisher inventory)
 
         console.log(selRowData);
     });
 };
 
+const fulfillOrderRequest = () => {
+    fulfillOrder.sel().fulfillSubmitBtn.click((e) => {
+        e.preventDefault();
+        console.log($(e));
+        let fulfillmentPayload = {
+            publisherId: $('input[name=publisher-id]').val(),
+            bookstoreOrderId: $('input[name=bookstore-order-id]').val(),
+            bookId: $('input[name=book-id]').val(),
+            dateShipped: $('input[name=dateShipped]').val(),
+            qtyOrdered: $('input[name=qtyOrderedByClient]').val(),
+            qtyOnHand: $('input[name=qtyOnHandByPublisher]').val(),
+            orderStatus: $('#inputGroupSelectShippedStatus').val()
+        };
+        console.log(fulfillmentPayload);
+    });
+};
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // modify existing product(book)
+/////////////////////////////////
 const existingOrderElements = {
     ele: function () {
         return {
             dialog: $('#modifyExistingProductModal'),
             dialogBody: $('#modifyExistingProductModalBody'),
-            submitBtn: $('#modifyExistingProductSubmit'),
+            fulfillSubmitBtn: $('#modifyExistingProductSubmit'),
             modifySelProduct: $('#updated-selected-book')
         }
     }
 };
+
 modifyExistingProduct = (table) => {
     existingOrderElements.ele().modifySelProduct.click(function () {
         let selRow = table.row('.selected').data();
