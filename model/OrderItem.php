@@ -1,13 +1,12 @@
 <?php
 
-class OrderItem implements JsonSerializable
+class OrderItem
 {
 
     private $order_item_id;
     private $order_id;
     private $book_id;
     private $quantity;
-    private $total_amount;
 
     public function getOrderItemId()
     {
@@ -49,25 +48,4 @@ class OrderItem implements JsonSerializable
         $this->quantity = $quantity;
     }
 
-    public function getTotalAmount()
-    {
-        return $this->total_amount;
-    }
-
-    public function setTotalAmount($total_amount): void
-    {
-        $this->total_amount = $total_amount;
-    }
-
-    /**
-     * Specify data which should be serialized to JSON
-     * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
-     * @since 5.4.0
-     */
-    public function jsonSerialize()
-    {
-        return get_object_vars($this);
-    }
 }

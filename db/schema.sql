@@ -106,6 +106,7 @@ CREATE TABLE IF NOT EXISTS `orders`
     `order_date`    DATE               NOT NULL,
     `date_received` DATE                          DEFAULT '0000-00-00',
     `status`        ENUM ('PROCESSING','SHIPPED') DEFAULT 'PROCESSING',
+    `total`         DOUBLE(8, 2),
     FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`)
 );
 
@@ -117,7 +118,6 @@ CREATE TABLE IF NOT EXISTS `order_items`
     `order_id`      INT(4)             NOT NULL,
     `book_id`       INT(4)             NOT NULL,
     `quantity`      INT                NOT NULL,
-    `total_amount`  DOUBLE(8, 2), ## quantity * book price
     FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
     FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`)
 );

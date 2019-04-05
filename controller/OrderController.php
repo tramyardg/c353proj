@@ -25,16 +25,43 @@ class OrderController
      */
     public function save(Order $order)
     {
-        $sql = 'INSERT INTO `orders` (`customer_id`, `order_date`, `date_received`, `status`) VALUES (?, ?, ?, ?)';
+        $sql = 'INSERT INTO `orders` 
+                (`customer_id`, `order_date`, `date_received`, `status`, `total`) 
+                VALUES (?, ?, ?, ?, ?);';
         $stmt = DB::getInstance()->prepare($sql);
-        $stmt->execute([
+        $exec = $stmt->execute([
             $order->getCustomerId(),
             $order->getOrderDate(),
             $order->getDateReceived(),
-            $order->getStatus()
+            $order->getStatus(),
+            $order->getTotal()
         ]);
+        return json_encode(['result' => $exec]);
+    }
 
-        $id = DB::getInstance()->lastInsertId();
-        return json_encode(array('result' => $id));
+    public function fetchOrderDetails($orderId)
+    {
+        $sql = 'SELECT
+                    oi.order_item_id,
+                    oi.quantity,
+                    b.title,
+                    b.isbn,
+                    b.edition,
+                    b.price,
+                    b.category,
+                    a.first_name,
+                    a.middle_name,
+                    a.last_name
+                FROM
+                    order_items oi,
+                    orders o,
+                    books b,
+                    authors a,
+                    book_authors ba
+                WHERE
+                    oi.order_id = o.order_id AND oi.book_id = b.book_id AND ba.author_id = a.author_id AND ba.book_id = b.book_id AND o.order_id = ?;';
+        $stmt = DB::getInstance()->prepare($sql);
+        $stmt->execute([$orderId]);
+        return $stmt->fetchAll();
     }
 }

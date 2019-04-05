@@ -51,72 +51,10 @@ if (isset($_SESSION["customer"])) {
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="js/util.js"></script>
+    <script src="js/client-index.js"></script>
     <script>
         $(document).ready(() => {
-            let cartForm = $('#cart-form');
-            const cartItems = JSON.parse(localStorage.getItem("customer-cart")) || [];
-            console.log(cartItems);
-            let priceTotal = [];
-            cartItems.forEach((item) => {
-                priceTotal.push(parseFloat(item.price));
-                cartForm.append(`<hr>
-                    <div class="row cart-item-row" data-id="${item.book_id}">
-                        <div class="col-6 row-title">${item.title}</div>
-                        <div class="col-3 row-price">$${item.price}</div>
-                        <div class="col-3 row-qty">
-                            <input type="number" class="form-control" max="10" min="1"
-                                value="${item.order_count}"
-                                onchange="updateOrderPrice(this, ${item.price})"/>
-                        </div>
-                    </div>
-                `);
-            });
-
-            cartForm.append(`
-                    <hr>
-                    <div class="row">
-                        <div class="col-6 font-weight-bold">Total</div>
-                        <div class="col-3 font-weight-bold" id="total-price">$${arrSum(priceTotal)}</div>
-                        <div class="col-3 font-weight-bold"></div>
-                    </div>
-                    <hr>
-                    <div id="cart-purchase-back-btn"><button type="submit" class="btn btn-success" id=purchase-btn>Purchase</button></div>
-            `);
-
-            const submitCartForm = () => {
-                console.log(cartItems);
-                if (cartItems.length <= 0) {
-                    alert('Your cart is empty.');
-                    return;
-                }
-                let customerId = $("#customer-id").val();
-                let orderItems = [];
-                $('.cart-item-row').map((i, v) => {
-                    orderItems.push({
-                        customer_id: customerId,
-                        order_date: new Date().toDateInputValue(),
-                        book_id: $(v).attr('data-id'),
-                        quantity: $(v).children('.row-qty').children().val(),
-                        totalAmount: $(v).children('.row-price').text().substr(1)
-                    })
-                });
-                console.log(orderItems);
-
-                $.post("api/purchaseOrder.php", {payload: orderItems}, (response) => {
-                    // response = JSON.parse(response);
-                    // if (response.status) {
-                    //     alert(response.message);
-                    // } else {
-                    //     alert("Something went wrong");
-                    // }
-                    localStorage.clear();
-                    console.log((response));
-                    $('#cart-purchase-back-btn').empty().prepend(`
-                        <a href="index.php?indexActive=true" class="btn btn-success" >Home</a>`
-                    );
-                });
-            };
-
             cartForm.submit((e) => {
                 e.preventDefault();
                 submitCartForm();
@@ -124,7 +62,5 @@ if (isset($_SESSION["customer"])) {
             });
         });
     </script>
-    <script src="js/util.js"></script>
-    <script src="js/client-index.js"></script>
 </body>
 </html>
