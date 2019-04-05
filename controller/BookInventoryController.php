@@ -23,4 +23,16 @@ class BookInventoryController
         echo json_encode(['result' => $exec]);
     }
 
+    public function fetchQtyByBookId($bookId)
+    {
+        $sql = '
+        SELECT bi.qty_on_hand
+        FROM books_inventory bi, books b
+        WHERE b.book_id = bi.book_id
+        AND bi.book_id = ?;';
+        $stmt = DB::getInstance()->prepare($sql);
+        $stmt->execute([$bookId]);
+        return $stmt->fetchColumn(0); // use if (intVal())
+    }
+
 }

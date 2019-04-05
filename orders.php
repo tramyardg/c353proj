@@ -5,7 +5,10 @@ require 'model/Enum.php';
 require 'model/BookCategory.php';
 require 'model/Customer.php';
 require 'model/Order.php';
+require 'model/BackOrder.php';
+require 'controller/BookInventoryController.php';
 require 'controller/OrderController.php';
+require 'controller/BackOrderController.php';
 
 ob_start();
 session_start();
@@ -17,6 +20,11 @@ if (isset($_SESSION["customer"])) {
 
 $orderController = new OrderController();
 $orders = $orderController->fetchByCustomerId($customer->getCustomerId());
+
+$backOrderController = new BackOrderController();
+$backOrders = $backOrderController->fetchByCustomerId($customer->getCustomerId());
+
+$biController = new BookInventoryController();
 ?>
 <!doctype html>
 <html lang="en">
@@ -59,19 +67,19 @@ $orders = $orderController->fetchByCustomerId($customer->getCustomerId());
                             <td><?php echo $k["order_date"]; ?></td>
                             <td><?php echo $k["date_received"]; ?></td>
                             <td><?php echo $k["status"]; ?></td>
-                            <td><?php echo $k["total"]; ?></td>
+                            <td>$<?php echo $k["total"]; ?></td>
                             <td>
                                 <?php $orderItems = $orderController->fetchOrderDetails($k["order_id"]); ?>
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target=".bd-modal-<?php echo $k['order_id']; ?>">Small modal
+                                <button type="button" class="btn btn-outline-success" data-toggle="modal"
+                                        data-target=".bd-modal-<?php echo $k['order_id']; ?>">More details
                                 </button>
                                 <div class="modal fade bd-modal-<?php echo $k['order_id']; ?> show" tabindex="-1" role="dialog"
                                      aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-body">
-                                                <table class="table table-dark">
-                                                    <thead>
+                                                <table class="table table-striped">
+                                                    <thead class="thead-light">
                                                     <tr>
                                                         <th scope="col">Item Id</th>
                                                         <th scope="col">Qty</th>
@@ -92,7 +100,7 @@ $orders = $orderController->fetchByCustomerId($customer->getCustomerId());
                                                             <td><?php echo $p['title']; ?></td>
                                                             <td><?php echo $p['isbn']; ?></td>
                                                             <td><?php echo $p['edition']; ?></td>
-                                                            <td><?php echo $p['price']; ?></td>
+                                                            <td>$<?php echo $p['price']; ?></td>
                                                             <td><?php echo BookCategory::toString(intval($p['category'])); ?></td>
                                                             <td><?php echo $p['first_name'] . ' ' . $midName . ' ' . $p['last_name']; ?></td>
                                                         </tr>
@@ -104,6 +112,45 @@ $orders = $orderController->fetchByCustomerId($customer->getCustomerId());
                                     </div>
                                 </div>
                             </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php } ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h3>Requested Orders</h3>
+            <?php if (sizeof($orders) == 0) { ?>
+                You do not have any orders currently
+            <?php } else { ?>
+                <table class="table">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Back Order Id</th>
+                        <th scope="col">Request Date</th>
+                        <th scope="col">Quantity Requested</th>
+                        <th scope="col">Book Requested</th>
+                        <th scope="col">Availability</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($backOrders as $q): ?>
+                        <?php $requestedCategory = BookCategory::toString(intval($q['category'])) ?>
+                        <?php $bookRequested = $q['title'] . ', ' . $q['edition'] . ' edition, ' . $requestedCategory; ?>
+                        <?php $qtyCount = intval($biController->fetchQtyByBookId($q['book_id'])); ?>
+                        <?php $availability = $qtyCount > 0 ? 'ORDER NOW' : 'OUT OF STOCK'; ?>
+                        <tr>
+                            <th scope="row"><?php echo $q['back_order_id']; ?></th>
+                            <td><?php echo $q['order_date']; ?></td>
+                            <td><?php echo $q['quantity']; ?></td>
+                            <td><?php echo $bookRequested; ?></td>
+                            <?php if ($qtyCount > 0) { ?>
+                                <td><label class="badge-info p-1"><?php echo $availability; ?></label></td>
+                            <?php } else { ?>
+                                <td><label class="badge-warning p-1"><?php echo $availability; ?></label></td>
+                            <?php } ?>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

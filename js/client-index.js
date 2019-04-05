@@ -168,11 +168,12 @@ const orderSubmit = () => {
         return;
     }
 
-    console.log(payload);
+    // console.log(payload);
 
     $.post("api/backOrder.php", payload, (response) => {
         response = JSON.parse(response);
         if (response.status) {
+            $('#backOrderForm input[type=submit]').attr('disabled', true);
             alert(response.message);
         } else {
             alert("Something went wrong");
