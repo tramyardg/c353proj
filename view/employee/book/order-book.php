@@ -4,7 +4,7 @@ $bkPb = $pController->fetchBookJoinPublisher();
 ?>
 <div class="tab-pane fade show active" id="orderBooks" role="tabpanel" aria-labelledby="addBooks-tab">
     <div class="pt-3 pb-3">
-        <h3 for="selectBookToOrderTable">Select a book to order</h3>
+        <h3 for="selectBookToOrderTable">Select a book to order from the list below.</h3>
         <table id="selectBookToOrderTable" class="table  table-sm table-bordered table-hover">
             <thead>
             <tr>
@@ -44,10 +44,10 @@ $bkPb = $pController->fetchBookJoinPublisher();
         </table>
     </div>
     <div class="pt-3 pb-3">
-        <h3 for="quantityNeeded">Enter number of books needed</h3>
-        <input type="number" class="form-control" id="quantityNeeded" min="1" max="200" required>
+        <h3 for="quantityNeeded">How many do you need?</h3>
+        <input type="number" class="form-control" id="quantity-needed" min="1" max="50" value="1" required>
     </div>
     <div class="pt-1">
-        <button type="button" id="order-book-button" class="btn btn-primary">Order</button>
+        <button type="button" id="order-book-submit" class="btn btn-primary">Submit</button>
     </div>
 </div>

@@ -82,9 +82,6 @@ if (isset($_SESSION["employee"])) {
 
             let selectBookToOrderTable = $('#selectBookToOrderTable').DataTable({
                 'pageLength': 10
-                // "columns": [
-                //     {"width": "2%"}, null, {"width": "80%"}, null, null, null, null
-                // ]
             });
             $('#selectBookToOrderTable tbody').on('click', 'tr', function () {
                 if ($(this).hasClass('selected')) {
@@ -95,10 +92,15 @@ if (isset($_SESSION["employee"])) {
                 }
             });
 
-            $('#order-book-button').click(function () {
-                console.log(selectBookToOrderTable.row('.selected').data());
-            });
+            $('#order-book-submit').click(function () {
+                let selectedBookRow = selectBookToOrderTable.row('.selected').data() || [];
+                let qtyNeeded = $('#quantity-needed');
+                if (selectedBookRow.length === 0) {
+                    alert('Please select a book first.');
+                    return;
+                }
 
+            });
         });
     </script>
 </body>
