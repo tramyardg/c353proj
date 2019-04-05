@@ -30,12 +30,4 @@ class EmployeeController
         $stmt->execute([$email]);
         return $stmt->fetchAll(PDO::FETCH_CLASS, "Employee");
     }
-
-    public function findByEmployeeId($id)
-    {
-        $sql = 'SELECT * FROM employees WHERE emp_id = ?;';
-        $stmt = DB::getInstance()->prepare($sql);
-        $stmt->execute([$id]);
-        return $stmt->fetchAll(PDO::FETCH_CLASS, "Employee");
-    }
 }

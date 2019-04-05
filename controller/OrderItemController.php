@@ -2,9 +2,6 @@
 
 class OrderItemController
 {
-    public function __construct()
-    {
-    }
 
     public function save(OrderItem $orderItem)
     {
@@ -17,4 +14,5 @@ class OrderItemController
         ]);
         return ['result' => $exec];
     }
+    
 }

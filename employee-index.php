@@ -3,6 +3,7 @@ $commonNameTitle = parse_ini_file("./common.ini");
 require 'db/DB.php';
 require 'model/Employee.php';
 require 'model/Enum.php';
+require 'model/BookCategory.php';
 require 'model/Book.php';
 require 'model/Publisher.php';
 require 'model/BookInventory.php';
@@ -86,8 +87,11 @@ if (isset($_SESSION["employee"])) {
     <script src="js/employee-index.js"></script>
     <script>
         $(document).ready(function () {
-            initializeBooksReceiveTable();
-            confirmReceivingShipment();
+            $('#booksOrderedTable').DataTable({
+                'pageLength': 10
+            });
+            // initializeBooksReceiveTable();
+            // confirmReceivingShipment();
         });
     </script>
 </body>

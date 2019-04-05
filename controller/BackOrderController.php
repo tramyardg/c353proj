@@ -26,14 +26,6 @@ class BackOrderController
         return $stmt->fetchColumn(0);
     }
 
-    public function fetchBackOrdersByCustomerId($id)
-    {
-        $sql = 'SELECT * FROM back_orders WHERE customer_id = ?;';
-        $stmt = DB::getInstance()->prepare($sql);
-        $stmt->execute([$id]);
-        return $stmt->fetchAll(PDO::FETCH_CLASS, "BackOrder");
-    }
-
     public function fetchByCustomerId($customerId)
     {
         $sql = 'SELECT

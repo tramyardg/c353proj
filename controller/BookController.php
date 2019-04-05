@@ -39,14 +39,6 @@ class BookController
         return $stmt->fetchAll(PDO::FETCH_CLASS, "Book");
     }
 
-    public function fetchBookByIsbn($isbn)
-    {
-        $sql = 'SELECT * FROM books WHERE isbn = ?;';
-        $stmt = DB::getInstance()->prepare($sql);
-        $stmt->execute([$isbn]);
-        return $stmt->fetchAll(PDO::FETCH_CLASS, "Book");
-    }
-
     public function save(Book $book)
     {
         $sql = 'INSERT INTO `books` (`isbn`, `title`, `edition`, `price`, `publisher_id`, `image`, `category`) VALUES (?, ?, ?, ?, ?, ?, ?)';

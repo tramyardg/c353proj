@@ -77,9 +77,6 @@ if (isset($_SESSION["employee"])) {
     <script>
         $(document).ready(function () {
             let employeeId = $('input[name=employee-input]').val();
-            $('#booksOrderedTable').DataTable({
-                'pageLength': 5
-            });
 
             let selectBookToOrderTable = $('#selectBookToOrderTable').DataTable({
                 'pageLength': 5,

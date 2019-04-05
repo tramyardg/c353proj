@@ -3,13 +3,6 @@
 
 class BookstoreOrderController
 {
-    public function fetchBookstoreOrders()
-    {
-        $sql = "SELECT * FROM bookstore_orders;";
-        $stmt = DB::getInstance()->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_CLASS, "BookstoreOrder");
-    }
 
     public function fetchBookstoreOrdersByPublisherId($id)
     {
@@ -19,7 +12,30 @@ class BookstoreOrderController
         return $stmt->fetchAll(PDO::FETCH_CLASS, "BookstoreOrder");
     }
 
-    // fetch bookstore orders with publisher quantity on hand
+    public function fetchOrdersJoinBooksPublisher()
+    {
+        $sql = 'SELECT
+                    bo.*,
+                    b.title,
+                    b.isbn,
+                    b.edition,
+                    b.price,
+                    b.category,
+                    p.publisher_id,
+                    p.company_name
+                FROM
+                    bookstore_orders bo,
+                    books b,
+                    publishers p
+                WHERE
+                    bo.book_id = b.book_id 
+                    AND bo.publisher_id = p.publisher_id;';
+        $stmt = DB::getInstance()->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    // for publisher
     public function fetchBookstoreOrdersWithQtyOnHand($id)
     {
         $sql = 'SELECT
@@ -39,7 +55,6 @@ class BookstoreOrderController
         $stmt->execute([$id]);
         return $stmt->fetchAll();
     }
-
 
     public function save(BookstoreOrder $bookstoreOrder)
     {
