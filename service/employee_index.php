@@ -17,7 +17,8 @@ require '../controller/BookstoreOrderController.php';
 $eController = new EmployeeController();
 $aController = new AuthorController();
 $pbController = new PublisherController();
-$shController = new BookstoreOrderController();
+
+$bookstoreOrderController = new BookstoreOrderController();
 
 if (isset($_GET["employeeId"])) {
     if (isset($_GET["authors"]) && $_GET["authors"] == "all") {
@@ -47,4 +48,10 @@ if (isset($_GET["employeeId"])) {
         */
     }
 
+    // employee order book
+//    if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST) && isset($_POST['payload']))
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST) && isset($_POST['orderBookPayload'])) {
+        print_r($_POST['orderBookPayload']);
+
+    }
 }

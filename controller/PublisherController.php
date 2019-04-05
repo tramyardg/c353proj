@@ -30,7 +30,7 @@ class PublisherController
         return $stmt->fetchAll(PDO::FETCH_CLASS, "Publisher");
     }
 
-    public function fetchBookJoinPublisher()
+    public function fetchBookPublisherInventory()
     {
         $sql = "SELECT
                     b.book_id,
@@ -41,14 +41,17 @@ class PublisherController
                     b.image,
                     b.category,
                     p.publisher_id,
-                    p.company_name
+                    p.company_name,
+                    bi.qty_on_hand
                 FROM
                     books b,
-                    publishers p
+                    publishers p,
+                    books_inventory bi
                 WHERE
                     b.publisher_id = p.publisher_id
+                    AND b.book_id = bi.book_id
                 GROUP BY
-                    b.book_id";
+                    bi.qty_on_hand;";
         $stmt = DB::getInstance()->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll();

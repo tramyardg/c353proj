@@ -50,11 +50,14 @@ class BookstoreOrderController
                     `date_requested`,
                     `period_specified`
                 ) VALUES(?, ?, ?, ?);';
-        $dateRequested = date('Y-m-d');
+
+        $dateRequested = date('Y-m-d'); // current date
+        $bookstoreOrder->setDateRequested($dateRequested);
+
         $dateRequestedPlus2Weeks = strtotime("+14 day", strtotime($dateRequested));
         $periodSpecified = date('Y-m-d', $dateRequestedPlus2Weeks);
+
         $stmt = DB::getInstance()->prepare($sql);
-        $bookstoreOrder->setDateRequested(date('Y-m-d'));
         $exec = $stmt->execute([
             $bookstoreOrder->getBookId(),
             $bookstoreOrder->getPublisherId(),

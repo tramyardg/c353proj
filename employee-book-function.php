@@ -39,7 +39,7 @@ if (isset($_SESSION["employee"])) {
 </head>
 <body>
 <div class="container">
-    <div class="d-none"><input type="hidden" id="employee-input" value="<?php echo $employee->getEmpId(); ?>"></div>
+    <div class="d-none"><input type="hidden" name="employee-input" value="<?php echo $employee->getEmpId(); ?>"></div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
         <a class="navbar-brand" href="#"><?php echo $commonNameTitle['siteName']; ?></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09"
@@ -76,6 +76,7 @@ if (isset($_SESSION["employee"])) {
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
+            let employeeId = $('input[name=employee-input]').val();
             $('#booksOrderedTable').DataTable({
                 'pageLength': 5
             });
@@ -94,13 +95,33 @@ if (isset($_SESSION["employee"])) {
 
             $('#order-book-submit').click(function () {
                 let selectedBookRow = selectBookToOrderTable.row('.selected').data() || [];
-                let qtyNeeded = $('#quantity-needed');
+                let qtyNeeded = $('#quantity-needed').val();
                 if (selectedBookRow.length === 0) {
                     alert('Please select a book first.');
                     return;
                 }
-
+                console.log(selectedBookRow);
+                let bookOrdered = {
+                    bookId: selectedBookRow[0],
+                    publisherId: selectedBookRow[1],
+                    qtyOrdered: qtyNeeded
+                };
+                console.log(bookOrdered);
+                submitAddBookReq(bookOrdered)
             });
+
+            const submitAddBookReq = (data) => {
+                $.post("service/employee_index.php?employeeId=" + employeeId, {orderBookPayload: data}, (response) => {
+                    // if(JSON.parse(response).length === 0) {
+                    //     alert('Something went wrong!');
+                    // } else {
+                    //     console.log(JSON.parse(response));
+                    //     localStorage.clear();
+                    //     alert('Thank you for purchasing with us.');
+                    // }
+                    console.log(response);
+                });
+            }
         });
     </script>
 </body>

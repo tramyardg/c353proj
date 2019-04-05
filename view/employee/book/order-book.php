@@ -1,6 +1,6 @@
 <?php
 $pController = new PublisherController();
-$bkPb = $pController->fetchBookJoinPublisher();
+$bkPb = $pController->fetchBookPublisherInventory();
 ?>
 <div class="tab-pane fade show active" id="orderBooks" role="tabpanel" aria-labelledby="addBooks-tab">
     <div class="pt-3 pb-3">
@@ -8,39 +8,26 @@ $bkPb = $pController->fetchBookJoinPublisher();
         <table id="selectBookToOrderTable" class="table  table-sm table-bordered table-hover">
             <thead>
             <tr>
-                <th>ID</th>
+                <th>Book Id</th>
+                <th class="d-none">Publisher Id</th>
                 <th>Publisher</th>
-                <th>Title</th>
-                <th>Edition</th>
-                <th>ISBN</th>
-                <th>Price</th>
-                <th>Category</th>
+                <th>Book</th>
+                <th>On Hand</th>
             </tr>
             </thead>
             <tbody>
             <?php for ($i = 0; $i < count($bkPb); $i++) { ?>
+                <?php $bookAllProps = $bkPb[$i]['title'] . ', ' . $bkPb[$i]['edition'] . ' ed. ' . $bkPb[$i]['isbn']; ?>
+                <?php $bookAllProps .= ', $' . $bkPb[$i]['price'] . ', ' . BookCategory::toString(intval($bkPb[$i]['category'])); ?>
                 <tr>
                     <td><?php echo $bkPb[$i]['book_id']; ?></td>
+                    <td  class="d-none"><?php echo $bkPb[$i]['publisher_id']; ?></td>
                     <td><?php echo $bkPb[$i]['company_name']; ?></td>
-                    <td><?php echo $bkPb[$i]['title']; ?></td>
-                    <td><?php echo $bkPb[$i]['edition']; ?></td>
-                    <td><?php echo $bkPb[$i]['isbn']; ?></td>
-                    <td><?php echo $bkPb[$i]['price']; ?></td>
-                    <td><?php echo BookCategory::toString(intval($bkPb[$i]['category'])); ?></td>
+                    <td><?php echo $bookAllProps; ?></td>
+                    <td><?php echo $bkPb[$i]['qty_on_hand']; ?></td>
                 </tr>
             <?php } ?>
             </tbody>
-            <tfoot>
-            <tr>
-                <th>ID</th>
-                <th>Publisher</th>
-                <th>Title</th>
-                <th>Edition</th>
-                <th>ISBN</th>
-                <th>Price</th>
-                <th>Category</th>
-            </tr>
-            </tfoot>
         </table>
     </div>
     <div class="pt-3 pb-3">
