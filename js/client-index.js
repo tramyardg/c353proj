@@ -151,14 +151,6 @@ const requestOrder = (bookId) => {
             <input id="order-quantity" style="width: 60px" type="number" class="form-control" value="1">
         </div>
     `);
-    // data i need for order table
-    // [x] customer_id
-
-    // data i need for order_items
-    // order_id
-    // book_id
-    // quantity
-    // price
 };
 
 const orderSubmit = () => {
@@ -188,11 +180,12 @@ const orderSubmit = () => {
     });
 };
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
 const updateOrderPrice = (ele, startingPrice) => {
     let updatedQty = $(ele).val();
     let endingPrice = round2Dec(startingPrice * updatedQty);
     $(ele).parent().prev().text('$' + endingPrice);
-    $('#total-price').text('$' + getTotalPrice());
+    $('#total-amount').text('$' + getTotalPrice());
 };
 const getTotalPrice = () => {
     let total = 0;
@@ -200,5 +193,75 @@ const getTotalPrice = () => {
         let num = $(v).text().substr(1);
         total += parseFloat(num);
     });
-    return round2Dec(total);
+    return total.toFixed(2);
+};
+
+let cartForm = $('#cart-form');
+const cartItems = JSON.parse(localStorage.getItem("customer-cart")) || [];
+// console.log(cartItems);
+
+let priceTotal = [];
+cartItems.forEach((item) => {
+    priceTotal.push(parseFloat(item.price));
+    cartForm.append(`<hr>
+        <div class="row cart-item-row" data-id="${item.book_id}">
+            <div class="col-6 row-title">${item.title}</div>
+            <div class="col-3 row-price">$${item.price}</div>
+            <div class="col-3 row-qty">
+                <input type="number" class="form-control" max="10" min="1"
+                    value="${item.order_count}"
+                    onchange="updateOrderPrice(this, ${item.price})"/>
+            </div>
+        </div>
+    `);
+});
+
+cartForm.append(`
+        <hr>
+        <div class="row">
+            <div class="col-6 font-weight-bold">Total</div>
+            <div class="col-3 font-weight-bold" id="total-amount">$${arrSum(priceTotal)}</div>
+            <div class="col-3 font-weight-bold"></div>
+        </div>
+        <hr>
+        <div id="cart-purchase-back-btn">
+            <button type="submit" class="btn btn-success" id=purchase-btn>Purchase</button>
+        </div>
+`);
+
+const submitCartForm = () => {
+    console.log(cartItems);
+    if (cartItems.length <= 0) {
+        alert('Your cart is empty.');
+        return;
+    }
+    let customerId = $("#customer-id").val();
+    let orderPayload = {
+        customer_id: customerId,
+        order_date: new Date().toDateInputValue(),
+        total: $('#total-amount').text().substr(1)
+    };
+
+    let orderItemsPayload = [];
+    $('.cart-item-row').map((i, v) => {
+        orderItemsPayload.push({
+            book_id: $(v).attr('data-id'),
+            quantity: $(v).find('input[type=number]').val()
+        })
+    });
+
+    let ordersPayload = {orders: orderPayload, order_items: orderItemsPayload};
+    $.post("api/purchaseOrder.php", {payload: ordersPayload}, (response) => {
+        if(JSON.parse(response).length === 0) {
+            alert('Something went wrong!');
+        } else {
+            console.log(JSON.parse(response));
+            localStorage.clear();
+            alert('Thank you purchasing with us.');
+        }
+
+        $('#cart-purchase-back-btn').empty().prepend(`
+            <a href="index.php?indexActive=true" class="btn btn-success" >Home</a>
+        `);
+    });
 };

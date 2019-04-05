@@ -25,16 +25,17 @@ class OrderController
      */
     public function save(Order $order)
     {
-        $sql = 'INSERT INTO `orders` (`customer_id`, `order_date`, `date_received`, `status`) VALUES (?, ?, ?, ?)';
+        $sql = 'INSERT INTO `orders` 
+                (`customer_id`, `order_date`, `date_received`, `status`, `total`) 
+                VALUES (?, ?, ?, ?, ?);';
         $stmt = DB::getInstance()->prepare($sql);
-        $stmt->execute([
+        $exec = $stmt->execute([
             $order->getCustomerId(),
             $order->getOrderDate(),
             $order->getDateReceived(),
-            $order->getStatus()
+            $order->getStatus(),
+            $order->getTotal()
         ]);
-
-        $id = DB::getInstance()->lastInsertId();
-        return json_encode(array('result' => $id));
+        return json_encode(['result' => $exec]);
     }
 }

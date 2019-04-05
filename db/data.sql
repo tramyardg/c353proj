@@ -184,15 +184,15 @@ insert into orders (order_id, customer_id, order_date, status) values
 SET FOREIGN_KEY_CHECKS = 1;
 
 SET FOREIGN_KEY_CHECKS = 0;
-insert into order_items (order_item_id, order_id, book_id, quantity, total_amount) values
-(1, 1, 8, 3, 109.65),
-(2, 2, 7, 1, 59.61),
-(3, 3, 8, 2, 73.10),
-(4, 4, 12, 4, 75.20),
-(5, 5, 15, 3, 220.29),
-(6, 6, 4, 1, 30.67),
-(7, 7, 10, 1, 98.56),
-(8, 8, 6, 3, 509.64),
-(9, 9, 1, 2, 23.96),
-(10, 10, 7, 1, 59.61);
+insert into order_items (order_item_id, order_id, book_id, quantity) values
+(1, 1, 8, 3),
+(2, 2, 7, 1),
+(3, 3, 8, 2),
+(4, 4, 12, 4),
+(5, 5, 15, 3),
+(6, 6, 4, 1),
+(7, 7, 10, 1),
+(8, 8, 6, 3),
+(9, 9, 1, 2),
+(10, 10, 7, 1);
 SET FOREIGN_KEY_CHECKS = 1;
