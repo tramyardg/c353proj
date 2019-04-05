@@ -257,7 +257,7 @@ const submitCartForm = () => {
         } else {
             console.log(JSON.parse(response));
             localStorage.clear();
-            alert('Thank you purchasing with us.');
+            alert('Thank you for purchasing with us.');
         }
 
         $('#cart-purchase-back-btn').empty().prepend(`
