@@ -1,12 +1,12 @@
 <?php
-require ('controller/OrderController.php');
+require('controller/OrderController.php');
 $oController = new OrderController();
 $orders = $oController->fetchAllReceivedOrders();
 ?>
 <div class="tab-pane fade show active" id="receive-shipment" role="tabpanel" aria-labelledby="receive-shipment-tab">
     <table id="bookReceiveTable" class="display table table-striped table-hover table-sm">
         <thead>
-        <tr>	
+        <tr>
             <th>Order ID</th>
             <th>Book ID</th>
             <th>Title</th>
@@ -18,16 +18,16 @@ $orders = $oController->fetchAllReceivedOrders();
         </thead>
         <tbody>
         <?php for ($i = 0; $i < count($orders); $i++) { ?>
-                <tr>	
-                    <td><?php echo $orders[$i]['order_id']; ?></td>
-		    <td><?php echo $orders[$i]['book_id']; ?></td>
-                    <td><?php echo $orders[$i]['title']; ?></td>
-                    <td><?php echo $orders[$i]['isbn']; ?></td>
-                    <td><?php echo $orders[$i]['quantity']; ?></td>
-                    <td><?php echo $orders[$i]['publisher_id'], "-" , $orders[$i]['company_name']; ?></td>
-                    <td><?php echo $orders[$i]['order_date']; ?></td>
-                </tr>
-            <?php  } ?>
+            <tr>
+                <td><?php echo $orders[$i]['order_id']; ?></td>
+                <td><?php echo $orders[$i]['book_id']; ?></td>
+                <td><?php echo $orders[$i]['title']; ?></td>
+                <td><?php echo $orders[$i]['isbn']; ?></td>
+                <td><?php echo $orders[$i]['quantity']; ?></td>
+                <td><?php echo $orders[$i]['publisher_id'], "-", $orders[$i]['company_name']; ?></td>
+                <td><?php echo $orders[$i]['order_date']; ?></td>
+            </tr>
+        <?php } ?>
         </tbody>
         <tfoot>
         <tr>
@@ -62,38 +62,38 @@ $orders = $oController->fetchAllReceivedOrders();
             </div>
         </div>
     </div>
-    
+
 </div>
 
- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/select/1.2.5/js/dataTables.select.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/select/1.2.5/js/dataTables.select.min.js"></script>
 <script>
 
-$("#bookReceiveTable tr").click(function(){
-   $(this).addClass('selected').siblings().removeClass('selected');    
-   var value= $(this).find('td:first').html();
+    $("#bookReceiveTable tr").click(function () {
+        $(this).addClass('selected').siblings().removeClass('selected');
+        var value = $(this).find('td:first').html();
 
-   //alert(value);
-   let retVal = confirm("The order ID is " + value + ".\nDo you want to continue?");
-   if(retVal == true){
-	$.post("api/process.php", {updateReceiveItems: value}, (response) => {
-console.log(response);
-                    if(response) {
-                       console.log('success');
-                    } else {
-                       alert('something went wrong');
-                    }
-                });
-	return true;
-   } else {
-	document.write("User does not want to continue!");
-	return false;	
-   }
-});
+        //alert(value);
+        let retVal = confirm("The order ID is " + value + ".\nDo you want to continue?");
+        if (retVal == true) {
+            $.post("api/process.php", {updateReceiveItems: value}, (response) => {
+                console.log(response);
+                if (response) {
+                    console.log('success');
+                } else {
+                    alert('something went wrong');
+                }
+            });
+            return true;
+        } else {
+            document.write("User does not want to continue!");
+            return false;
+        }
+    });
 
 </script>
 

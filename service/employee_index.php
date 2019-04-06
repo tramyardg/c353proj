@@ -10,6 +10,7 @@ require '../model/BookstoreOrder.php';
 require '../controller/EmployeeController.php';
 require '../controller/AuthorController.php';
 require '../controller/BookController.php';
+require '../controller/OrderController.php';
 require '../controller/PublisherController.php';
 require '../controller/BookInventoryController.php';
 require '../controller/BookstoreOrderController.php';
@@ -59,11 +60,11 @@ if (isset($_GET["employeeId"])) {
         echo json_encode($result);
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updateClientOrder'])) {
-//print_r($_POST['updateClientOrder']);
-// $orderId, $status, $dateReceived)
-		$result = $oController->updateOrderById(
-$_POST['updateClientOrder']['orderId'],
-"SHIPPED", $_POST['updateClientOrder']['dateShipped']
-		);
-		echo $result;
+        $oController = new OrderController();
+        $result = $oController->updateOrderById(
+            $_POST['updateClientOrder']['orderId'],
+            "SHIPPED", $_POST['updateClientOrder']['dateShipped']
+        );
+        echo $result;
+    }
 }
