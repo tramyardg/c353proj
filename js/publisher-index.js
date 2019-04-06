@@ -66,6 +66,7 @@ const fulfillOrder = {
         return {
             dialog: $('#updateOrderModal'),
             dialogBody: $('#updateOrderModalBody'),
+            fulfillOrderForm: $('#fulfillOrderForm'),
             fulfillSubmitBtn: $('#fulfillOrderFormSubmit'),
             updateBtn: $('#update-bookstore-order')
         }
@@ -84,6 +85,10 @@ fulfillSelectedOrder = (table) => {
             alert("You don't have enough in the inventory to fulfill this order.");
             return;
         }
+        let submitModalBtn = fulfillOrder.sel().fulfillSubmitBtn;
+        if (selRowData[selRowData.length - 1] === "SHIPPED") submitModalBtn.attr('disabled', true);
+        else submitModalBtn.attr('disabled', false);
+
         let rowObj = {
             orderId: selRowData[0],
             bookId: selRowData[1],
@@ -106,12 +111,12 @@ fulfillSelectedOrder = (table) => {
         <div class="row mt-2">
             <div class="col">
                 <label for="qtyOrderedByClient">Qty Ordered</label>
-                <input class="form-control" type="number" value="${parseInt(rowObj.qtyOrdered)}" name="qtyOrderedByClient"
+                <input class="form-control" readonly type="number" value="${parseInt(rowObj.qtyOrdered)}" name="qtyOrderedByClient"
                 id="qtyOrderedByClient">
             </div>
             <div class="col">
                 <label for="qtyOnHandByPublisher">Qty On Hand</label>
-                <input class="form-control" type="number" value="${parseInt(rowObj.qtyOnHand)}" name="qtyOnHandByPublisher"
+                <input class="form-control" readonly type="number" value="${parseInt(rowObj.qtyOnHand)}" name="qtyOnHandByPublisher"
                 id="qtyOnHandByPublisher">
             </div>
         </div>
@@ -122,8 +127,9 @@ fulfillSelectedOrder = (table) => {
                         <label class="input-group-text" for="inputGroupSelect01">Status</label>
                     </div>
                     <select class="custom-select" id="inputGroupSelectShippedStatus">
-                        <option value="PROCESSING" ${(rowObj.status === 'PROCESSING') ? 'selected' : ''}>PROCESSING</option>
-                        <option value="SHIPPED"  ${(rowObj.status === 'SHIPPED') ? 'selected' : ''}>SHIPPED</option>
+                        ${(rowObj.status !== 'SHIPPED') ? 
+                        '<option value="SHIPPED" selected>SHIPPED</option>' :
+                        '<option value="SHIPPED" selected>SHIPPED</option>'}
                     </select>
                 </div>
             </div>
@@ -136,7 +142,7 @@ fulfillSelectedOrder = (table) => {
     });
 };
 
-const fulfillOrderRequest = () => {
+const fulfillOrderRequest = async () => {
     fulfillOrder.sel().fulfillSubmitBtn.click((e) => {
         let fulfillmentPayload = {
             publisherId: $('input[name=publisher-id]').val(),
@@ -152,8 +158,10 @@ const fulfillOrderRequest = () => {
             let result = JSON.parse(response);
             if (result.length > 0) {
                 alert('This order will be ship to the bookstore.');
-                fulfillOrder.sel().dialog.modal('hide');
-                fulfillOrder.sel().fulfillSubmitBtn.attr('disabled', true);
+                fulfillOrder.sel().fulfillSubmitBtn.parent().empty().append(`
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="location.reload()" 
+                    data-dismiss="modal">Close</button>
+                `);
             } else {
                 alert('Something went wrong!');
                 fulfillOrder.sel().dialog.modal('hide');

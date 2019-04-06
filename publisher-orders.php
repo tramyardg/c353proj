@@ -114,20 +114,19 @@ if (isset($_SESSION["publisher"])) {
                     </thead>
                     <tbody>
                     <?php foreach ($orders as $k => $v) { ?>
-                        <?php if ($v['status'] == 'PROCESSING') { // shows only order to be processed ?>
-                            <?php $sStatus = $v['date_shipped']; ?>
-                            <tr class="<?php //echo intval($v['qty_ordered']) > $v['qty_on_hand'] ? 'alert alert-warning' : '' ?>">
-                                <th scope="row"><?php echo $v['bookstore_order_id']; ?></th>
-                                <td><?php echo $v['book_id']; ?></td>
-                                <td><?php echo $v['title']; ?></td>
-                                <td><?php echo $v['isbn']; ?></td>
-                                <td><?php echo $v['qty_ordered']; ?></td>
-                                <td><?php echo $v['qty_on_hand']; ?></td>
-                                <td><?php echo $v['date_requested']; ?></td>
-                                <td><?php echo $sStatus == '0000-00-00' ? 'AWAITING SHIPMENT' : $sStatus; ?></td>
-                                <td><?php echo $v['status']; ?></td>
-                            </tr>
-                        <?php } ?>
+                        <?php $sStatus = $v['date_shipped']; ?>
+                        <?php $notEnough = intval($v['qty_ordered']) > $v['qty_on_hand'] ? 'text-danger' : ''; ?>
+                        <tr>
+                            <th scope="row"><?php echo $v['bookstore_order_id']; ?></th>
+                            <td><?php echo $v['book_id']; ?></td>
+                            <td><?php echo $v['title']; ?></td>
+                            <td><?php echo $v['isbn']; ?></td>
+                            <td><?php echo $v['qty_ordered']; ?></td>
+                            <td class="<?php echo $notEnough; ?>"><?php echo $v['qty_on_hand']; ?></td>
+                            <td><?php echo $v['date_requested']; ?></td>
+                            <td><?php echo $sStatus == '0000-00-00' ? 'AWAITING SHIPMENT' : $sStatus; ?></td>
+                            <td><?php echo $v['status']; ?></td>
+                        </tr>
                     <?php } ?>
                     </tbody>
                     <tfoot class="thead-light">

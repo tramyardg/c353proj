@@ -1,8 +1,3 @@
-<?php
-//$aController = new AuthorController();
-//$authors = $aController->fetchAuthors();
-//$author = new Author();
-?>
 <!-- update order modal for c353proj/publisher-orders.php -->
 <div class="modal fade" id="updateOrderModal" tabindex="-1" role="dialog"
      aria-hidden="true">
@@ -16,11 +11,7 @@
             </div>
             <form id="fulfillOrderForm" method="post">
                 <input name="publisher-id" type="hidden" class="d-none" value="<?php echo $publisher->getPublisherId(); ?>">
-                <div class="modal-body" id="updateOrderModalBody">
-                    <div class="modal-body" id="updateOrderModalBody">
-                        <div id="updateOrderModalBodyInner"></div>
-                    </div>
-                </div>
+                <div class="modal-body" id="updateOrderModalBody"></div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary btn-sm" id="fulfillOrderFormSubmit">Submit</button>
                 </div>
