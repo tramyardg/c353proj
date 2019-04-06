@@ -64,4 +64,11 @@ class OrderController
         $stmt->execute([$orderId]);
         return $stmt->fetchAll();
     }
+
+    public function updateOrderById($orderId, $status, $dateReceived)
+    {
+        $sql = 'UPDATE orders SET status = ?, date_received = ? WHERE order_id = ?;';
+        $stmt = DB::getInstance()->prepare($sql);
+        return $stmt->execute([$status, $dateReceived, $orderId]);
+    }
 }
