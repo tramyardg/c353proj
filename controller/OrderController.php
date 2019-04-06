@@ -5,6 +5,24 @@ class OrderController
     public function __construct()
     {
     }
+    	public function fetchAllCustomerOrders(){
+   	$sql = " SELECT *
+		FROM orders ;" 
+		//GROUP BY orders.customer_id;"
+			;
+
+	$stmt = DB::getInstance()->prepare($sql);
+	$stmt->execute();
+	return $stmt->fetchAll();
+   }
+    public function fetchAllOrders(){
+   	$sql = " SELECT *
+		FROM bookstore_orders ;";
+
+	$stmt = DB::getInstance()->prepare($sql);
+	$stmt->execute();
+	return $stmt->fetchAll();
+   }
 
     public function fetchByCustomerId($customer_id) {
         $sql = "SELECT * 
