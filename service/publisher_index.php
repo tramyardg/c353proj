@@ -1,25 +1,24 @@
 <?php
 require '../db/DB.php';
-require '../model/Author.php';
 require '../model/Book.php';
 require '../model/BookAuthors.php';
 require '../model/Publisher.php';
 require '../model/BookInventory.php';
 require '../model/PublisherBooksInventory.php';
+require '../model/BookstoreOrder.php';
+require '../model/PublisherOrderFulfillmentHelper.php';
 
 require '../controller/BookController.php';
-require '../controller/AuthorController.php';
-require '../controller/PublisherController.php';
 require '../controller/BookAuthorsController.php';
 require '../controller/BookInventoryController.php';
 require '../controller/PublisherBooksInventoryController.php';
+require '../controller/BookstoreOrderController.php';
 
-$aController = new AuthorController();
-$pbController = new PublisherController();
 $bkController = new BookController();
 $baController = new BookAuthorsController();
 $bIController = new BookInventoryController();
 $pbInvController = new PublisherBooksInventoryController();
+$bookstoreOrderController = new BookstoreOrderController();
 
 // minimum requirement -> publisher id to be able to do these functions
 if (isset($_GET["publisherId"])) {
@@ -64,4 +63,21 @@ if (isset($_GET["publisherId"])) {
         $pbInvController->save($pbInventory);
     }
 
+    // fulfill bookstore employee order
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["fulfillmentData"])) {
+        $fulfillmentHelper = new PublisherOrderFulfillmentHelper();
+        $fulfillmentHelper->setBookstoreOrderId($_POST['fulfillmentData']['bookstoreOrderId']);
+        $fulfillmentHelper->setQtyOrdered($_POST['fulfillmentData']['qtyOrdered']);
+        $fulfillmentHelper->setPublisherId($_POST['fulfillmentData']['publisherId']);
+        $fulfillmentHelper->setBookId($_POST['fulfillmentData']['bookId']);
+        $fulfillmentHelper->setStatus($_POST['fulfillmentData']['orderStatus']);
+        $fulfillmentHelper->setDateShipped($_POST['fulfillmentData']['dateShipped']);
+
+        $result = [];
+        $result = [
+            $bookstoreOrderController->update($fulfillmentHelper),
+            $pbInvController->update($fulfillmentHelper)
+        ];
+        echo json_encode($result);
+    }
 }

@@ -80,22 +80,15 @@ class BookstoreOrderController
         return ['result' => $exec];
     }
 
-    // for publisher not supposed to be here?
-    public function update(BookstoreOrder $shipment)
-    {
-        // update shipment is_received status and date received
-        /*
-        $current_date = date('Y-m-d');
-        $sql = "UPDATE `shipments` SET is_received = ?, date_received = ? WHERE shipment_id = ?";
+    public function update(PublisherOrderFulfillmentHelper $helper) {
+        $sql = 'UPDATE bookstore_orders SET status = ?, date_shipped = ? WHERE bookstore_order_id = ?;';
         $stmt = DB::getInstance()->prepare($sql);
-        $exec = $stmt->execute(['1', $current_date, $shipment->getShipmentId()]);
-
-        // update book inventory
-        $bkInventory = new BookInventoryController();
-        $bkInventory->updateByBookIdAndQtyReceived($shipment->getBookId(), $shipment->getQtyToReceive());
-
-        echo json_encode(array('result' => $exec));
-        */
+        $exec = $stmt->execute([
+            $helper->getStatus(),
+            $helper->getDateShipped(),
+            $helper->getBookstoreOrderId()
+        ]);
+        return ['result' => $exec];
     }
 
     public function fetchShipmentsToReceive()

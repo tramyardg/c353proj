@@ -3,7 +3,7 @@ $booksOrderedController = new BookstoreOrderController();
 $booksOrdered = $booksOrderedController->fetchOrdersJoinBooksPublisher();
 ?>
 <div class="tab-pane fade" id="booksOrdered" role="tabpanel" aria-labelledby="booksOrdered-tab">
-    <table class="table  table-sm table-bordered" id="booksOrderedTable">
+    <table class="table  table-sm table-bordered table-striped" id="booksOrderedTable">
         <thead>
         <tr>
             <th>#</th>
@@ -11,6 +11,7 @@ $booksOrdered = $booksOrderedController->fetchOrdersJoinBooksPublisher();
             <th>Publisher</th>
             <th>Order Quantity</th>
             <th>Date Ordered</th>
+            <th>Date Shipped</th>
             <th>Status</th>
         </tr>
         </thead>
@@ -25,6 +26,7 @@ $booksOrdered = $booksOrderedController->fetchOrdersJoinBooksPublisher();
                 <td><?php echo $publisherIdName; ?></td>
                 <td><?php echo $k['qty_ordered']; ?></td>
                 <td><?php echo $k['date_requested']; ?></td>
+                <td><?php echo $k['date_shipped'] == '0000-00-00' ? 'AWAITING SHIPMENT' : $k['date_shipped']; ?></td>
                 <td><?php echo $k['status']; ?></td>
             </tr>
         <?php } ?>

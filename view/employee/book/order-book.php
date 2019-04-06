@@ -5,7 +5,7 @@ $bkPb = $pController->fetchBookPublisherInventory();
 <div class="tab-pane fade show active" id="orderBooks" role="tabpanel" aria-labelledby="addBooks-tab">
     <div class="pt-3 pb-3">
         <h3 for="selectBookToOrderTable">Select a book to order from the list below.</h3>
-        <table id="selectBookToOrderTable" class="table  table-sm table-bordered table-hover">
+        <table id="selectBookToOrderTable" class="table table-sm table-bordered table-hover">
             <thead>
             <tr>
                 <th>Book Id</th>

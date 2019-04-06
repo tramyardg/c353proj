@@ -133,22 +133,11 @@ fulfillSelectedOrder = (table) => {
         fulfillOrder.sel().dialog.on('hidden.bs.modal', function () {
             fulfillOrder.sel().dialogBody.empty();
         });
-
-        // book_id
-        // publisher_id
-        // date shipped
-        // status
-        // quantity ordered (bookstore employee)
-        // quantity on hand (publisher inventory)
-
-        console.log(selRowData);
     });
 };
 
 const fulfillOrderRequest = () => {
     fulfillOrder.sel().fulfillSubmitBtn.click((e) => {
-        e.preventDefault();
-        console.log($(e));
         let fulfillmentPayload = {
             publisherId: $('input[name=publisher-id]').val(),
             bookstoreOrderId: $('input[name=bookstore-order-id]').val(),
@@ -158,7 +147,19 @@ const fulfillOrderRequest = () => {
             qtyOnHand: $('input[name=qtyOnHandByPublisher]').val(),
             orderStatus: $('#inputGroupSelectShippedStatus').val()
         };
-        console.log(fulfillmentPayload);
+        let url = 'service/publisher_index.php?publisherId=' + fulfillmentPayload.publisherId;
+        $.post(url, {fulfillmentData: fulfillmentPayload}, function (response) {
+            let result = JSON.parse(response);
+            if (result.length > 0) {
+                alert('This order will be ship to the bookstore.');
+                fulfillOrder.sel().dialog.modal('hide');
+                fulfillOrder.sel().fulfillSubmitBtn.attr('disabled', true);
+            } else {
+                alert('Something went wrong!');
+                fulfillOrder.sel().dialog.modal('hide');
+            }
+        });
+        e.preventDefault();
     });
 };
 

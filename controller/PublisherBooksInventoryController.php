@@ -49,4 +49,21 @@ class PublisherBooksInventoryController
         }
         return $out;
     }
+
+    public function update(PublisherOrderFulfillmentHelper $helper) {
+        // qty sold = (qty on hand) - (qty ordered) <- publisher book inventory
+        // qty on hand = previous qty on hand - (qty ordered) <- publisher book inventory
+        $sql = 'UPDATE `pb_books_inventory` 
+                SET `qty_on_hand` = `qty_on_hand` - ?, `qty_sold` = `qty_sold` + ? 
+                WHERE book_id = ? 
+                AND publisher_id = ?;';
+        $stmt = DB::getInstance()->prepare($sql);
+        $exec = $stmt->execute([
+            $helper->getQtyOrdered(),
+            $helper->getQtyOrdered(),
+            $helper->getBookId(),
+            $helper->getPublisherId()
+        ]);
+        return ['result' => $exec];
+    }
 }
