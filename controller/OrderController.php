@@ -89,4 +89,14 @@ class OrderController
         $stmt = DB::getInstance()->prepare($sql);
         return $stmt->execute([$status, $dateReceived, $orderId]);
     }
+
+	public function fetchAllReceivedOrders(){
+	$sql = " SELECT orders.order_id, books.book_id, books.title, books.isbn, order_items.quantity, books.publisher_id, publishers.company_name, orders.order_date 
+		FROM publishers, books, orders, order_items 
+		WHERE books.book_id = order_items.book_id AND orders.order_id = order_items.order_id AND publishers.publisher_id = books.publisher_id;";
+
+	$stmt = DB::getInstance()->prepare($sql);
+	$stmt->execute();
+	return $stmt->fetchAll();
+   }
 }
