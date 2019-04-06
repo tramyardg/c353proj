@@ -66,4 +66,14 @@ class PublisherBooksInventoryController
         ]);
         return ['result' => $exec];
     }
+
+    public function updateQtyOnHand($qty, $bookId, $publisherId)
+    {
+        $sql = 'UPDATE `pb_books_inventory` 
+                SET `qty_on_hand` = `qty_on_hand` + ?
+                WHERE book_id = ? 
+                AND publisher_id = ?;';
+        $stmt = DB::getInstance()->prepare($sql);
+        return $stmt->execute([$qty, $bookId, $publisherId]);
+    }
 }

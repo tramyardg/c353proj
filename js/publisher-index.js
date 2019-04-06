@@ -192,7 +192,67 @@ modifyExistingProduct = (table) => {
             alert('Please select a product first.');
             return;
         }
-        console.log(selRow);
+        let rowObj = {
+            bookId: selRow[0],
+            title: selRow[1],
+            isbn: selRow[2],
+            edition: selRow[3],
+            price: selRow[4],
+            qty: selRow[selRow.length - 1],
+            genre: selRow[selRow.length - 3],
+            authors: (selRow[selRow.length - 2]).split(','),
+            publisherId: $('input[id=mEpPublisherId]').val()
+        };
+
+        console.log(rowObj);
+        // editable
+        let qtyInput = $('input[id=mEpQuantity]');
+        let edInput = $('input[id=mEpEdition]');
+        let priceInput = $('input[id=mEpPrice]');
+
+        $('input[id=mEpQuantity2]').val('previous quantity: ' + rowObj.qty);
+
+        edInput.val(rowObj.edition);
+        edInput.attr('min', rowObj.edition);
+        $('input[id=mEpEdition2]').val('previous edition: ' + rowObj.edition);
+
+        priceInput.val(rowObj.price);
+        $('input[id=mEpPrice2]').val('previous price: ' + rowObj.price);
+
         existingOrderElements.ele().dialog.modal('show');
+
+        // non editable
+        $('select[id=mCategory]').append(`
+            <option value="${rowObj.genre}">${bookCategory[rowObj.genre]}</option>
+        `);
+        let authorList = [];
+        rowObj.authors.map((v) => {
+            authorList.push('<li class="list-group-item">' + v + '</li>');
+        });
+        $('.author-list').append(authorList);
+        $('input[id=mEpTitle]').val(rowObj.title);
+        $('input[id=mEpIsbn]').val(rowObj.isbn);
+
+        let modifyExistingProductSubmitBtn = $('#modifyExistingProductSubmit');
+        modifyExistingProductSubmitBtn.click((e) => {
+            let url = 'service/publisher_index.php?publisherId=' + rowObj.publisherId;
+            let payload = {
+                publisherId: rowObj.publisherId,
+                bookId: rowObj.bookId,
+                price: priceInput.val(),
+                edition: edInput.val(),
+                qty: qtyInput.val()
+            };
+            $.post(url, {modifySelProductData: payload}, function (response) {
+                if (response) {
+                    alert('This book has been updated successfully.');
+                    modifyExistingProductSubmitBtn.attr('disabled', true);
+                    location.reload();
+                } else {
+                    alert('Something went wrong.');
+                }
+            });
+            e.preventDefault();
+        })
     });
 };

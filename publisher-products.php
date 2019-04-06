@@ -23,6 +23,7 @@ if (isset($_SESSION["publisher"])) {
 
     $pbInvController = new PublisherBooksInventoryController();
     $booksByPublisher = $pbInvController->fetchBooksWithQtyOfPublisher($publisher->getPublisherId());
+    $aController = new AuthorController();
 } else {
     header("Location: publisher-signin.php");
 }
@@ -115,6 +116,7 @@ if (isset($_SESSION["publisher"])) {
                         <th scope="col">Price</th>
                         <th scope="col">Image</th>
                         <th scope="col">Category</th>
+                        <th scope="col">Author(s)</th>
                         <th scope="col">Quantity On Hand</th>
                     </tr>
                     </thead>
@@ -128,6 +130,7 @@ if (isset($_SESSION["publisher"])) {
                         <td><?php echo $v['price']; ?></td>
                         <td><?php echo $v['image']; ?></td>
                         <td><?php echo $v['category']; ?></td>
+                        <td><?php echo $aController->viewAuthors($v['book_id']); ?></td>
                         <td><?php echo $v['qty_on_hand']; ?></td>
                     </tr>
                     <?php } ?>
@@ -141,6 +144,7 @@ if (isset($_SESSION["publisher"])) {
                         <th scope="col">Price</th>
                         <th scope="col">Image</th>
                         <th scope="col">Category</th>
+                        <th scope="col">Author(s)</th>
                         <th scope="col">Quantity On Hand</th>
                     </tr>
                     </tfoot>

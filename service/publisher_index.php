@@ -80,4 +80,24 @@ if (isset($_GET["publisherId"])) {
         ];
         echo json_encode($result);
     }
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["modifySelProductData"])) {
+        $result = [];
+        // update price and edition in books table - use book id
+        array_push($result, $bkController->updatePriceEdition(
+            $_POST["modifySelProductData"]["price"],
+            $_POST["modifySelProductData"]["edition"],
+            $_POST["modifySelProductData"]["bookId"],
+            $_POST["modifySelProductData"]["publisherId"]
+        ));
+        // update qty in pb_book_inventory - use publisher id and book id
+        array_push($result, $pbInvController->updateQtyOnHand(
+            $_POST["modifySelProductData"]["qty"],
+            $_POST["modifySelProductData"]["bookId"],
+            $_POST["modifySelProductData"]["publisherId"]
+        ));
+        // [true,true] if all success
+        echo $result[0] == $result[1] ? "true" : "false";
+    }
+
 }

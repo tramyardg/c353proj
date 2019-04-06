@@ -64,4 +64,14 @@ class BookController
         $stmt->execute([$id]);
         return $stmt->fetchAll(PDO::FETCH_CLASS, "Book");
     }
+
+    public function updatePriceEdition($price, $edition, $bookId, $publisherId)
+    {
+        $sql = 'UPDATE `books` 
+                SET `edition` = ?, `price` = ? 
+                WHERE book_id = ? 
+                AND publisher_id = ?;';
+        $stmt = DB::getInstance()->prepare($sql);
+        return $stmt->execute([$edition, $price, $bookId, $publisherId]);
+    }
 }
