@@ -58,4 +58,12 @@ if (isset($_GET["employeeId"])) {
         // otherwise, result -> {result: true}
         echo json_encode($result);
     }
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updateClientOrder'])) {
+//print_r($_POST['updateClientOrder']);
+// $orderId, $status, $dateReceived)
+		$result = $oController->updateOrderById(
+$_POST['updateClientOrder']['orderId'],
+"SHIPPED", $_POST['updateClientOrder']['dateShipped']
+		);
+		echo $result;
 }
