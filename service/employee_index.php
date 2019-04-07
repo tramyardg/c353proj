@@ -26,31 +26,13 @@ if (isset($_GET["employeeId"])) {
         echo $pbController->fetchPublishers();
     }
 
-    // receive shipment
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        /*
-        if (isset($_POST['shipmentItems'])) {
-            $shipmentsToReceive = $_POST['shipmentItems'];
-            for ($i = 0; $i < count($shipmentsToReceive); $i++) {
-
-                $shipment = new BookstoreOrder();
-                $shipment->setShipmentId($shipmentsToReceive[$i]);
-
-                $sObj = new BookstoreOrder();
-                $sObj = $shController->fetchBookstoreOrdersById($shipment)[0];
-
-                $shController->update($sObj);
-            }
-        }
-        */
-    }
-
     // employee order book
     if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST) && isset($_POST['orderBookPayload'])) {
         $bookstoreOrder = new BookstoreOrder();
         $bookstoreOrder->setBookId($_POST['orderBookPayload']['bookId']);
         $bookstoreOrder->setPublisherId($_POST['orderBookPayload']['publisherId']);
         $bookstoreOrder->setQtyOrdered($_POST['orderBookPayload']['qtyOrdered']);
+        $bookstoreOrder->setDateRequested($_POST['orderBookPayload']['dateRequested']);
 
         $result = [];
         $bookstoreOrderController = new BookstoreOrderController();

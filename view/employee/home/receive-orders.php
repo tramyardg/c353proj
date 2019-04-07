@@ -14,30 +14,33 @@ $orders = $oController->fetchAllReceivedOrders();
             <th>Quantity</th>
             <th>Publisher ID & Name</th>
             <th>Date Shipped</th>
+            <th>Status</th>
         </tr>
         </thead>
         <tbody>
         <?php for ($i = 0; $i < count($orders); $i++) { ?>
             <tr>
-                <td><?php echo $orders[$i]['order_id']; ?></td>
-                <td><?php echo $orders[$i]['book_id']; ?></td>
+                <td class="receiveBookstoreOrderId"><?php echo $orders[$i]['bookstore_order_id']; ?></td>
+                <td class="receiveBookId"><?php echo $orders[$i]['book_id']; ?></td>
                 <td><?php echo $orders[$i]['title']; ?></td>
                 <td><?php echo $orders[$i]['isbn']; ?></td>
-                <td><?php echo $orders[$i]['quantity']; ?></td>
+                <td class="receiveQtyOrdered"><?php echo $orders[$i]['qty_ordered']; ?></td>
                 <td><?php echo $orders[$i]['publisher_id'], "-", $orders[$i]['company_name']; ?></td>
-                <td><?php echo $orders[$i]['order_date']; ?></td>
+                <td><?php echo $orders[$i]['date_shipped'] == '0000-00-00' ? 'AWAITING SHIPMENT' : $orders[$i]['date_shipped']; ?></td>
+                <td class="receiveStatus"><?php echo $orders[$i]['status']; ?></td>
             </tr>
         <?php } ?>
         </tbody>
         <tfoot>
         <tr>
-            <th class="d-none">Order ID</th>
+            <th>Order ID</th>
             <th>Book ID</th>
             <th>Title</th>
             <th>ISBN</th>
             <th>Quantity</th>
             <th>Publisher ID & Name</th>
             <th>Date Shipped</th>
+            <th>Status</th>
         </tr>
         </tfoot>
     </table>
@@ -62,39 +65,6 @@ $orders = $oController->fetchAllReceivedOrders();
             </div>
         </div>
     </div>
-
 </div>
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/select/1.2.5/js/dataTables.select.min.js"></script>
-<script>
-
-    $("#bookReceiveTable tr").click(function () {
-        $(this).addClass('selected').siblings().removeClass('selected');
-        var value = $(this).find('td:first').html();
-
-        //alert(value);
-        let retVal = confirm("The order ID is " + value + ".\nDo you want to continue?");
-        if (retVal == true) {
-            $.post("api/process.php", {updateReceiveItems: value}, (response) => {
-                console.log(response);
-                if (response) {
-                    console.log('success');
-                } else {
-                    alert('something went wrong');
-                }
-            });
-            return true;
-        } else {
-            document.write("User does not want to continue!");
-            return false;
-        }
-    });
-
-</script>
 
 

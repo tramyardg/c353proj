@@ -91,12 +91,11 @@ class OrderController
 
     public function fetchAllReceivedOrders()
     {
-        $sql = " SELECT orders.order_id, books.book_id, books.title, books.isbn, 
-        order_items.quantity, books.publisher_id, publishers.company_name, orders.order_date 
-		FROM publishers, books, orders, order_items 
-		WHERE books.book_id = order_items.book_id 
-		AND orders.order_id = order_items.order_id 
-		AND publishers.publisher_id = books.publisher_id;";
+        $sql = "SELECT *
+		FROM bookstore_orders, books, publishers
+		WHERE bookstore_orders.book_id = books.book_id 
+		AND bookstore_orders.publisher_id = publishers.publisher_id
+		ORDER BY bookstore_order_id;";
         $stmt = DB::getInstance()->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll();

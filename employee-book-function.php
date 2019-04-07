@@ -74,17 +74,23 @@ if (isset($_SESSION["employee"])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="js/util.js"></script>
     <script>
         $(document).ready(function () {
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // employee ordering books from publisher
+            ///////////////////////////////////////
             let employeeId = $('input[name=employee-input]').val();
-
+            $('#oderlogClients').DataTable({
+                'pageLength': 10,
+            });
             let selectBookToOrderTable = $('#selectBookToOrderTable').DataTable({
-                'pageLength': 5,
+                'pageLength': 10,
                 'bLengthChange': false,
                 'columnDefs': [
                     {"width": "10%", "targets": 0},
                     {"width": "10%", "targets": 4}],
-                "order": [[4, "asc"]]
+                "order": [[0, "asc"]]
             });
             $('#selectBookToOrderTable_filter').css({
                 'float': 'left',
@@ -101,7 +107,8 @@ if (isset($_SESSION["employee"])) {
             });
 
             let qtyNeededInput = $('#quantity-needed');
-            $('#order-book-submit').click(function () {
+            let orderBookSubmitBtn = $('#order-book-submit');
+            orderBookSubmitBtn.click(function () {
                 let selectedBookRow = selectBookToOrderTable.row('.selected').data() || [];
                 if (selectedBookRow.length === 0) {
                     alert('Please select a book first.');
@@ -111,7 +118,8 @@ if (isset($_SESSION["employee"])) {
                 let bookOrdered = {
                     bookId: selectedBookRow[0],
                     publisherId: selectedBookRow[1],
-                    qtyOrdered: qtyNeededInput.val()
+                    qtyOrdered: qtyNeededInput.val(),
+                    dateRequested: new Date().toDateInputValue()
                 };
                 // console.log(bookOrdered);
                 submitAddBookReq(bookOrdered)
@@ -120,14 +128,43 @@ if (isset($_SESSION["employee"])) {
             const submitAddBookReq = (data) => {
                 console.log(data);
                 $.post("service/employee_index.php?employeeId=" + employeeId, {orderBookPayload: data}, (response) => {
-                    if(JSON.parse(response).result) {
+                    if (JSON.parse(response).result) {
                         console.log(JSON.parse(response));
+                        orderBookSubmitBtn.attr('disabled', true);
                         alert('Your order is submitted to this publisher successfully.');
+                        location.reload();
                     } else {
                         alert('Something went wrong!');
                     }
                 });
-            }
+            };
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // fulfill client/customer orders
+            ///////////////////////////////////////
+            $("#oderlogClients tr.clientOrdersRow)").click(function () {
+                $(this).addClass('selected').siblings().removeClass('selected');
+                let value = $(this).find('td:first').html();
+                if ($(this).find('td:last').html() === "SHIPPED") {
+                    alert('This is already shipped.');
+                    return;
+                }
+                let data = {orderId: value, dateShipped: new Date().toDateInputValue()};
+                let retVal = confirm("The order ID is: " + value + ". Do you want to continue?");
+                if (retVal === true) {
+                    $.post("service/employee_index.php?employeeId=" + employeeId, {updateClientOrder: data}, (response) => {
+                        if (response === "1") {
+                            alert('Success');
+                            location.reload();
+                        } else {
+                            alert('something went wrong');
+                        }
+                    });
+                    return true;
+                } else {
+                    return false;
+                }
+            });
         });
     </script>
 </body>

@@ -90,8 +90,35 @@ if (isset($_SESSION["employee"])) {
             $('#booksOrderedTable').DataTable({
                 'pageLength': 10
             });
-            // initializeBooksReceiveTable();
-            // confirmReceivingShipment();
+        });
+    </script>
+    <script>
+        $("#bookReceiveTable tr").click(function () {
+            // cannot received a shipment that is not shipped
+            if ($(this).find('td.receiveStatus').html() === "PROCESSING") {
+                alert('This shipment has pending status.\nPlease wait until publisher shipped this order.');
+                return;
+            }
+            let dataToPassToServer = {
+                orderId: $(this).find('td.receiveBookstoreOrderId').html(),
+                bookId: $(this).find('td.receiveBookId').html(),
+                qtyToBeAdded: $(this).find('td.receiveQtyOrdered').html(),
+            };
+            let retVal = confirm("The shipment to receive is ORDER ID#: " + dataToPassToServer.orderId + "\nDo you want to continue?");
+            if (retVal === true) {
+                $.post("api/process.php", {updateReceiveItems: dataToPassToServer}, (response) => {
+                    console.log(response);
+                    if (parseInt(response) === 2) {
+                        console.log('success');
+                        location.reload();
+                    } else {
+                        alert('something went wrong');
+                    }
+                });
+                return true;
+            } else {
+                return false;
+            }
         });
     </script>
 </body>
